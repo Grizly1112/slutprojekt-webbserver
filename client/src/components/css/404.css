@@ -1,0 +1,29 @@
+.pageNotFound {
+    width: 100vw;
+    height: 100vh;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.pageNotFound p {
+    width: 33.3%;
+    font-size: 1.25rem;
+}
+
+.pageNotFound .goBack {
+    background-color: #1D65C1;
+    padding: .75rem 2rem;
+    border-radius: 2rem;
+    text-decoration: none;
+    color: #FAFAFA;
+    font-weight: 700;
+}
+
+
+
+.pageNotFound .goBack:hover {
+    background-color: #418AF7;
+}
