@@ -3,7 +3,7 @@
 import './css/Navbar.css'
 import React, { useState, useEffect, useRef } from 'react';
 import { CSSTransition } from 'react-transition-group';
-import { FaBell, FaBolt, FaChevronCircleLeft, FaMailBulk, FaPlus, FaCog, FaChevronRight, FaChevronLeft } from 'react-icons/fa';
+import { FaBell, FaBolt, FaChevronCircleLeft, FaMailBulk, FaPlus, FaCog, FaChevronRight, FaChevronLeft, FaUserAlt, FaFacebookMessenger, FaMedal, FaStumbleupon, FaDotCircle, FaDemocrat, FaRegCommentAlt, FaRegCommentDots } from 'react-icons/fa';
 import Modal from './Modal';
 
 
@@ -20,18 +20,26 @@ function Navbar() {
         
         {/* <NavItem icon={<FaPlus />} /> */}
         {/* <NavItem icon={<FaMailBulk />} /> */}
+
+        <NavItem>
+            <Modal btnLabel={<FaRegCommentDots />} btnClass="icon-button-icon">
+            <div className='notifyModal'>Chat</div>
+            </Modal>
+        </NavItem>
+
+
         <NavItem notifications={(notificationCount > 0) ? notificationCount : null}>
-            <Modal btnLabel={<FaBell />}>
+            <Modal btnLabel={<FaBell />} btnClass="icon-button-icon">
                 <div className='notifyModal'>Jalla</div>
             </Modal>
         </NavItem>
 
+      
         <NavItem>
-            <Modal btnLabel={"null"}>
+            <Modal btnLabel={<FaUserAlt />} btnClass="icon-button-icon">
                 <DropdwonMenu></DropdwonMenu>
             </Modal>
         </NavItem>
-
       
 
         

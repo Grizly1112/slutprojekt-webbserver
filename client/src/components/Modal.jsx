@@ -9,7 +9,7 @@ class Modal extends React.Component {
       super();
       this.escFunction = this.escFunction.bind(this);
       this.state = {
-        showModal: props.openState
+        showModal: props.openState || false
       };
     }
 
