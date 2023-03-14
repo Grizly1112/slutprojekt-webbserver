@@ -5,7 +5,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { CSSTransition } from 'react-transition-group';
 import { FaBell, FaBolt, FaChevronCircleLeft, FaMailBulk, FaPlus, FaCog, FaChevronRight, FaChevronLeft, FaUserAlt, FaFacebookMessenger, FaMedal, FaStumbleupon, FaDotCircle, FaDemocrat, FaRegCommentAlt, FaRegCommentDots } from 'react-icons/fa';
 import Modal from './Modal';
-
+import Utils from '../assets/functiions/Utils'
 
 // Källkod: https://www.youtube.com/watch?v=IF6k0uZuypA&t=382s
 // Inspiration Gymansiearbete Valeria forum
@@ -13,7 +13,7 @@ import Modal from './Modal';
 
 function Navbar() {
 
-    const [notificationCount, setNotificationCount] = useState(1);
+    const [notificationCount, setNotificationCount] = useState(4);
 
     return (
       <NavbarContainer>
@@ -74,7 +74,7 @@ function Navbar() {
     return (
       <li className="nav-item">
         {props.notifications ? 
-        <span className='navbar-notification-count'>{formatNotificationCount(props.notifications)}</span> 
+        <span className='navbar-notification-count'>{Utils.FormatNotificationCount(props.notifications)}</span> 
         : null }   
         {/* <a href="#" className="icon-button" onClick={() => setOpen(!open)}> */}
         <a href="#" className="icon-button">

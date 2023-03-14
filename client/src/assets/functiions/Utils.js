@@ -1,4 +1,4 @@
-Utils = {};
+var Utils = {};
 
 Utils.FormatTimeSince = function (date) {
     let Intervals = [
@@ -20,3 +20,15 @@ Utils.FormatTimeSince = function (date) {
 
     return `${Count} ${Count !== 1 ? Interval.Multiple : Interval.Label} sedan`
 }
+
+Utils.FormatNotificationCount = function(count) {
+    if(count > 9 && count < 99) {
+        return(`9+`)
+    } else if(count > 99) {
+        return(`99+`)
+    } else {
+    return(`${count}`)
+    }
+}
+
+export default Utils;
