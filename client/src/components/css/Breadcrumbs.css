@@ -1,0 +1,20 @@
+.breadcrumbs {
+    max-width: 100%;
+    margin: 20px auto;
+}
+
+.breadcrumbs > * {
+    display: inline-block;
+    margin-right: 10px;
+}
+
+.breadcrumbs .crumb:after{
+    content: '>';
+    margin-right: 10px;
+}
+.breadcrumbs .crumb:last-child:after{
+    display: none;
+}
+.breadcrumbs .crumb a {
+    color: blue;
+}

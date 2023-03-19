@@ -22,6 +22,9 @@ Utils.FormatTimeSince = function (date) {
 }
 
 Utils.FormatNotificationCount = function(count) {
+    if(count === 0 || ((typeof count === 'string' || count instanceof String))) {
+        return;
+    }
     if(count > 9 && count < 99) {
         return(`9+`)
     } else if(count > 99) {

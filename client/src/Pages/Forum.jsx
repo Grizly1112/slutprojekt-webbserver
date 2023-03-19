@@ -1,6 +1,8 @@
 import React from 'react'
+import Breadcrumbs from '../components/Breadcrumbs'
 import Modal from '../components/Modal'
 import Navbar from '../components/Navbar'
+import './css/Forum.css'
 
 
 export default function Forum() {
@@ -8,11 +10,11 @@ export default function Forum() {
     // const [opendos, setOpendos] = React.useState(false);
   
     return (
-        <div>
+      <>
         <Navbar />
-        startsida
-        <Modal openState={false} btnLabel="Registera" btnClass="navRegisterButton" />
-        <Modal openState={false} btnLabel="Logga in" btnClass="navRegisterButton" />
-    </div>
+      <div className='forum' >
+        <Breadcrumbs />
+      </div>
+      </>
   )
 }

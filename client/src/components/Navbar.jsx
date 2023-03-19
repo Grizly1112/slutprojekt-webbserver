@@ -1,246 +1,170 @@
-
-
 import './css/Navbar.css'
 import React, { useState, useEffect, useRef } from 'react';
 import { CSSTransition } from 'react-transition-group';
-import { FaBell, FaBolt, FaChevronCircleLeft, FaMailBulk, FaPlus, FaCog, FaChevronRight, FaChevronLeft, FaUserAlt, FaFacebookMessenger, FaMedal, FaStumbleupon, FaDotCircle, FaDemocrat, FaRegCommentAlt, FaRegCommentDots } from 'react-icons/fa';
+import { FaBell, FaBolt, FaChevronCircleLeft, FaMailBulk, FaPlus, FaCog, FaChevronRight, FaChevronLeft, FaUserAlt, FaFacebookMessenger, FaMedal, FaStumbleupon, FaDotCircle, FaDemocrat, FaRegCommentAlt, FaRegCommentDots, FaRegUser, FaUserPlus, FaUser, FaUserCircle, FaChevronCircleRight, FaFileArchive, FaQuestion, FaRegQuestionCircle, FaMoon, FaRuler, FaRegNewspaper, FaSun, FaSuitcaseRolling, FaBaby, FaExpandAlt, FaChevronDown, FaClipboard, FaExternalLinkAlt, FaExclamationTriangle, FaFireExtinguisher, FaQuoteLeft, FaFastForward, FaEnvelopeOpenText, FaExternalLinkSquareAlt, FaRegBell, FaConciergeBell, FaToggleOff, FaPowerOff, FaBellSlash, FaRunning, FaHandMiddleFinger, FaInfinity, FaLevelDownAlt, FaHandshake, FaHandshakeSlash } from 'react-icons/fa';
 import Modal from './Modal';
 import Utils from '../assets/functiions/Utils'
+import Tooltip from './Tooltip';
+import Login from './Login';
+import Register from './Register';
 
 // Källkod: https://www.youtube.com/watch?v=IF6k0uZuypA&t=382s
 // Inspiration Gymansiearbete Valeria forum
 
-
 function Navbar() {
+  const [notificationCount, SetNotificationCount] = useState(1);
+  const resetNotifications = () => SetNotificationCount(0);
+  const [user, setUser] = useState(true);
 
-    const [notificationCount, setNotificationCount] = useState(4);
-
-    return (
-      <NavbarContainer>
-        
-        {/* <NavItem icon={<FaPlus />} /> */}
-        {/* <NavItem icon={<FaMailBulk />} /> */}
-
-        <NavItem>
-            <Modal btnLabel={<FaRegCommentDots />} btnClass="icon-button-icon">
-            <div className='notifyModal'>Chat</div>
-            </Modal>
-        </NavItem>
-
-
-        <NavItem notifications={(notificationCount > 0) ? notificationCount : null}>
-            <Modal btnLabel={<FaBell />} btnClass="icon-button-icon">
-                <div className='notifyModal'>Jalla</div>
-            </Modal>
-        </NavItem>
-
-      
-        <NavItem>
-            <Modal btnLabel={<FaUserAlt />} btnClass="icon-button-icon">
-                <DropdwonMenu></DropdwonMenu>
-            </Modal>
-        </NavItem>
-      
-
-        
-        {/* <NavItem icon={null}> */}
-          {/* <DropdownMenu></DropdownMenu> */}
-        {/* </NavItem> */}
-      </NavbarContainer>
-    );
-  }
-  
-  function NavbarContainer(props) {
-    return (
-      <nav className="navbar">
-        <ul className="navbar-nav">{props.children}</ul>
-      </nav>
-    );
-  }
-  
-  function NavItem(props) {
-    // const [open, setOpen] = useState(false);
-
-    function formatNotificationCount(count) {
-        if(count > 9 && count < 99) {
-            return(`9+`)
-        } else if(count > 99) {
-            return(`99+`)
-        } else {
-        return(`${count}`)
-        }
-    }
-  
-    return (
-      <li className="nav-item">
-        {props.notifications ? 
-        <span className='navbar-notification-count'>{Utils.FormatNotificationCount(props.notifications)}</span> 
-        : null }   
-        {/* <a href="#" className="icon-button" onClick={() => setOpen(!open)}> */}
-        <a href="#" className="icon-button">
+  function NavbarEndLoggedIn() {
+    function NavItem(props) {
+      return (
+        <li className="nav-item">
+          {props.notifications ? <span className='navbar-notification-count'>{Utils.FormatNotificationCount(notificationCount)}</span> : null}
           {props.children}
-        </a>
-  
-        {/* {open && props.children} */}
-      </li>
-    );
-  }
-  
-//   function DropdownMenu() {
-//     const [activeMenu, setActiveMenu] = useState('main');
-//     const [menuHeight, setMenuHeight] = useState(null);
-//     const dropdownRef = useRef(null);
-  
-//     useEffect(() => {
-//       setMenuHeight(dropdownRef.current?.firstChild.offsetHeight)
-//     }, [])
-  
-//     function calcHeight(el) {
-//       const height = el.offsetHeight;
-//       setMenuHeight(height);
-//     }
-  
-//     function DropdownItem(props) {
-//       return (
-//         <span href="#" className="menu-item" onClick={() => props.goToMenu && setActiveMenu(props.goToMenu)}>
-//           <span className="icon-button">{props.leftIcon}</span>
-//           {props.children}
-//           <span className="icon-right">{props.rightIcon}</span>
-//         </span>
-//       );
-//     }
-  
-//     return (
-//       <div className="dropdown" style={{ height: menuHeight }} ref={dropdownRef}>
-  
-//         <CSSTransition
-//           in={activeMenu === 'main'}
-//           timeout={500}
-//           classNames="menu-primary"
-//           unmountOnExit
-//           onEnter={calcHeight}>
-//           <div className="menu">
-//             <DropdownItem>My Profile</DropdownItem>
-//             <DropdownItem
-//               leftIcon={<FaCog />}
-//               rightIcon={<FaChevronRight />}
-//               goToMenu="settings">
-//               Settings
-//             </DropdownItem>
-//             <DropdownItem
-//               leftIcon="🦧"
-//               rightIcon={<FaChevronRight />}
-//               goToMenu="animals">
-//               Animals
-//             </DropdownItem>
-  
-//           </div>
-//         </CSSTransition>
-  
-//         <CSSTransition
-//           in={activeMenu === 'settings'}
-//           timeout={500}
-//           classNames="menu-secondary"
-//           unmountOnExit
-//           onEnter={calcHeight}>
-//           <div className="menu">
-//             <DropdownItem goToMenu="main" leftIcon={<FaChevronLeft />}>
-//               <h2>My Tutorial</h2>
-//             </DropdownItem>
-//             <DropdownItem leftIcon={<FaBolt />}>HTML</DropdownItem>
-//             <DropdownItem leftIcon={<FaBolt />}>CSS</DropdownItem>
-//             <DropdownItem leftIcon={<FaBolt />}>JavaScript</DropdownItem>
-//             <DropdownItem leftIcon={<FaBolt />}>Awesome!</DropdownItem>
-//           </div>
-//         </CSSTransition>
-  
-//         <CSSTransition
-//           in={activeMenu === 'animals'}
-//           timeout={500}
-//           classNames="menu-secondary"
-//           unmountOnExit
-//           onEnter={calcHeight}>
-//           <div className="menu">
-//             <DropdownItem goToMenu="main" leftIcon={<FaChevronLeft />}>
-//               <h2>Animals</h2>
-//             </DropdownItem>
-//             <DropdownItem leftIcon="🦘">Kangaroo</DropdownItem>
-//             <DropdownItem leftIcon="🐸">Frog</DropdownItem>
-//             <DropdownItem leftIcon="🦋">Horse?</DropdownItem>
-//             <DropdownItem leftIcon="🦔">Hedgehog</DropdownItem>
-//           </div>
-//         </CSSTransition>
-//       </div>
-//     );
-//   }
-
-function DropdwonMenu() {
-    const [mainDrop, setMainDrop] = useState(true);
-
-    const handleDrop = () => {
-    //    setMainDrop(!mainDrop)
-       console.log(mainDrop)
-    }
-
-
-    function DropdownItem(props){
-      return(
-        <span href="#" className="menu-item" id="menu-item" onClick={() => {
-            console.log("eueuue")
-         try{
-          props.action();
-         } catch (err) {
-          throw err;
-         };
-        }}>
-          <span className="material-icons icon-button" id="nav-item">
-           {props.leftIcon}
-          </span>
-          {props.label}
-          <span className="material-icons icon-right"  id="nav-item">
-            {props.rightIcon}
-          </span>
-        </span>
-      );
-    };
-
-
-    const DropDownMain = () => {
-      return(
-      <>
-        <DropdownItem label={"Inställningar"} leftIcon={"settings"} rightIcon={"arrow_forward_ios"} action={handleDrop} />
-     {/* {/*} <DropdownItem> My Profile </DropdownItem> 
-        <DropdownItem label={"Profil"} leftIcon={"user"} rightIcon={null} action={null} />
-        <DropdownItem label={"Logga ut"} leftIcon={"logout"} rightIcon={null} action={null} /> */}
-        <h1>Main</h1>
-      </>
+        </li>
       );
     }
 
-    const DropDownSettings = () => {
+    function UserModal() {
+      const [theme, setTheme] = useState(true);
+      const [status, setStatus] = useState(true);
+      const [notifactions, setNotifiactions] = useState(true);
+
+      const settingsmenuToggler = () => {
+        setTimeout(() => {setSettingsmenuOpen(!settingsmenuopen)}, 200)
+      }
+      const NavbarModalitem = (props) => {
+        return(
+        <div className='navbarModal-item title' onClick={() => { console.log("jeje"); props.func(); console.log(settingsmenuopen)}}>
+          <div className="navbarModal-item-icon-left">{props.iconleft}</div>
+          <h4 className='navbarModal-label'>{props.label}</h4>
+            <div className="navbarModal-item-icon-right">{props.iconRight}</div>
+        </div>
+        )
+      }
+      
+     
+
+
       return(
         <>
-        {/* <DropdownItem label={"Gå Tillbaka"} leftIcon={"arrow_back"} rightIcon={null} action={handleDrop} />
-        <DropdownItem label={"Inställning 1 "} leftIcon={"light_mode"} rightIcon={null} action={null} />
-        <DropdownItem label={"Inställning 2 "} leftIcon={"light_mode"} rightIcon={null} action={null} />
-        <DropdownItem label={"Inställning 3... "} leftIcon={"light_mode"} rightIcon={null} action={null} />
-    */}
-        <h1>Settings</h1>
-        </> 
+          <div className='navbarModal'>
+            <NavbarModalitem iconleft={<FaUserCircle />} label={"Ditt konto"} iconRight={<FaChevronCircleRight />}/>
+            <hr/>
+            <NavbarModalitem iconleft={ status ? <FaHandshake /> : <FaHandshakeSlash />} label={status ? "Online": "Offline"}iconRight={
+              <>
+              <label className="switch">
+                <input type="checkbox"defaultChecked={status} onChange={()=> setTimeout(() => {setStatus(!status)}, 200) }/>
+                <span className="slider round"></span>
+              </label>
+              </>
+            }/>
+              <NavbarModalitem iconleft={ notifactions ? <FaRegBell /> : <FaBellSlash />} label={"Aviseringar"}iconRight={
+              <>
+              <label className="switch">
+                <input type="checkbox"defaultChecked={notifactions} onChange={()=> setTimeout(() => {setNotifiactions(!notifactions)}, 200) }/>
+                <span className="slider round"></span>
+              </label>
+              </>
+            }/>
+            
+             <NavbarModalitem iconleft={ theme ? <FaMoon /> : <FaSun />} label={theme ? "Mörkt": "Ljust"}iconRight={
+              <>
+              <label className="switch">
+                <input type="checkbox"defaultChecked={theme} onChange={()=> setTimeout(() => {setTheme(!theme)}, 200) }/>
+                <span className="slider round"></span>
+              </label>
+              </>
+            }/>
+            <hr />
+            <NavbarModalitem iconleft={<FaCog />} label={"Inställningar"} iconRight={<FaExternalLinkAlt />}>
+
+            </NavbarModalitem>
+           
+            <NavbarModalitem iconleft={<FaRegNewspaper />} label={"Användarvilkor"} iconRight={<FaExternalLinkAlt />}/>
+            <NavbarModalitem iconleft={<FaRegQuestionCircle />} label={"Hjälp"} iconRight={<FaExternalLinkAlt />}/>
+            <hr />
+            <NavbarModalitem iconleft={<FaRunning />} label={"Logga ut"} iconRight={<FaChevronCircleRight />}/>
+
+
+          </div>
+        </>
       )
     }
-  
-    return(
-      <> 
-      <div className="dropdown" id="dropdown">
-       { mainDrop ? 
-       <DropDownMain />
-       :
-        <DropDownSettings />
-       }
+
+    return (
+      <>
+        <NavItem>
+          <Modal btnLabel={<FaPlus />} btnClass="icon-button" tooltip="Skapa">
+            <div className='navbarModal'>Chat</div>
+          </Modal>
+        </NavItem>
+
+        <NavItem>
+          <Modal btnLabel={<FaRegCommentDots />} btnClass="icon-button" tooltip="Direktmeddelanden">
+            <div className='navbarModal'>Chat</div>
+          </Modal>
+        </NavItem>
+
+        <NavItem notifications={(notificationCount > 0) ? notificationCount : null}>
+          <Modal btnLabel={<FaBell className={(notificationCount > 0) ? 'notificationbell': null} />} btnClass="icon-button" tooltip="Aviseringar" func={resetNotifications}>
+            <div className='navbarModal'>
+            </div>
+          </Modal>
+        </NavItem>
+
+        <NavItem>
+          <Modal btnLabel={<FaUserAlt />} btnClass="icon-button">
+            <UserModal />
+          </Modal>
+        </NavItem>
+      </>
+    )
+  }
+
+  function NavbarEndNotLoggedIn() {
+    const NavbarButton = (props) => {
+      return(
+        <button className='nav-button'>
+          <Modal btnLabel={<p>{props.icon} {props.label}</p>} btnClass="nav-button-icon">
+            {props.children}
+          </Modal>
+        </button>
+      )
+    }
+
+    return (
+      <>
+      <div className='notLoggedInNavButtons'>
+        <NavbarButton icon={<FaUser />} label="Logga in"><Login /></NavbarButton>
+        <NavbarButton icon={<FaUserPlus />} label="Registera konto"><Register /></NavbarButton>
       </div>
       </>
-    );
-  };
-  
-  export default Navbar;
+    )
+  }
+
+  function NavbarLinks() {
+    return(
+      <ul className='navbar-links'>
+        <li>Trådar</li>
+        <li>Forum</li>
+        <li>Forum</li>
+        <li>Medlemmar</li>
+      </ul>
+    )
+  }
+
+  return (
+    <nav className="navbar">
+    <h1>Mag Forum</h1>
+    <NavbarLinks />
+
+    <ul className="navbar-end">
+      {user ? <NavbarEndLoggedIn /> : <NavbarEndNotLoggedIn />}
+    </ul>
+  </nav>
+  );
+}
+
+export default Navbar;
