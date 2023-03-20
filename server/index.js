@@ -1,3 +1,6 @@
+// Import functions
+const userServerFunction = require('./functions/user')
+
 // Import packages 
 const express =  require('express');
 const mongoose = require('mongoose');
@@ -20,7 +23,7 @@ app.use(cors())
 /* It connects to the database and throws an error if it fails to connect. */
 async function connectDb() {
     try {
-        await mongoose.connect(DatabaseUrl);
+        await mongoose.connect("mongodb+srv://webbserverprogrammering:webbserverprogrammering@webbserverprogrammering.2xgak87.mongodb.net/?retryWrites=true&w=majority");
         console.log("Databse Connected");
     } catch (error) {
         throw error;
@@ -29,6 +32,8 @@ async function connectDb() {
 
 /* Connecting to the database. */
 connectDb()
+
+app.post("/user/register", () => console.log("ueueue"));
 
 /* Listening to the port 8000. */
 app.listen(ServerPort, () => console.log("Servern lystnar på porten 8000"))

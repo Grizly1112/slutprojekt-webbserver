@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import FormInput from './FormInput';
-
+import { RegisterUserServerPost } from '../api/user';
 // Src: https://youtu.be/tIdNeoHniEY
 
 export default function Register() {
@@ -69,6 +69,7 @@ export default function Register() {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(values)
+    RegisterUserServerPost(values)
   };
 
   const onChange = (e) => {
