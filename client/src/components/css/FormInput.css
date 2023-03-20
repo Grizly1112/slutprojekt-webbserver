@@ -32,7 +32,7 @@
     position: absolute;
     left: 93%;
     top: -4px;
-    color: black;
+    color:var(--text-c);
     z-index: 9;
     cursor: pointer;
     width: fit-content;

@@ -54,6 +54,7 @@ export default function Login() {
         <button className='formbutton'>Avbryt</button>
         <button className='formbutton formbuttonRegister' type="submit">Logga in</button>
       </div>
+        <a href="" className='forgotPassword'>forgot password?</a>
     </form>
   </div>
   )
