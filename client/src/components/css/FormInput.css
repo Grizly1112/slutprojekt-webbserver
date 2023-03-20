@@ -1,0 +1,60 @@
+.formInput{
+    display: flex;
+    flex-direction: column;
+    width: 280px;
+}
+
+/* input{
+    padding: 15px;
+    margin: 10px 0px;
+    border-radius: 5px;
+    border: 1px solid gray;
+} */
+
+
+
+.formInput .formInpt-input {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    position: relative;
+    padding: .4rem .4rem;
+    background-color: var(--bg-d-l);
+    border-radius: 4px;
+    box-shadow: var(--box-shadow-l);
+}
+
+.formInput .formInpt-input .passwordEye {
+    position: absolute;
+    left: 100%;
+    color: red;
+}
+
+.formInput .formInpt-input input{
+    background-color: transparent;
+    border: none;
+    outline: none;
+    color: var(--text-color);
+}
+
+
+
+label{
+    font-size: 12px;
+    color: gray;
+}
+
+span{
+    font-size: 12px;
+    padding: 3px;
+    color: red;
+    display: none;
+}
+
+/* input:invalid[focused="true"]{
+    border: 1px solid red;
+}
+
+input:invalid[focused="true"] ~ span{
+    display: block;
+} */
