@@ -11,7 +11,6 @@ export default function Forum() {
   
     return (
       <>
-        <Navbar />
       <div className='forum' >
         <Breadcrumbs />
       </div>

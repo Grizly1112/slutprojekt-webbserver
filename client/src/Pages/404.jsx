@@ -8,7 +8,6 @@ function PageNotFound() {
 
     return(
         <>
-        <Navbar />
         <div className="pageNotFound">
             <h1>404</h1>
             <h2>Den här sidan är inte tillgänglig</h2>

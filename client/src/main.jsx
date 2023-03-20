@@ -11,10 +11,7 @@ import Forum from './Pages/Forum'
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.Fragment>
     <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Forum />} />
-        <Route path="*" element={<PageNotFound/>} />
-      </Routes>
+     <App />
     </BrowserRouter>
   </React.Fragment>,
 )
