@@ -52,7 +52,7 @@ export default function Login() {
        <hr />
       <div className="Formbuttons">
         <button className='formbutton'>Avbryt</button>
-        <button className='formbutton formbuttonRegister' type="submit">Registera konto</button>
+        <button className='formbutton formbuttonRegister' type="submit">Logga in</button>
       </div>
     </form>
   </div>

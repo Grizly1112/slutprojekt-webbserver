@@ -21,7 +21,7 @@ export default function Register() {
       placeholder: "Användarnamn",
       errorMessage:
         "Användarnamnet måste innehålla 3-16 karaktärer och får inte innehålla några speciella karaktärer",
-      label: "Username",
+      label: "Användarnamn",
       pattern: "^[A-Za-z0-9]{3,16}$",
       required: true,
     },
@@ -34,16 +34,9 @@ export default function Register() {
       label: "Email",
       required: true,
     },
+ 
     {
       id: 3,
-      name: "birthday",
-      type: "date",
-      placeholder: "Födelsedatum",
-      label: "Födelsedatum",
-      required: true,
-    },
-    {
-      id: 4,
       name: "password",
       type: "password",
       placeholder: "Lösenord",
@@ -54,15 +47,23 @@ export default function Register() {
       required: true,
     },
     {
-      id: 5,
+      id: 4,
       name: "confirmPassword",
       type: "password",
       placeholder: "Bekräfta Löenord",
-      errorMessage: "Passwords don't match!",
-      label: "Confirm Password",
+      errorMessage: "Lösenorden matchar inte!",
+      label: "Bekräfta lösenord",
       pattern: values.password,
       required: true,
     },
+       // {
+    //   id: 5,
+    //   name: "birthday",
+    //   type: "date",
+    //   placeholder: "Födelsedatum",
+    //   label: "Födelsedatum",
+    //   required: true,
+    // },
   ];
 
   const handleSubmit = (e) => {

@@ -16,7 +16,7 @@ export default function FormInput(props) {
     const TogglePasswordEye = () => {
         return(
             <div className="passwordEye" onClick={() => {
-              InputType === "password" ? setType("text"): setType("password")
+              setTimeout(() => {InputType === "password" ? setType("text"): setType("password")},100);
             }}>{InputType === "password" ? <FaEye /> : <FaEyeSlash />}</div>
         )
     }
