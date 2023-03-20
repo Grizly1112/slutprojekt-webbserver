@@ -10,8 +10,8 @@ function PageNotFound() {
         <>
         <Navbar />
         <div className="pageNotFound">
-            <h1>Den här sidan är inte tillgänglig</h1>
-            <p>Det är möjligt att länken är trasig eller att sidan har tagits bort. Kontrollera att länken du försöker öppna är korrekt.</p>
+            <h1>404</h1>
+            <h2>Den här sidan är inte tillgänglig</h2>
             <NavLink className='goBack' to="/">Gå till Startsida</NavLink>
         </div>
     </>

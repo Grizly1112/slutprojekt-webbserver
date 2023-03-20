@@ -5,25 +5,36 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content:center;
+    color:var(--text-c);
+    gap: 2vh;
 }
 
-.pageNotFound p {
-    width: 33.3%;
-    font-size: 1.25rem;
+.pageNotFound h1{
+    color:var(--bg-m);
+    font-size: 10rem;
+    
 }
+
+.pageNotFound h2{
+font-size: 2rem;
+}
+
 
 .pageNotFound .goBack {
-    background-color: #1D65C1;
+    background-color: var(--bg-m);
     padding: .75rem 2rem;
     border-radius: 2rem;
     text-decoration: none;
-    color: #FAFAFA;
+    color:var(--bg-d);
     font-weight: 700;
+    margin-top: 2vh;
+    
 }
 
 
 
 .pageNotFound .goBack:hover {
-    background-color: #418AF7;
+    background-color:var(--bg-l);
+    transition: 0.2s;
 }
