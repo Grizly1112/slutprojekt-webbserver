@@ -4,24 +4,27 @@ import './css/Login.css'
 
 export default function Login() {
   return (
-    <div className='navbarAcountModal loginModal'>
-    <h3>Mag Forum Inloggninsportal</h3>
+    <div className='loginContainer loginModal'>
+    <h3>Mag Forum Inloggningsportal</h3>
     <hr />
     <form action="">
       <div>
-        <label htmlFor="username">Användarnamn eller Email</label>
-        <input type="text" name="username" id="" />
+        <label htmlFor="username" >Användarnamn eller Email</label>
+        <input type="text" name="username" id=""placeholder="Användarnamn eller Email" />
       </div>
       <div>
         <label htmlFor="password">Lösenord</label>
-        <input type="password" />
+        <input type="password" placeholder='Lösenord' />
       </div>
-        <input type="submit" value="Logga in" />
-      <a className='forgotPassword'>Glömt lösenord?</a>
+      <div className='loginButtons'>
+      <button>Avbryt</button>
+        <input type="submit" value="Logga in" />   
+      </div>
       <hr />
-      <div className="navbarAcountModalFooter">
-        <button>Avbryt</button>
-      </div>
+      <a className='forgotPassword'>Glömt lösenord?</a>
+
+   
+  
     </form>
 </div>
   )
