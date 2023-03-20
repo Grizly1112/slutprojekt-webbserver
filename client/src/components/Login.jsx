@@ -1,5 +1,6 @@
 import React from 'react'
 import { FaCircle, FaRegClosedCaptioning } from 'react-icons/fa'
+import './css/Login.css'
 
 export default function Login() {
   return (
