@@ -67,7 +67,8 @@
   
   .navbarAcountModal form .forgotPassword {
     color:var(--bg-m);
-    margin-bottom: 0.5rem;
+    margin-top:-1rem;
+    padding-bottom: 0.5rem;
   }
 
 .navbarAcountModal form .Formbuttons {
@@ -76,10 +77,11 @@
   gap: 1rem;
   width: calc(75% + .8rem - 0.01px);
   margin-left: .8rem;
+  justify-content: space-between;  
+  padding: .5rem 0;
+  margin-bottom: .5rem;
+}
 
-  justify-content: space-between;
-    
-    padding-top: 1rem;}
 .navbarAcountModal form .Formbuttons > * {
 cursor: pointer;
     display: inline-block;
