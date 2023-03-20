@@ -7,6 +7,8 @@ import Utils from '../assets/functiions/Utils'
 import Tooltip from './Tooltip';
 import Login from './Login';
 import Register from './Register';
+import logo from '../assets/logo.png';
+import { NavLink } from 'react-router-dom';
 
 // Källkod: https://www.youtube.com/watch?v=IF6k0uZuypA&t=382s
 // Inspiration Gymansiearbete Valeria forum
@@ -34,18 +36,16 @@ function Navbar() {
       const settingsmenuToggler = () => {
         setTimeout(() => {setSettingsmenuOpen(!settingsmenuopen)}, 200)
       }
+   
       const NavbarModalitem = (props) => {
         return(
-        <div className='navbarModal-item title' onClick={() => { console.log("jeje"); props.func(); console.log(settingsmenuopen)}}>
+        <div className='navbarModal-item title'>
           <div className="navbarModal-item-icon-left">{props.iconleft}</div>
           <h4 className='navbarModal-label'>{props.label}</h4>
             <div className="navbarModal-item-icon-right">{props.iconRight}</div>
         </div>
         )
       }
-      
-     
-
 
       return(
         <>
@@ -78,16 +78,11 @@ function Navbar() {
               </>
             }/>
             <hr />
-            <NavbarModalitem iconleft={<FaCog />} label={"Inställningar"} iconRight={<FaExternalLinkAlt />}>
-
-            </NavbarModalitem>
-           
+            <NavbarModalitem iconleft={<FaCog />} label={"Inställningar"} iconRight={<FaExternalLinkAlt />} />
             <NavbarModalitem iconleft={<FaRegNewspaper />} label={"Användarvilkor"} iconRight={<FaExternalLinkAlt />}/>
             <NavbarModalitem iconleft={<FaRegQuestionCircle />} label={"Hjälp"} iconRight={<FaExternalLinkAlt />}/>
             <hr />
             <NavbarModalitem iconleft={<FaRunning />} label={"Logga ut"} iconRight={<FaChevronCircleRight />}/>
-
-
           </div>
         </>
       )
@@ -157,7 +152,9 @@ function Navbar() {
 
   return (
     <nav className="navbar">
-    <h1>Mag Forum</h1>
+    <NavLink to="/">
+      <img className='logo' src={logo} alt="" />
+    </NavLink>
     <NavbarLinks />
 
     <ul className="navbar-end">

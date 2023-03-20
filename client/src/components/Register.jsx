@@ -2,7 +2,7 @@ import React from 'react'
 
 export default function Register() {
   return (
-    <div className='loginModal'>
+    <div className='navbarAcountModal loginModal'>
     <h3>Registera konto</h3>
     <hr />
     <form action="">
