@@ -87,7 +87,11 @@ export default function Register() {
             onChange={onChange}
           />
         ))}
-      <input type="submit" value="Registera Konto" />
+      <hr />
+      <div className="Formbuttons">
+        <button className='formbutton'>Avbryt</button>
+        <button className='formbutton formbuttonRegister' type="submit">Registera konto</button>
+      </div>
     </form>
 </div>
   )

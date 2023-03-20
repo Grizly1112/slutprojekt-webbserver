@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { FaEye } from 'react-icons/fa';
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import './css/FormInput.css'
 
 // källa: för ...props https://legacy.reactjs.org/docs/jsx-in-depth.html#spread-attributes
@@ -7,6 +7,7 @@ import './css/FormInput.css'
 export default function FormInput(props) {
     const [focused, setFocused] = useState(false);
     const { label, errorMessage, onChange, id, type, ...inputProps } = props;
+    const [InputType, setType] = useState(type);
 
     const handleFocus = (e) => {
         setFocused(true);
@@ -14,7 +15,9 @@ export default function FormInput(props) {
 
     const TogglePasswordEye = () => {
         return(
-            <div className="passwordEye"><FaEye /></div>
+            <div className="passwordEye" onClick={() => {
+              InputType === "password" ? setType("text"): setType("password")
+            }}>{InputType === "password" ? <FaEye /> : <FaEyeSlash />}</div>
         )
     }
 
@@ -24,8 +27,9 @@ export default function FormInput(props) {
         <div className='formInpt-input'>
 
         <input
+        autoComplete="true"
          {...inputProps}
-         type={type}
+         type={type === "password" ? InputType: type}
          onChange={onChange}
          onBlur={handleFocus}
          onFocus={() =>
@@ -36,8 +40,8 @@ export default function FormInput(props) {
         {
             type === "password" ? <TogglePasswordEye /> : null
         }
+      <span className='errormessage'>{errorMessage}</span>
         </div>
-      <span>{errorMessage}</span>
     </div>
   )
 }

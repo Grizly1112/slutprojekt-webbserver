@@ -1,7 +1,6 @@
 
-/* Login */
-.loginContainer {
-  
+.navbarAcountModal {
+    all:initial;
     position: fixed;
     top: 20%;
     left: 0;
@@ -12,32 +11,28 @@
     margin: 0 auto;
     text-align: center;
     z-index: 9999;
-    background-color: var(--bg-d);
+    background-color: var(--bg);
+    border: var(--border);
     border-radius: var(--border-radius);
     padding: .5rem;
-    color: var(--text-c);
-
-  
-    padding:1% 1% 0% 1%;
- 
-
+    overflow: hidden;
+    color: var(--text-color);
   }
-  .loginContainer h3 {
+  .navbarAcountModal h3 {
     text-align: center;
     font-size: 1.3rem;
     padding-bottom: 1rem;
     padding-top: 1rem;
-   
   }
-  .loginContainer hr,
-  .loginContainer form hr {
+  .navbarAcountModal hr,
+  .navbarAcountModal form hr {
     height: 1px;
     width: 100%;
     background-color: var(--bg-accent);
     border: none;
   }
   
-  .loginContainer form {
+  .navbarAcountModal form {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -45,95 +40,77 @@
     margin-top: 1rem;
   }
   
-  .loginContainer form div {
-    height: 5rem;
-    width: 25rem;
+  .navbarAcountModal form div {
+    width: 75%;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    justify-content: center;
+    margin-right: .8rem;
   }
-  .loginContainer form div label {
+  .navbarAcountModal form div label {
     padding-left: .3rem;
     padding-bottom: .5rem;
   }
   
-  .loginContainer form div input {
-    display: flex;
-    align-self: center;
-    width: 23rem;
-    height: 2.5rem;
-    padding-left: 1rem;
-    padding-right: 1rem;
-    border: none;
-    color: var(--text-c);
+
+  
+
+  .navbarAcountModal form button {
+    background-color: #2196F3;
+    cursor: pointer;
+    display: inline-block;
+    text-align: center;
+    white-space: nowrap;
+    width: 100px;
+    padding: 8px 16px;
+    font-size: 16px;
     border-radius: 4px;
-    background-color:var(--bg-d-l);
-    box-shadow: rgba(17, 17, 26, 0.1) 0px 4px 16px, rgba(17, 17, 26, 0.1) 0px 8px 24px, rgba(17, 17, 26, 0.1) 0px 16px 56px;
-  }
-  
-  .loginContainer form .loginButtons{
-    margin-top: 1rem;
-    font-display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    width: 25rem;
-  }
-
-  .loginContainer form input[type="submit"] {
-    background-color:var(--bg-m);
-    cursor: pointer;
-    display: inline-block;
-    text-align: center;
-    white-space: nowrap;
-    width: 16.7rem;
-    height: 2.5rem;
-    font-size: 16px;
-    background:var(--bg-m);
-    color:var(--text-c);
+    line-height: 26px;
+    background: rgb(255, 59, 48);
+    color: #fff;
     border: none;
-    border-top-right-radius: 4px;
-    border-bottom-right-radius: 4px;
-    border-top-left-radius: 2px;
-    border-bottom-left-radius: 2px;
-    font-weight:700;
-
-  }
-  .loginContainer form button {
-    background-color:var(--bg-m);
-    cursor: pointer;
-    text-align: center;
-    white-space: nowrap;
-    display: inline-block;
-    width: 7.7rem;
-    font-size: 16px;
-    height: 2.5rem;
-    border-top-right-radius: 2px;
-    border-bottom-right-radius: 2px;
-    border-top-left-radius: 4px;
-    border-bottom-left-radius: 4px;
-    background:#EA5455;
-    color:var(--text-c);
-    border: none;
-    font-weight:700;
   }
   
-
   
- 
-  
-  .loginContainer form .forgotPassword {
+  .navbarAcountModal .navbarAcountModalFooter {
     display: flex;
-    align-self: center;
-    color:var(--bg-m);
-    margin-bottom: 1rem;
-    padding-top: 0.5rem;
-    padding-bottom: 0.5rem;
+    padding: 1rem;
+    padding-bottom: 1rem;
+    flex-direction: row;
+    justify-content: flex-end;
+    width: 75%;
+    gap: 1rem;
   }
   
-  .loginContainer form input[type="submit"]:hover,  .loginContainer form button:hover{
-    filter: saturate(120%);
-    transition: 0.3s;
+  .navbarAcountModal form .forgotPassword {
+    color: #0071e3;
+  }
+
+.navbarAcountModal form .Formbuttons {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  width: calc(75% + .8rem - 0.01px);
+  margin-left: .8rem;
+  justify-content: space-between;
+    padding-bottom: 1.3rem;
+    padding-top: 1rem;}
+.navbarAcountModal form .Formbuttons > * {
+cursor: pointer;
+    display: inline-block;
+    text-align: center;
+    white-space: nowrap;
+    font-size: 16px;
+    border-radius: 4px;
+    line-height: 26px;
+    background: #EA5455;
+    color: #fff;
+    border: none;
+    padding: .2rem .8rem;
+    max-width: 100%;
+    width: 50%;
+}
+  .navbarAcountModal form .formbuttonRegister {
+    background-color: var(--bg-m) !important;
     
   }
