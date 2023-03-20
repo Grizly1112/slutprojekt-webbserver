@@ -1,5 +1,33 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
 
+/*
+:root{
+    --bg-m: rgb(56, 90, 99); 
+    --text-c: rgb(231, 246, 242);
+    --bg-d: rgb(27, 38, 44);
+    --bg-l: rgb(165, 201, 202);
+    --boxshadow-l: rgba(56, 90, 99, 0.2) 0px 18px 50px -10px;
+}*/
+
+/*
+:root{
+    --bg-m: rgb(15, 76, 117); 
+    --text-c: rgb(187, 225, 250);
+    --bg-d: rgb(44, 51, 51);
+    --bg-l: rgb(50, 130, 187);
+    --boxshadow-l: rgba(27, 38, 44 0.2) 0px 18px 50px -10px;
+}*/
+
+:root{
+    --bg-d: rgb(29, 29, 31);
+    --bg-d-accent: rgb(38, 40, 43);
+    --bg-d-l: rgb(53, 57, 65);
+    --bg-m: rgb(95, 133, 219); 
+    --bg-l: rgb(144, 184, 248);
+    --text-c: rgb(187, 225, 250);
+    --boxshadow-l: rgba(27, 38, 44 0.2) 0px 18px 50px -10px;
+}
+
 * {
     margin: 0;
     padding: 0;

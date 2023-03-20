@@ -1,7 +1,6 @@
 .forum {
     width: 100vw;
     height: 120vh;
-    border-radius: 8px;
-    background-color: #F0F2F5;
-    margin-top: 10vh;
+    background-color: var(--bg-d-l);
+    margin-top: 4rem;
 }

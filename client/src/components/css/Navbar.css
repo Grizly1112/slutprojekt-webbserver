@@ -1,9 +1,8 @@
-
 :root {
     --bg:  #242526;
     --bg-accent: #484a4d;
     --text-color: #dadce1;
-    --nav-size: 63px;
+    --nav-size: 4rem;
     --border: 1px solid #474a4d;
     --border-radius: 8px;
     --speed: 500ms; 
@@ -29,10 +28,11 @@
     width: calc(100% - 2rem);
     font-family: roboto;
     height: var(--nav-size);
-    background-color: var(--bg);
+    background-color: var(--bg-d);
     padding: 0 1.5rem;
     border-bottom: var(--border);
     color: var(--text-color);
+    box-shadow: var(--boxshadow-l);
 
     display: flex;
     align-items: center;
@@ -109,7 +109,7 @@
     --button-size: calc(var(--nav-size) * 0.7);
     width: var(--button-size);
     height: var(--button-size); 
-    background-color: #484a4d;
+    background-color: var(--bg-d-accent);
     border-radius: 50%;
     height: 67.5%;
     aspect-ratio: 1/1;
@@ -278,10 +278,17 @@
   left: 50%;
   transform: translate(-50%, -50%);
   color: var(--text-color);
+  font-weight: bold;
+  transition: color 2s;
 }
 .navbar-links  li {
   cursor: pointer;
 }
+
+.navbar-links  li:hover {
+  color: #b5b7bb;
+}
+
 
 /* Login */
 .navbarAcountModal {
@@ -432,7 +439,7 @@
 }
 
 input:checked + .slider {
-  background-color: #2196F3;
+  background-color: var(--bg-m);
 }
 
 input:focus + .slider {
