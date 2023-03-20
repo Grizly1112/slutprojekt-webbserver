@@ -119,24 +119,51 @@ function Navbar() {
   }
 
   function NavbarEndNotLoggedIn() {
-    const NavbarButton = (props) => {
-      return(
-        <button className='nav-button'>
-          <Modal btnLabel={<p>{props.icon} {props.label}</p>} btnClass="nav-button-icon">
-            {props.children}
-          </Modal>
-        </button>
-      )
-    }
-
-    return (
+    if((window.location.href.indexOf("login") > -1) || (window.location.href.indexOf("register") > -1)) {
+      const NavbarButton = (props) => {
+        return(
+        <>
+        <NavLink className='nav-button' to={props.link}>
+            <div className='nav-button-icon'>
+            <p>
+              {props.icon} {props.label}
+              </p>
+            </div>
+        </NavLink>
+        </>
+        )
+      }
+      return (
       <>
-      <div className='notLoggedInNavButtons'>
-        <NavbarButton icon={<FaUser />} label="Logga in"><Login /></NavbarButton>
-        <NavbarButton icon={<FaUserPlus />} label="Registera konto"><Register /></NavbarButton>
-      </div>
+        <div className='notLoggedInNavButtons'>
+          <NavbarButton icon={<FaUser />} link={"/login"} label="Logga in"><Login /></NavbarButton>
+          <NavbarButton icon={<FaUserPlus />} link={"/register"} label="Registera konto"><Register /></NavbarButton>
+        </div>
       </>
-    )
+      )
+    } else {
+      const NavbarButton = (props) => {
+        return(
+          <>
+          {
+            <button className='nav-button'>
+            <Modal btnLabel={<p>{props.icon} {props.label}</p>} btnClass="nav-button-icon">
+              {props.children}
+            </Modal>
+          </button>
+          }
+        </>
+        )
+      }
+      return (
+        <>
+        <div className='notLoggedInNavButtons'>
+          <NavbarButton icon={<FaUser />}  label="Logga in"><Login /></NavbarButton>
+          <NavbarButton icon={<FaUserPlus />} label="Registera konto"><Register /></NavbarButton>
+        </div>
+        </>
+      )
+    }   
   }
 
   function NavbarLinks() {
