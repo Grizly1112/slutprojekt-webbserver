@@ -185,10 +185,10 @@ function Navbar() {
   function NavbarLinks() {
     return(
       <ul className='navbar-links'>
-        <li>Trådar</li>
-        <li>Forum</li>
-        <li>Forum</li>
-        <li>Medlemmar</li>
+        <li>🍅</li>
+        <li>🥫</li>
+        <li>🍅</li>
+        <li>🥫</li>
       </ul>
     )
   }
