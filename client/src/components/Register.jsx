@@ -72,14 +72,12 @@ export default function Register() {
   ];
 
   const handleSubmit = async (e) => {
-    console.log("eeueue")
     e.preventDefault();
     try{
-      console.log("ueue")
       const {data} = await RegisterUserServerPost(values);
       await Auth(data);
 
-      if(window.location.href.indexOf("login")) {
+      if(window.location.href.indexOf("register")) {
         navigate("/")
       }
       
