@@ -1,7 +1,6 @@
 import axios from 'axios';
-import { URL } from './url';
+import { URL } from './axios';
 
-export const RegisterUserServerPost = (userData) => {
-    console.log(userData)
-    axios.post(`${URL}/user/register`, userData)}
-    ;
+export const RegisterUserServerPost = async (userData) => await axios.post(`${URL}/user/register`, userData)
+
+export const LoginUserServerPost = async (userData) => await axios.post(`${URL}/user/login`, userData)

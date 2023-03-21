@@ -2,20 +2,24 @@ import React, { useState } from 'react'
 import { FaCircle, FaRegClosedCaptioning } from 'react-icons/fa'
 import './css/Login.css'
 import FormInput from './FormInput'
+import { LoginUserServerPost } from '../api/user'
+import { Auth } from '../assets/functiions/Auth'
+import { useNavigate } from 'react-router-dom'
 
 export default function Login() {
+  const [errorMsg, setErrorMsg] = useState("");
   const [values, setValues] = useState({
     username: "",
     password: "",
   })
-
+  const navigate = useNavigate();
   const inputs = [
     {
       id: 1,
       name: "username",
       type: "text",
-      placeholder: "Användarnamn",
-      label: "Username",
+      placeholder: "Användarnamn eller Email",
+      label: "Användarnamn eller Email",
       required: true,
     },
     {
@@ -28,9 +32,21 @@ export default function Login() {
     },
   ]
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(values)
+    try{
+      const {data} = await LoginUserServerPost(values);
+      await Auth(data);
+
+      if(window.location.href.indexOf("login")) {
+        navigate("/")
+      }
+      window.location.reload();
+
+    } catch(err) {
+      console.log(err)
+      setErrorMsg(err.response.data.message)
+    }
   };
 
   const onChange = (e) => {
@@ -49,12 +65,13 @@ export default function Login() {
           onChange={onChange}
         />
       ))}
+      {errorMsg ? <p>{errorMsg}</p> : null}
        <hr />
       <div className="Formbuttons">
         <button className='formbutton'>Avbryt</button>
         <button className='formbutton formbuttonRegister' type="submit">Logga in</button>
       </div>
-        <a href="" className='forgotPassword'>forgot password?</a>
+        <a href="" className='forgotPassword'>Glömt lösenord?</a>
     </form>
   </div>
   )

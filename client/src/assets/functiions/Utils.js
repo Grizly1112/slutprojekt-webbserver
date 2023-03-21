@@ -34,4 +34,9 @@ Utils.FormatNotificationCount = function(count) {
     }
 }
 
+Utils.Logout = function() {
+    localStorage.removeItem('user')
+    window.location.reload();
+}
+
 export default Utils;

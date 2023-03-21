@@ -1,9 +1,12 @@
 import React, { useState } from 'react'
 import FormInput from './FormInput';
 import { RegisterUserServerPost } from '../api/user';
+import { Auth } from '../assets/functiions/Auth';
+import { useNavigate } from 'react-router-dom';
 // Src: https://youtu.be/tIdNeoHniEY
 
 export default function Register() {
+  const [errorMsg, setErrorMsg] = useState("");
   const [values, setValues] = useState({
     username: "",
     email: "",
@@ -66,10 +69,25 @@ export default function Register() {
     // },
   ];
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
+    const navigate = useNavigate();
+
     e.preventDefault();
-    console.log(values)
-    RegisterUserServerPost(values)
+    try{
+      const {data} = await RegisterUserServerPost(values);
+      Auth(data);
+
+      if(window.location.href.indexOf("register")) {
+        navigate("/")
+      }
+      
+      window.location.reload();
+
+    } catch(err) {
+      console.log(err)
+      setErrorMsg(err.response.data.message)
+    }
+
   };
 
   const onChange = (e) => {
@@ -89,6 +107,7 @@ export default function Register() {
             onChange={onChange}
           />
         ))}
+        {errorMsg ? <p>{errorMsg}</p> : null}
       <hr />
       <div className="Formbuttons">
         <button className='formbutton'>Avbryt</button>

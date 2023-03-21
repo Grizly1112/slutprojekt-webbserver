@@ -9,6 +9,7 @@ import Login from './Login';
 import Register from './Register';
 import logo from '../assets/logo.png';
 import { NavLink } from 'react-router-dom';
+import { checkAuthLevel } from '../assets/functiions/Auth';
 
 // Källkod: https://www.youtube.com/watch?v=IF6k0uZuypA&t=382s
 // Inspiration Gymansiearbete Valeria forum
@@ -16,7 +17,20 @@ import { NavLink } from 'react-router-dom';
 function Navbar() {
   const [notificationCount, SetNotificationCount] = useState(1);
   const resetNotifications = () => SetNotificationCount(0);
-  const [user, setUser] = useState(true);
+
+  var user = {}
+  let userLoggedIn = false;
+
+  console.log()
+  if(
+    localStorage.getItem('user') 
+    && 
+    checkAuthLevel(JSON.parse(localStorage.getItem('user')).token, 0)) {
+      userLoggedIn = true;
+      user = JSON.parse(localStorage.getItem('user')).userData
+      console.log(user.username)
+    } 
+
 
   function NavbarEndLoggedIn() {
     function NavItem(props) {
@@ -39,7 +53,9 @@ function Navbar() {
    
       const NavbarModalitem = (props) => {
         return(
-        <div className='navbarModal-item title'>
+        <div className='navbarModal-item title' onClick={() => {
+          if(props.func) props.func()
+        }}>
           <div className="navbarModal-item-icon-left">{props.iconleft}</div>
           <h4 className='navbarModal-label'>{props.label}</h4>
             <div className="navbarModal-item-icon-right">{props.iconRight}</div>
@@ -50,7 +66,7 @@ function Navbar() {
       return(
         <>
           <div className='navbarModal'>
-            <NavbarModalitem iconleft={<FaUserCircle />} label={"Ditt konto"} iconRight={<FaChevronCircleRight />}/>
+            <NavbarModalitem iconleft={<FaUserCircle />} label={user.username} iconRight={<FaChevronCircleRight />}/>
             <hr/>
             <NavbarModalitem iconleft={ status ? <FaHandshake /> : <FaHandshakeSlash />} label={status ? "Online": "Offline"}iconRight={
               <>
@@ -82,7 +98,7 @@ function Navbar() {
             <NavbarModalitem iconleft={<FaRegNewspaper />} label={"Användarvilkor"} iconRight={<FaExternalLinkAlt />}/>
             <NavbarModalitem iconleft={<FaRegQuestionCircle />} label={"Hjälp"} iconRight={<FaExternalLinkAlt />}/>
             <hr />
-            <NavbarModalitem iconleft={<FaRunning />} label={"Logga ut"} iconRight={<FaChevronCircleRight />}/>
+            <NavbarModalitem iconleft={<FaRunning />} label={"Logga ut"} func={Utils.Logout} iconRight={<FaChevronCircleRight />}/>
           </div>
         </>
       )
@@ -185,7 +201,7 @@ function Navbar() {
     <NavbarLinks />
 
     <ul className="navbar-end">
-      {user ? <NavbarEndLoggedIn /> : <NavbarEndNotLoggedIn />}
+      {userLoggedIn ? <NavbarEndLoggedIn /> : <NavbarEndNotLoggedIn />}
     </ul>
   </nav>
   );
