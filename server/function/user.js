@@ -11,6 +11,7 @@ dotenv.config()
 
 export const register = async (req, res) => {
     const user = req.body;
+    console.log("helö")
   
     // https://mongoosejs.com/docs/promises.html
     try {
@@ -24,6 +25,7 @@ export const register = async (req, res) => {
         if(usernameTaken) return res.status(400).json({message: "Användarnamnet är upptaget"})
         if(emailTaken) return res.status(400).json({message: "Emailen är upptaget"})
         // Create user in mongoDb
+
         let userData = await UserModel.create({username: user.username, password: hashedPassword, email: user.email})
         userData.id = userData._id;
 
@@ -57,9 +59,8 @@ export const login = async (req, res) => {
 
         if(!correctPassword) return res.status(400).json({message: "Inkorrekt lösenord"})
 
-        const token =  jwt.sign(userData.toJSON(), process.env.JWT_ACCESS_TOKEN, {expiresIn: process.env.JWT_EXPIRES_IN})
+        const token = jwt.sign(userData.toJSON(), process.env.JWT_ACCESS_TOKEN, {expiresIn: process.env.JWT_EXPIRES_IN})
 
-        console.log("kom hit")
         return res.status(200).send({userData, token});
 
     } catch(err) {

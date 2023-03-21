@@ -7,6 +7,8 @@ import { useNavigate } from 'react-router-dom';
 
 export default function Register() {
   const [errorMsg, setErrorMsg] = useState("");
+  const navigate = useNavigate();
+
   const [values, setValues] = useState({
     username: "",
     email: "",
@@ -70,14 +72,14 @@ export default function Register() {
   ];
 
   const handleSubmit = async (e) => {
-    const navigate = useNavigate();
-
+    console.log("eeueue")
     e.preventDefault();
     try{
+      console.log("ueue")
       const {data} = await RegisterUserServerPost(values);
-      Auth(data);
+      await Auth(data);
 
-      if(window.location.href.indexOf("register")) {
+      if(window.location.href.indexOf("login")) {
         navigate("/")
       }
       

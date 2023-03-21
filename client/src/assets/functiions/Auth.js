@@ -11,8 +11,9 @@ export const checkAuthLevel = async (token, authLevel) => {
     let exdired = false;
 
     var exp;
+
     const data = await jwt_decode(token)    
-    console.log(data.exp)
+    // https://stackoverflow.com/questions/51292406/check-if-token-expired-using-this-jwt-library
     try {
         exp = data.exp * 1000 >= Date.now();
     } catch(err) {
