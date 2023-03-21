@@ -50,7 +50,7 @@ class Modal extends React.Component {
           }}
         >
           <Tooltip label={this.props.tooltip}>
-            <span onClick={() => {this.handleClick()}} className={this.props.btnClass}>{this.props.btnLabel}</span>
+            <span onClick={() => {this.handleClick()}} className={this.state.showModal ? this.props.activeClass + this.props.btnClass : this.props.btnClass}>{this.props.btnLabel}</span>
           </Tooltip>
           {this.state.showModal && this.props.children}
         </div>

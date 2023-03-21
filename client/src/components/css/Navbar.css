@@ -103,7 +103,8 @@
   }
 }
 
-.nav-item .icon-button {
+.nav-item .icon-button,
+.nav-item .active-navbar-buttonicon-button {
   position: relative;
     --button-size: calc(var(--nav-size) * 0.7);
     width: var(--button-size);
@@ -115,9 +116,14 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: filter 300ms;
+    transition: 0.3s;
+} 
+
+.nav-item .active-navbar-buttonicon-button {
+  color: var(--bg-m) !important;
 }
-.nav-item .icon-button svg {
+.nav-item .icon-button svg,
+.nav-item .active-navbar-buttonicon-button svg {
   height: 20px;
   width: 20px;
 }

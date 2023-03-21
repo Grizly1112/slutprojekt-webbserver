@@ -91,26 +91,26 @@ function Navbar() {
     return (
       <>
         <NavItem>
-          <Modal btnLabel={<FaPlus />} btnClass="icon-button" tooltip="Skapa">
+          <Modal btnLabel={<FaPlus />} btnClass="icon-button" activeClass="active-navbar-button" tooltip="Skapa">
             <div className='navbarModal'>Chat</div>
           </Modal>
         </NavItem>
 
         <NavItem>
-          <Modal btnLabel={<FaRegCommentDots />} btnClass="icon-button" tooltip="Direktmeddelanden">
+          <Modal btnLabel={<FaRegCommentDots />} btnClass="icon-button" activeClass="active-navbar-button" tooltip="Direktmeddelanden">
             <div className='navbarModal'>Chat</div>
           </Modal>
         </NavItem>
 
         <NavItem notifications={(notificationCount > 0) ? notificationCount : null}>
-          <Modal btnLabel={<FaBell className={(notificationCount > 0) ? 'notificationbell': null} />} btnClass="icon-button" tooltip="Aviseringar" func={resetNotifications}>
+          <Modal btnLabel={<FaBell className={(notificationCount > 0) ? 'notificationbell': null} />} btnClass="icon-button" activeClass="active-navbar-button" tooltip="Aviseringar" func={resetNotifications}>
             <div className='navbarModal'>
             </div>
           </Modal>
         </NavItem>
 
         <NavItem>
-          <Modal btnLabel={<FaUserAlt />} btnClass="icon-button">
+          <Modal btnLabel={<FaUserAlt />} btnClass="icon-button" activeClass="active-navbar-button">
             <UserModal />
           </Modal>
         </NavItem>
@@ -185,7 +185,7 @@ function Navbar() {
     <NavbarLinks />
 
     <ul className="navbar-end">
-      {!user ? <NavbarEndLoggedIn /> : <NavbarEndNotLoggedIn />}
+      {user ? <NavbarEndLoggedIn /> : <NavbarEndNotLoggedIn />}
     </ul>
   </nav>
   );
