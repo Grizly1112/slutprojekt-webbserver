@@ -4,6 +4,7 @@ import Forum from "./Pages/Forum";
 import { Route, Routes } from "react-router-dom";
 import Login from "./components/Login";
 import Register from "./components/Register";
+import Chat from "./Pages/Chat";
 
 function App() {
 
@@ -11,7 +12,7 @@ function App() {
     <>
     <Navbar />
      <Routes>
-        <Route path="/" element={<Forum />} />
+        <Route path="/" element={<Chat />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="*" element={<PageNotFound/>} />

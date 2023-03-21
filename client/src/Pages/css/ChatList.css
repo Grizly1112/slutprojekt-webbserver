@@ -1,0 +1,117 @@
+
+
+* {
+    margin: 0;
+    padding: 0;
+    font-family: 'Montserrat', sans-serif;
+}
+
+
+
+.ChatContainer{
+    display: flex;
+    position: fixed;
+    top:4rem;
+    flex-direction: column;
+    width: 15rem;
+    height: 96vh;
+    background-color:var(--bg-d-accent);
+    z-index: -99999;
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 20px 30px;;
+    color: var(--text-c);
+}
+
+.ChatContainer .message{
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    width: 100%;
+    height: 8vh;
+    background-color:rgb(27, 27, 27);
+    border-bottom: 2px solid var(--bg-m) ;
+    transition: 0.2s all ease;
+
+    
+}
+
+
+.ChatContainer .message .messageContainer{
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: space-between;
+height: 100%;
+width: 100%;
+
+}
+.ChatContainer .message .messageContainer .messagePreview{
+
+    display: none;
+    align-items: center;
+    height: 90%;
+    width: 7rem;
+    margin-right: 1.5rem;
+
+
+}
+
+
+.ChatContainer .message .messageContainer .messagePreview p{
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+.ChatContainer .message .messageContainer .profileContent{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    height: 8vh;
+    width: 100%;
+    background-color: var(--bg-d-accent);
+    
+    
+    
+    }
+    
+    
+
+
+.ChatContainer .message .messageContainer .profileContent .pfp{
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+    height: 5vh;
+    width: 5vh;
+    padding-left: 1rem;
+}
+.ChatContainer .message .messageContainer .profileContent .pfp img{
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    
+
+}
+
+.ChatContainer .message .messageContainer .profileContent .pfp .status{
+    position:absolute;
+    height:10px;
+    width: 10px;
+    border-radius: 50%;
+    background-color:rgb(88, 214, 88);
+    z-index: 9999;
+}
+
+.ChatContainer .message .messageContainer .profileContent .username{
+    color: var(--bg-m);
+    font-weight: 500;
+    margin-left: 1rem;
+}
+
+.ChatContainer .message:hover{
+    height: 15vh;
+
+
+}
+
