@@ -195,7 +195,7 @@ function Navbar() {
     <NavbarLinks />
 
     <ul className="navbar-end">
-      {userLoggedIn ? <NavbarEndLoggedIn /> : <NavbarEndNotLoggedIn />}
+      {!userLoggedIn ? <NavbarEndLoggedIn /> : <NavbarEndNotLoggedIn />}
     </ul>
   </nav>
   );
