@@ -3,6 +3,7 @@ import FormInput from './FormInput';
 import { RegisterUserServerPost } from '../api/user';
 import { Auth } from '../assets/functiions/Auth';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 // Src: https://youtu.be/tIdNeoHniEY
 
 export default function Register() {
@@ -73,15 +74,16 @@ export default function Register() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+   
     try{
       const {data} = await RegisterUserServerPost(values);
       await Auth(data);
 
       if(window.location.href.indexOf("register")) {
         navigate("/")
-      }
+       }
       
-      window.location.reload();
+   window.location.reload();
 
     } catch(err) {
       console.log(err)
