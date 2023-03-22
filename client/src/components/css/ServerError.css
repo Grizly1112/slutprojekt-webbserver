@@ -1,0 +1,45 @@
+/* ServerError */
+
+.serverError {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    width: 100vw;
+
+}
+
+.serverError .icon{
+    color:var(--bg-m);
+    font-size: 10rem;
+    background-color: var(--bg-d);
+    padding: 2rem;
+    border-radius: 50%;
+    margin-bottom: 2rem;
+}
+
+.serverError h4 {
+    font-size: 1.5rem;
+    color: var(--text-color);
+    margin-bottom: 1rem;
+}
+
+.serverError p {
+    font-size: 1.2rem;
+    display: flex;
+    white-space: nowrap;
+    gap: .5rem;
+    color: var(--text-color);
+}
+
+.serverError .goBack {
+    background-color: var(--bg-m);
+    padding: .75rem 2rem;
+    border-radius: 2rem;
+    text-decoration: none;
+    color:var(--bg-d);
+    font-weight: 700;
+    margin-top: 2vh;
+    
+}

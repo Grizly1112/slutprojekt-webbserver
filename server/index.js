@@ -3,7 +3,7 @@ const port = process.env.PORT || 8000
 
 import mongoose from 'mongoose'
 import cors from 'cors'
-import { login, register } from './function/user.js';
+import { getuser, login, register } from './function/user.js';
 
 /* It creates an instance of the express application. */
 const app = express();
@@ -34,6 +34,7 @@ connectDb()
 
 app.post("/user/register", register);
 app.post("/user/login", login);
+app.get("/user/getuser/:id", getuser);
 
 /* Listening to the port 8000. */
 app.listen(8000, () => console.log("Servern lystnar på porten 8000"))

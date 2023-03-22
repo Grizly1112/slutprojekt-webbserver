@@ -73,3 +73,21 @@ export const login = async (req, res) => {
         return res.status(500).send({message: "Serverfel uppstod"})
     }
 }
+
+export const getuser = async (req, res) => {
+    let usernameByParam = req.params.id;
+    console.log(usernameByParam)
+    
+    // SE ÖVER VAD SOM SKICAKS - SKIACKA INTE MED ALL DATA "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+    try {
+        let userData = await UserModel.findOne({ username: new RegExp(`^${usernameByParam}`, 'i') });
+        console.log(userData)
+
+        if (!userData) return res.status(404).send({ message: "Avnändaren finns inte" })
+
+        return res.status(200).send(userData)
+    } catch (error) {
+        return res.status(500).send({ message: "Serverfel uppstod"})
+    }
+}
