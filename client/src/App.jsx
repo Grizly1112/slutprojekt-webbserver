@@ -6,6 +6,7 @@ import Login from "./components/Login";
 import Register from "./components/Register";
 import Chat from "./Pages/Chat";
 import User from "./Pages/User";
+import TermsService from "./Pages/TermsService";
 
 function App() {
 
@@ -16,9 +17,8 @@ function App() {
         <Route path="/" element={<Chat />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
-        <Route path="/user/:id" element={<User />}>
-          
-        </Route>
+        <Route path="/user/:id" element={<User />}/>
+        <Route path="/terms" element={<TermsService />}/>
         <Route path="*" element={<PageNotFound/>} />
       </Routes>
     </>
