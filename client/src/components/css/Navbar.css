@@ -198,16 +198,18 @@
     transition: height var(--speed) ease;
   }
   
+
+
+
 .navbarModal {
     all:initial;
     position: fixed;
     top: 58px;
     width: 300px;
-    height: auto;
+    height:39vh;
     transform: translateX(-260px);
     z-index: 9999;
-    background-color: var(--bg);
-    border: var(--border);
+    background-color: var(--bg-d-accent);
     border-radius: 4px;
     padding-bottom: 10px;
     padding-top: 10px;
@@ -215,7 +217,29 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 20px 30px;;
+    animation: dropdown 0.3s ease-out;
+ 
 }
+@keyframes dropdown {
+  0% {
+    height: 0%;
+    width: 340px;
+    margin-left: -20px;
+    opacity: 0;
+
+  }
+
+  100% {
+    height: 39vh;
+    width: 300px;
+    margin-left: 0px;
+
+    opacity: 1;
+  }
+}
+
+
 
 .navbarModal .navbarModal-item {
   border-radius: 8px;
@@ -293,6 +317,7 @@
 .navbar-links  li:hover {
   color: #b5b7bb;
 }
+
 
 
 
