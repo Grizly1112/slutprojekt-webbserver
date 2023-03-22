@@ -48,7 +48,7 @@ export default function Register() {
       errorMessage:
         "Lösenorden måste vara 8-20 karaktärer, och måste innehålla minst 1 bokstav, ett nummer och en speciell karaktär (!?# etctera)",
       label: "Lösenord",
-      pattern: `^(?=.*[0-9])(?=.*[a-zA-Z])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,20}$`,
+      pattern: `^[A-Za-z0-9]{8,16}$`,
       required: true,
     },
     {
