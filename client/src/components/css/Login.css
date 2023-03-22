@@ -102,6 +102,12 @@ cursor: pointer;
     background-color: var(--bg-m) !important;
     
   }
+  .navbarAcountModal form .formbuttonRegister:disabled {
+    opacity: .6;
+  }
+  .navbarAcountModal form .formbuttonRegister:disabled:hover {
+    filter: none !important;
+  }
 
   .navbarAcountModal form .Formbuttons > *:hover {
     filter:brightness(120%);

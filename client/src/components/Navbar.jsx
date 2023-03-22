@@ -21,7 +21,6 @@ function Navbar() {
   var user = {}
   let userLoggedIn = false;
 
-  console.log()
   if(
     localStorage.getItem('user') 
     && 
@@ -47,18 +46,13 @@ function Navbar() {
       const [status, setStatus] = useState(true);
       const [notifactions, setNotifiactions] = useState(true);
 
-      const settingsmenuToggler = () => {
-        setTimeout(() => {setSettingsmenuOpen(!settingsmenuopen)}, 200)
-      }
    
       const NavbarModalitem = (props) => {
         return(
-        <div className='navbarModal-item title' onClick={() => {
-          if(props.func) props.func()
-        }}>
-          <div className="navbarModal-item-icon-left">{props.iconleft}</div>
-          <h4 className='navbarModal-label'>{props.label}</h4>
-            <div className="navbarModal-item-icon-right">{props.iconRight}</div>
+        <div className='navbarModal-item title' onClick={() => props.func ? props.func(): null}>
+            <i className="navbarModal-item-icon-left">{props.iconleft}</i>
+            <h4 className='navbarModal-label'>{props.label}</h4>
+            <i className="navbarModal-item-icon-right">{props.iconRight}</i>
         </div>
         )
       }

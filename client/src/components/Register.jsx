@@ -13,10 +13,16 @@ export default function Register() {
   const [values, setValues] = useState({
     username: "",
     email: "",
-    birthday: "",
     password: "",
     confirmPassword: "",
   });
+
+  const [valid, setValid] = useState({
+    username: false,
+    email: false,
+    password: false,
+    confirmPassword: false
+  })
 
   
   const inputs = [
@@ -38,6 +44,7 @@ export default function Register() {
       placeholder: "Email",
       errorMessage: "Du måste Ange en giltig email",
       label: "Email",
+      pattern: '^[A-Za-z0-9]+@[A-Za-z0-9]+[.]{1,1}[A-Za-z0-9]{2,4}$',
       required: true,
     },
  
@@ -92,8 +99,13 @@ export default function Register() {
 
   };
 
-  const onChange = (e) => {
-    setValues({ ...values, [e.target.name]: e.target.value });
+  const onChange = async (e) => {
+    let value = e.target.value;
+    let pattern = e.target.pattern;
+  
+    let valueMatch = value.match(pattern)? true: false
+    setValid({...valid, [e.target.name]: valueMatch})
+    setValues({ ...values, [e.target.name]: e.target.value});
   };
 
   return (
@@ -113,7 +125,9 @@ export default function Register() {
       <hr />
       <div className="Formbuttons">
         <button className='formbutton'>Avbryt</button>
-        <button className='formbutton formbuttonRegister' type="submit">Registera konto</button>
+        <button className='formbutton formbuttonRegister' type="submit" 
+        disabled={(valid.username && valid.email && valid.password && valid.confirmPassword) ? false: true}
+        >Registera konto</button>
       </div>
     </form>
 </div>

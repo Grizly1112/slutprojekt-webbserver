@@ -26,6 +26,7 @@ export const register = async (req, res) => {
         if(emailTaken) return res.status(400).json({message: "Emailen är upptaget"})
         // Create user in mongoDb
 
+        // Aneldning till att ha användar ip är för att kunna ip-banna konton, samt för bättre användarupplevelse.
         const userIp = await axios.get('https://ipapi.co/json/');
         user.ip = userIp.data.ip
 
