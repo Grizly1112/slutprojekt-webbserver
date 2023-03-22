@@ -7,9 +7,12 @@ const userSchema = new mongoose.Schema({
     password: {type: String, required: true},
     email: {type: String, required: true},
     profilePicture: {type: mongoose.Schema.Types.ObjectId, ref: "Image"},
+    dateOfBirth: {type: String, required: true},
     ip: {type: String, required: true},
+    country: {type: String, required: true},
+    region: {type: String, required: true},
     userDescription: {type: String},
-    authLevel: {type: Number, default: 0},
+    staff: {type: Boolean, default: false},
     dateJoined: {type: Date, default: () => Date.now()},
 })
 

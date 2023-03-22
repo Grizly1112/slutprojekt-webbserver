@@ -18,7 +18,8 @@
     padding: 5px .5rem;
     position: absolute;
     z-index: 1;
-    top: 105%;
+    top: 107%;
+    white-space: nowrap;
   }
   
   .tooltip .tooltiptext::after {

@@ -34,6 +34,24 @@ Utils.FormatNotificationCount = function(count) {
     }
 }
 
+Utils.FormatTimeDate = function (Timestamp) {
+    var Date_obj = new Date(Timestamp);
+
+    const monthNames = ["Januari", "Feburari", "Mars", "April", "Maj", "Juni", "Juli", "Augusti", "September", "Oktober", "November", "December"];
+
+    var Formatted = `${('0' + Date_obj.getDate()).slice(-2)} ${monthNames[Date_obj.getMonth()]} ${Date_obj.getFullYear()}`;
+
+    return Formatted
+}
+
+Utils.FormatUserAge = function(dateOfBirth) {
+    const ageExact = (Date.now() - new Date(dateOfBirth)) / (31557600000);
+    // https://stackoverflow.com/questions/1435975/how-can-i-round-down-a-number-in-javascript
+    const actualAge = Math.floor( ageExact * Math.pow(10, 0) ) / Math.pow(10, 0)
+    
+    return actualAge;
+}
+
 Utils.Logout = function() {
     localStorage.removeItem('user')
     window.location.reload();

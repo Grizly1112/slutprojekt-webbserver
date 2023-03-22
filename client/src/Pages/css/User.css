@@ -52,48 +52,167 @@
     transition: 0.2s;
 }
 
-/* ServerError */
-
-.serverError {
+.userProfile {
+    width: 50vw;
+    padding: 1rem;
+    height: 70vh;
+    border-radius: 8px;
+    background-color: var(--bg-d);
     display: flex;
     flex-direction: column;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+    padding: 2rem;
+}
+
+.userProfile .userProfile-header {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    width: 100%;
+    gap: 1rem;
+}
+.userProfile .userProfile-header .userProfile-header-information{
+    height: 80%;
+    width: 100%;
+}
+.userProfile .userProfile-header .userProfile-header-information .userProfile-username-div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 30%;
+    color: var(--text-color);
+}
+
+.userProfile .userProfile-header .userProfile-header-information .userProfile-username-div  .userHandling-button {
+    border: none;
+    outline: none;
+    background-color: var(--bg-m);
+    padding: .4rem 2rem;
+    font-size: 2rem;
+    display: flex;
     align-items: center;
     justify-content: center;
-    height: 100vh;
-    width: 100vw;
-
-}
-
-.serverError .icon{
-    color:var(--bg-m);
-    font-size: 10rem;
-    background-color: var(--bg-d);
-    padding: 2rem;
-    border-radius: 50%;
-    margin-bottom: 2rem;
-}
-
-.serverError h4 {
-    font-size: 1.5rem;
     color: var(--text-color);
-    margin-bottom: 1rem;
+    border-radius: 8px;
+    cursor: pointer;
+    box-shadow: 0px 1px 2px rgba(255, 255, 255, 0.5);
 }
 
-.serverError p {
-    font-size: 1.2rem;
+
+.userProfile .userProfile-pfp-div {
+    position: relative;
+    width: 35%;
+    aspect-ratio: 1/1;
     display: flex;
-    white-space: nowrap;
-    gap: .5rem;
-    color: var(--text-color);
+    align-items: center;
+    justify-content: center;
 }
 
-.serverError .goBack {
+
+
+.userProfile .userProfile-pfp-div .userProfile-pfp {
+    width: 100%;
+    aspect-ratio: 1/1;
+    border-radius: 50%;
+    background-color: #fff;
+}
+
+/* .userProfile .userProfile-pfp-div:hover::after{
+    content: 'Ändra Profilbild';
+    position: absolute;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-weight: bolder;
+    width: 100%;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.409);
+} */
+
+
+.userProfile .userProfile-header .userDetails {
+    color: var(--text-color);
+    display: flex;
+    flex-direction: column;
+    height: 70%;
+    justify-content: flex-end;
+    gap: 1rem;
+}
+.userProfile .userProfile-header .userDetails  h4 {
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+}
+.userProfile .userProfile-header .userDetails  h4 .circle {
+    color: gray;
+    font-size: .5rem;
+}
+
+.userProfile .userProfile-header .userDetails  h4 p {
+    color: gray;
+}
+
+.userProfile .viewMore {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.userProfile .viewMore .select {
+    display: flex;
+    flex-direction: column;   
+    position: relative;
+}
+
+.userProfile .viewMore .select ul {
+    user-select: none;
+    display: flex;
+    gap: 2rem;
+    height: 40px;
+    align-items: center;
+}
+
+.userProfile .viewMore .select hr {
+    position: absolute;
+    bottom: -3px;
+    width: 100%;
+    z-index: 1;
     background-color: var(--bg-m);
-    padding: .75rem 2rem;
-    border-radius: 2rem;
-    text-decoration: none;
-    color:var(--bg-d);
-    font-weight: 700;
-    margin-top: 2vh;
-    
+    border: 2px solid  var(--bg-d-l);
+    max-height: 2px;
+}
+
+
+.userProfile .viewMore .select ul li {
+    position: relative;
+    height: 100%;
+    color: var(--text-color);
+    z-index: 2;
+    cursor: pointer;
+}
+.userProfile .viewMore .select ul li {
+    position: relative;
+    font-weight:900;
+    font-size: 1.1rem;
+}
+
+.userProfile .viewMore .select ul .select-active {
+    margin-top: 2px;
+    border-bottom: 2px solid var(--bg-l);
+}
+
+.userProfile .viewMore .select ul li:hover {
+    margin-top: 2px;
+    border-bottom: 2px solid var(--bg-l);
+}
+
+.userProfile .viewMore .content {
+    width: 100%;
+    height: 50%;
 }

@@ -8,7 +8,7 @@ import Tooltip from './Tooltip';
 import Login from './Login';
 import Register from './Register';
 import logo from '../assets/logo.png';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { checkAuthLevel } from '../assets/functiions/Auth';
 
 // Källkod: https://www.youtube.com/watch?v=IF6k0uZuypA&t=382s
@@ -45,7 +45,7 @@ function Navbar() {
       const [theme, setTheme] = useState(true);
       const [status, setStatus] = useState(true);
       const [notifactions, setNotifiactions] = useState(true);
-
+      let navigate = useNavigate();
    
       const NavbarModalitem = (props) => {
         return(
@@ -60,7 +60,11 @@ function Navbar() {
       return(
         <>
           <div className='navbarModal'>
-            <NavbarModalitem iconleft={<FaUserCircle />} label={user.username} iconRight={<FaChevronCircleRight />}/>
+            <NavLink className='navbarModalNavLink' to={`/user/${user.username}`}>
+              <NavbarModalitem iconleft={<FaUserCircle />} label={user.username} iconRight={<FaChevronCircleRight />}/>
+            </NavLink>
+              
+            
             <hr/>
             <NavbarModalitem iconleft={ status ? <FaHandshake /> : <FaHandshakeSlash />} label={status ? "Online": "Offline"}iconRight={
               <>

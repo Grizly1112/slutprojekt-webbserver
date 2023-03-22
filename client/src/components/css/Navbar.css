@@ -208,7 +208,7 @@
     width: 300px;
     height:39vh;
     transform: translateX(-260px);
-    z-index: 9999;
+    z-index: 99999 !important;
     background-color: var(--bg-d-accent);
     border-radius: 4px;
     padding-bottom: 10px;
@@ -240,7 +240,10 @@
   }
 }
 
-
+.navbarModal .navbarModalNavLink {
+  width: 100%;
+  margin-left: 10%;
+}
 
 .navbarModal .navbarModal-item {
   border-radius: 8px;

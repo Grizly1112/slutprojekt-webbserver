@@ -10,18 +10,21 @@ export default function Register() {
   const [errorMsg, setErrorMsg] = useState("");
   const navigate = useNavigate();
 
+  
   const [values, setValues] = useState({
     username: "",
     email: "",
     password: "",
     confirmPassword: "",
+    birthday: "",
   });
 
   const [valid, setValid] = useState({
     username: false,
     email: false,
     password: false,
-    confirmPassword: false
+    confirmPassword: false,
+    birthday: false
   })
 
   
@@ -69,14 +72,14 @@ export default function Register() {
       pattern: values.password,
       required: true,
     },
-       // {
-    //   id: 5,
-    //   name: "birthday",
-    //   type: "date",
-    //   placeholder: "Födelsedatum",
-    //   label: "Födelsedatum",
-    //   required: true,
-    // },
+      {
+      id: 5,
+      name: "birthday",
+      type: "date",
+      placeholder: "Födelsedatum (18+)",
+      label: "Födelsedatum (18+)",
+      required: true,
+    },
   ];
 
   const handleSubmit = async (e) => {

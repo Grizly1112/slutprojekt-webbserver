@@ -220,13 +220,10 @@ export default function TermsService(){
     }
     
     const TitlesText = (props) => {
-
-
         return(
             <>
                 <div className="title" id={props.id}>{props.title}</div>
                 <div className="textContent">{props.text}</div>  
-                    
             </>
         )
     } 
@@ -235,24 +232,16 @@ export default function TermsService(){
         <>
         <div className="scrollToS">
             {titleLinks.map((message, i) =>{
-
                 return <Titles title={message.title}/>
-
-
-
-                })}
+            })}
         </div>
-        <div className="container">
+        <div className="termsofServiece">
             <div className="ToSContent">
-                <h1>Terms of Services</h1>
-                <h2>Last updated March 22, 2023</h2>
+                <h1 className='tilte-h1'>Terms of Services</h1>
+                <h2 className='title-h2'>Last updated March 22, 2023</h2>
                 {text.map((message, i) =>{
-
                     return <TitlesText title={message.title} text={message.text} id={message.id}/>
-
-
-
-                    })}
+                })}
             </div>
         </div>
         </>
