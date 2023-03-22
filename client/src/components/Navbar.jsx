@@ -50,9 +50,9 @@ function Navbar() {
       const NavbarModalitem = (props) => {
         return(
         <div className='navbarModal-item title' onClick={() => props.func ? props.func(): null}>
-            <i className="navbarModal-item-icon-left">{props.iconleft}</i>
-            <h4 className='navbarModal-label'>{props.label}</h4>
-            <i className="navbarModal-item-icon-right">{props.iconRight}</i>
+          <i className="navbarModal-item-icon-left">{props.iconleft}</i>
+          <h4 className='navbarModal-label'>{props.label}</h4>
+          <i className="navbarModal-item-icon-right">{props.iconRight}</i>
         </div>
         )
       }
@@ -195,7 +195,7 @@ function Navbar() {
     <NavbarLinks />
 
     <ul className="navbar-end">
-      {!userLoggedIn ? <NavbarEndLoggedIn /> : <NavbarEndNotLoggedIn />}
+      {userLoggedIn ? <NavbarEndLoggedIn /> : <NavbarEndNotLoggedIn />}
     </ul>
   </nav>
   );
