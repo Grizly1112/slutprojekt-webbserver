@@ -48,7 +48,8 @@ export const login = async (req, res) => {
         const logginByEmail = user.username.includes("@");
 
         if(logginByEmail) {
-            userData = await UserModel.findOne({email: new RegExp(`^${user.email}`, 'i')})
+            console.log("ejeje")
+            userData = await UserModel.findOne({email: new RegExp(`^${user.username}`, 'i')})
         } else {
             userData = await UserModel.findOne({username: new RegExp(`^${user.username}`, 'i')})
         }
