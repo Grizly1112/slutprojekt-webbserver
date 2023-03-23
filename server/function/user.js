@@ -103,47 +103,100 @@ export const getuser = async (req, res) => {
 }
 
 
-export const uploadPfp = async(req, res) => {
-    const userId = req.body.userId;
-    console.log(userId)
-    console.log("Files: ?")
-    console.log(req.files)
-    console.log("_____")
+// export const uploadPfp = async(req, res) => {
+//     const userId = req.body.userId;
+//     console.log(userId)
+//     console.log("Files: ?")
+//     console.log(req.files)
+//     console.log("_____")
 
-    console.log(req.body)
+//     console.log(req.body)
 
-    var userPrf = "";
-    if (req.files) {
+//     var userPrf = "";
+
+    
+//     if (req.files) {
         
-        const promises = req.files.map(async image => {
-            try {
+//         const promises = req.files.map(async image => {
+//             try {
                 
-                const imgId = (await Image.create({ 
-                        data: image.buffer, 
-                        contentType: image.mimetype
-                    }))._id
+//                 const imgId = (await Image.create({ 
+//                         data: image.buffer, 
+//                         contentType: image.mimetype
+//                     }))._id
                     
-                return imgId
-            } catch (error) {
-                console.error(error)
-                return
+//                 return imgId
+//             } catch (error) {
+//                 console.error(error)
+//                 return
+//             }
+//         });
+
+//         userPrf = await Promise.all(promises)
+//     }
+//     try {
+//         const user = await UserModel.findById(userId);
+//         // console.log(user)
+//         // console.log(userPrf)
+
+//         user.pfp = userPrf._id;
+//         await user.save();
+//         let updatedPfp = await Image.findById(userPrf)
+
+//         res.status(200).json(updatedPfp)
+//     } catch(err) {
+//         console.log(err);
+//         return res.status(500).send({ message: "Serverfel uppstod"})
+//     }
+// }
+
+export const uploadPfp = async(req, res) => {
+        const userId = req.body.userId;
+        console.log(userId)
+        console.log("Files: ?")
+        console.log(req.files)
+        console.log("_____")
+    
+        console.log(req.body)
+    
+        var userPrf = "";
+        
+        try {
+            const user = await UserModel.findById(userId);
+            
+
+            const previousPfp = await Image.findById(user.pfp);
+            
+            // Få detta att funka (ta bort förra profilbilden)
+            // if(previousPfp && user.pfp !== "641cdbcb51dc7ad3744fdfc9") await Image.deleteOne({"_id": user.pfp}) 
+            
+            if (req.files) {
+                const promises = req.files.map(async image => {
+                    try {
+                        const imgId = (await Image.create({ 
+                                data: image.buffer, 
+                                contentType: image.mimetype
+                            }))._id
+                            
+                        return imgId
+                    } catch (error) {
+                        console.error(error)
+                        return
+                    }
+                });
+                userPrf = await Promise.all(promises)
+            
+                user.pfp = userPrf._id;
+                await user.save();
+
+                // Kanske itne behövs får se
+                let updatedPfp = await Image.findById(userPrf)
+                res.status(200).json(updatedPfp)
+
             }
-        });
-
-        userPrf = await Promise.all(promises)
+        } catch(err) {
+            console.log(err);
+            return res.status(500).send({ message: "Serverfel uppstod"})
+        }
+       
     }
-    try {
-        const user = await UserModel.findById(userId);
-        // console.log(user)
-        // console.log(userPrf)
-
-        user.pfp = userPrf._id;
-        await user.save();
-        let updatedPfp = await Image.findById(userPrf)
-
-        res.status(200).json(updatedPfp)
-    } catch(err) {
-        console.log(err);
-        return res.status(500).send({ message: "Serverfel uppstod"})
-    }
-}

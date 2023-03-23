@@ -9,6 +9,8 @@ import Utils from '../assets/functiions/Utils';
 import { checkAuthLevel } from '../assets/functiions/Auth';
 import axios from 'axios';
 
+import defaultAvatar from '../assets/avatarDefault.png'
+
 export default function User() {
     const params = useParams()
     const usernameByParam = params.id;
@@ -57,6 +59,12 @@ export default function User() {
         e.preventDefault();
         createPost(postImage)
         setuUerProfileEditPfp(false)
+
+        // Kanske kan lösa
+        // Påmilese: läs på om detta !!
+        // https://stackoverflow.com/questions/73256804/how-to-update-user-image-across-all-components-without-page-refresh
+        //  och usesession https://next-auth.js.org/getting-started/client
+        location.reload();
 
     }
 
@@ -127,7 +135,15 @@ export default function User() {
                         <span>Change Image</span>
                     </label>
                     <input id="file" type="file" onchange="loadFile(event)"/>
-                    <img src={userProfileHasChanged ? postImage.myFile : user.pfp.img} id="output" width="200" />
+                    
+                    {/* Not required but if table images isnt avalibe when this condition will run! */}
+                    {
+                        user.pfp ? 
+                        <img src={userProfileHasChanged ? postImage.myFile : user.pfp.img || "#"} id="output" width="200" />
+                        :
+                        // If database images is empy
+                        <img src={userProfileEditPfp ? postImage.myFile : defaultAvatar}></img>
+                    }
                     </div>
                      
                     {/*  */}
