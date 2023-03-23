@@ -7,6 +7,7 @@ import Register from "./components/Register";
 import Chat from "./Pages/Chat";
 import User from "./Pages/User";
 import TermsService from "./Pages/TermsService";
+import Test from "./Pages/Test";
 
 function App() {
 
@@ -20,6 +21,7 @@ function App() {
         <Route path="/user/:id" element={<User />}/>
         <Route path="/terms" element={<TermsService />}/>
         <Route path="*" element={<PageNotFound/>} />
+        <Route path="/test" element={<Test/>} />
       </Routes>
     </>
   )

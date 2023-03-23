@@ -63,7 +63,7 @@
     flex-direction: column;
     align-items: center;
     gap: 2rem;
-    padding: 2rem;
+    /* padding: 2rem; */
 }
 
 .userProfile .userProfile-header {
@@ -112,12 +112,7 @@
 
 
 
-.userProfile .userProfile-pfp-div .userProfile-pfp {
-    width: 100%;
-    aspect-ratio: 1/1;
-    border-radius: 50%;
-    background-color: #fff;
-}
+
 
 /* .userProfile .userProfile-pfp-div:hover::after{
     content: 'Ändra Profilbild';
@@ -215,4 +210,95 @@
 .userProfile .viewMore .content {
     width: 100%;
     height: 50%;
+}
+
+.profile-pic {
+    height: 100%;
+    width: 100%;
+    color: transparent;
+    transition: all 0.3s ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    transition: all 0.3s ease;
+    border-radius: 50%;
+  }
+  .profile-pic input {
+    display: none;
+  }
+  .profile-pic img {
+    position: absolute;
+    object-fit: fill;
+    width: 100%;
+    aspect-ratio: 1/1;
+    box-shadow: 0 0 10px 0 rgba(255, 255, 255, 0.35);
+    border-radius: 50%;
+    z-index: 0;
+  }
+  .profile-pic .-label {
+    display: none;
+    cursor: pointer;
+    height: 100%;
+    width: 100%;
+    transition: background-color 0.2s ease-in-out;
+    border-radius: 50%;
+  }
+  .profile-pic .-label svg {
+    font-size: 2rem;
+
+  }
+
+/* Fiza franöver kanske */
+  /* .profile-pic:hover .-label {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.8);
+    z-index: 2;
+    color: rgb(250, 250, 250);
+    transition: background-color 0.2s ease-in-out;
+    border-radius: 50%;
+    margin-bottom: 0;
+  }
+  .profile-pic span {
+    display: inline-flex;
+    padding: 0.2em;
+    height: 2em;
+  } */
+
+.viewMore input[type='file'], 
+    .viewMore input[type='submit'] {
+    display: none;
+}
+
+.viewMore form {
+    max-width: auto;
+    display: flex;
+    gap: 1rem;
+    flex-direction: row;
+    align-items: flex-start;
+}
+
+.viewMore .editProfilePicture {
+    background-color: var(--bg-m);
+    width: fit-content;
+    display: flex;
+    white-space: nowrap;
+    align-items: center;
+    gap: .5rem;
+    color: var(--text-color);
+    padding: .5rem;
+    border-radius: 8px;
+    box-shadow: 0px 1px 2px rgba(255, 255, 255, 0.5);
+    cursor: pointer;
+}
+
+
+.viewMore .savepfpEdits {
+    background-color: rgb(52, 199, 89) !important;
+}
+
+.viewMore .deleteEdits {
+    background-color: red;
 }

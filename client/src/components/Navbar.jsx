@@ -28,7 +28,7 @@ function Navbar() {
       userLoggedIn = true;
       user = JSON.parse(localStorage.getItem('user')).userData
       console.log(user.username)
-    } 
+  } 
 
 
   function NavbarEndLoggedIn() {

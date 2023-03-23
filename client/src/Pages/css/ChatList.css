@@ -29,9 +29,7 @@
     height: 8vh;
     background-color:rgb(27, 27, 27);
     border-bottom: 2px solid var(--bg-m) ;
-    transition: 0.2s all ease;
-
-    
+    transition: 0.2s all ease;   
 }
 
 
@@ -42,17 +40,13 @@ align-items: center;
 justify-content: space-between;
 height: 100%;
 width: 100%;
-
 }
 .ChatContainer .message .messageContainer .messagePreview{
-
     display: none;
     align-items: center;
     height: 90%;
     width: 7rem;
     margin-right: 1.5rem;
-
-
 }
 
 

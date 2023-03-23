@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { FaCircle, FaEdit, FaExclamationTriangle, FaOpencart, FaScrewdriver, FaServer, FaUserCog, FaUserPlus, FaUserSlash } from 'react-icons/fa';
+import { FaCircle, FaEdit, FaExclamationTriangle, FaFileImage, FaImage, FaOpencart, FaScrewdriver, FaServer, FaUserCog, FaUserPlus, FaUserSlash } from 'react-icons/fa';
 import { NavLink, useLocation, useParams} from 'react-router-dom'
 import { GetUser } from '../api/user';
 import ServerError from '../components/ServerError';
@@ -7,6 +7,7 @@ import Tooltip from '../components/Tooltip';
 import './css/User.css'
 import Utils from '../assets/functiions/Utils';
 import { checkAuthLevel } from '../assets/functiions/Auth';
+import axios from 'axios';
 
 export default function User() {
     const params = useParams()
@@ -15,13 +16,24 @@ export default function User() {
     const [noUserFound, setNoUserFound] = useState(false);
     const [serverError, setServerError] = useState(false)
     const [user, setUser] = useState(false);
-  const [ownerWhoVisit, setOwnerWhoVisit] = useState(false);
+    const [ownerWhoVisit, setOwnerWhoVisit] = useState(false);
+    const [activeTab, setActiveTab] = useState("about");
+    const [isLoading, setIsLoading] = useState(true);
+    const [postImage, setPostImage] = useState({myFile: ""})
 
+    const [userProfileHasChanged, setUserProfileHasChanged] = useState(false);
+
+
+
+
+
+    var userVisitng = {}
 
     useEffect(() => {
         GetUser(usernameByParam).then(res => {
             setUser(res.data)
             console.log(res.data)
+            setIsLoading(false)
         }).catch((err) => {
             try {
 
@@ -38,6 +50,31 @@ export default function User() {
         });
     }, [])
 
+    
+    
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        createPost(postImage)
+
+    }
+
+    const createPost = async (newImage) => {
+        try {
+            console.log(userVisitng)
+            await axios.post("http://localhost:8000/user/updateprofilepicture", {newImage, useriD: userVisitng._id})
+        } catch(error) {
+            console.log(error)
+        }
+    }
+
+
+
+    const hanldeFileUpload = async (e) => {
+        const file = e.target.files[0];
+        const base64 = await convertToBase64(file);
+        setPostImage({...postImage, myFile: base64})
+        console.log(postImage)
+    }
 
     const NoUserFound = () => {
         return(
@@ -49,7 +86,6 @@ export default function User() {
         )
     }
 
-    const [activeTab, setActiveTab] = useState("about");
   
 
     const UserProfile = () => {
@@ -60,9 +96,6 @@ export default function User() {
         const UserFriends = () => {
             return(<div>Vänlista</div>)
         }
-
-        
-            var userVisitng = {}
             let userLoggedIn = false;
 
             if(
@@ -83,7 +116,19 @@ export default function User() {
             <div className='userProfile'>
                 <div className='userProfile-header'>
                 <div className='userProfile-pfp-div'>
-                    <img src="#" className='userProfile-pfp' alt="pfp" />
+                    {/* <img src={user.pfp.img} className='userProfile-pfp-img' alt="pfp" /> */}
+                    {/*  */}
+
+                    <div class="profile-pic">
+                    <label class="-label" for="file">
+                        <span class="glyphicon glyphicon-camera"></span>
+                        <span>Change Image</span>
+                    </label>
+                    <input id="file" type="file" onchange="loadFile(event)"/>
+                    <img src={userProfileHasChanged ? postImage.myFile : user.pfp.img} id="output" width="200" />
+                    </div>
+                     
+                    {/*  */}
                 </div>
                 <div className="userProfile-header-information">
                     <div className='userProfile-username-div'>
@@ -111,9 +156,34 @@ export default function User() {
                     userViewing ? (userViewing.username === user.username ? <input type="file" accept='image/*' placeholder='Profilbild' /> : null) : null
                     
                 } */}
-                {
-                    ownerWhoVisit ? <input type="file" accept='image/*' placeholder='Profilbild' /> : null
-                }
+               {
+                    ownerWhoVisit ? 
+                    <>
+                    <form onSubmit={handleSubmit}>
+                        {
+                            userProfileHasChanged ? 
+                            <>
+                            <label className='editProfilePicture savepfpEdits'>
+                              <FaEdit /> Spara profilbild
+                             <input type="submit" value="spara" />
+                            </label>
+                            <label className='editProfilePicture deleteEdits' onClick={() => setUserProfileHasChanged(false)}>
+                              <FaEdit /> Avbryt
+                            </label>
+                            </>
+                            :
+                        <label className='editProfilePicture'>
+                                <FaEdit /> Ändra profilbild
+                                <input type="file" name="myFile" id="file-upload" accept='.jpeg, .png, .jpg' 
+                                 onChange={async(e) => { await hanldeFileUpload(e);  setUserProfileHasChanged(true); }}
+                                 />
+                        </label>
+                   
+                                }
+                    </form>
+                    </>
+                    : null
+                } 
                    <div className='select'>
                         <ul>
                             <li className={activeTab === "about" ? "select-active " : null} id='about' onClick={(e) => {
@@ -145,7 +215,7 @@ export default function User() {
     <>
     <div className='userContainer'>
       {
-        noUserFound ? <NoUserFound /> : <UserProfile />
+        noUserFound ? <NoUserFound /> : (isLoading ? <p>Laddar</p> : <UserProfile />)
       }
       {
         serverError ? <ServerError /> : null
@@ -153,4 +223,18 @@ export default function User() {
     </div>
     </>
   );
+}
+
+const convertToBase64 = (file) => {
+    return new Promise((resolve, reject) => {
+        const fileReader = new FileReader();
+        fileReader.readAsDataURL(file);
+        fileReader.onload = () => {
+            resolve(fileReader.result)
+        };
+        fileReader.onerror = (error) => {
+            reject(error)
+        }
+    })
+    return test
 }
