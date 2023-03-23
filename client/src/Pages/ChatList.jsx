@@ -37,7 +37,7 @@ function ChatList() {
 
         return(
             <>
-             <div className="message">
+             <div className="dm">
                 <div className="messageContainer">
                     <div className="profileContent">
                         <div className="pfp">

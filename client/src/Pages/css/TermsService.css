@@ -1,7 +1,5 @@
 
-/* FUKCAR MED NAVBAREN _ FÅR GÖRAS OM */
-
-/* .scrollToS{
+.scrollToS{
     position: fixed;
     top: 4rem;
     height: calc(100vh - 4rem);
@@ -12,7 +10,7 @@
     flex-direction: column;
 }
 
-.scrollToS > div{   
+.scrollToS > .scrollTitle{   
     color: var(--text-c);
     font-weight: 600;
     cursor: pointer;
@@ -22,14 +20,7 @@
     border-radius: 0.5rem;
 }
 
-.scrollToS > div:hover{
-    background-color: var(--bg-d);
-}
-
-.testNav{
-    position: fixed;
-    height: 4rem;
-    width: 100%;
+.scrollToS > .scrollTitle:hover{
     background-color: var(--bg-d);
 }
 
@@ -65,7 +56,7 @@
     color: var(--bg-m);
 }
 
-.title{
+.titleToS{
     margin-top: 3rem;
     width: 90%;
     color: var(--bg-l);
@@ -73,9 +64,9 @@
     font-size: 1.5rem;
 }
 
-.textContent{
+.textToS{
     margin-top: 1rem;
     width: 90%;
     font-size: 1rem;
     color: var(--text-c);
-} */
+}
