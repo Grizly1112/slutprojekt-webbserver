@@ -222,8 +222,8 @@ export default function TermsService(){
     const TitlesText = (props) => {
         return(
             <>
-                <div className="title" id={props.id}>{props.title}</div>
-                <div className="textContent">{props.text}</div>  
+                <div className="titleToS" id={props.id}>{props.title}</div>
+                <div className="textToS">{props.text}</div>  
             </>
         )
     } 
