@@ -10,18 +10,15 @@
 
 .ChatContainer{
     display: flex;
-    position: fixed;
-    top:4rem;
     flex-direction: column;
     width: 15rem;
-    height: 96vh;
+    height:calc(100vh - var(--nav-size)) ;
     background-color:var(--bg-d-accent);
-    z-index: -99999;
-    box-shadow: rgba(0, 0, 0, 0.2) 0px 20px 30px;;
     color: var(--text-c);
+    z-index: 999;
 }
 
-.ChatContainer .message{
+.ChatContainer .dm{
     display: flex;
     align-items: flex-start;
     justify-content: center;
@@ -35,7 +32,7 @@
 }
 
 
-.ChatContainer .message .messageContainer{
+.ChatContainer .dm .messageContainer{
 display: flex;
 flex-direction: column;
 align-items: center;
@@ -44,7 +41,7 @@ height: 100%;
 width: 100%;
 
 }
-.ChatContainer .message .messageContainer .messagePreview{
+.ChatContainer .dm .messageContainer .messagePreview{
 
     display: none;
     align-items: center;
@@ -56,12 +53,12 @@ width: 100%;
 }
 
 
-.ChatContainer .message .messageContainer .messagePreview p{
+.ChatContainer .dm .messageContainer .messagePreview p{
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;
 }
-.ChatContainer .message .messageContainer .profileContent{
+.ChatContainer .dm .messageContainer .profileContent{
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -77,7 +74,7 @@ width: 100%;
     
 
 
-.ChatContainer .message .messageContainer .profileContent .pfp{
+.ChatContainer .dm .messageContainer .profileContent .pfp{
     display: flex;
     align-items: flex-end;
     justify-content: flex-end;
@@ -85,7 +82,7 @@ width: 100%;
     width: 5vh;
     padding-left: 1rem;
 }
-.ChatContainer .message .messageContainer .profileContent .pfp img{
+.ChatContainer .dm .messageContainer .profileContent .pfp img{
     position: relative;
     width: 100%;
     height: 100%;
@@ -94,7 +91,7 @@ width: 100%;
 
 }
 
-.ChatContainer .message .messageContainer .profileContent .pfp .status{
+.ChatContainer .dm .messageContainer .profileContent .pfp .status{
     position:absolute;
     height:10px;
     width: 10px;
@@ -103,13 +100,13 @@ width: 100%;
     z-index: 9999;
 }
 
-.ChatContainer .message .messageContainer .profileContent .username{
+.ChatContainer .dm .messageContainer .profileContent .username{
     color: var(--bg-m);
     font-weight: 500;
     margin-left: 1rem;
 }
 
-.ChatContainer .message:hover{
+.ChatContainer .dm:hover{
     height: 15vh;
 
 

@@ -1,5 +1,8 @@
 .Chat{
-    width: 100%;
-    height: 100%;
-  
+    display: flex;
+    flex-direction: row;
+    margin-top: var(--nav-size);
+    width: calc(100% -15rem);
+    height: calc(100%-var(--nav-size));
+    
 }

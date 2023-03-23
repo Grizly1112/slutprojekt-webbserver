@@ -1,0 +1,134 @@
+.ChatWindowContainer{
+    display: flex;
+    flex-direction: column;
+    height: calc(100vh-var(--nav-size));
+    width: calc(100% - 15rem);
+    background-color:inherit;
+
+}
+
+
+.ChatName{
+    display: flex;
+    align-items: center;
+    height: 6%;
+    width: 100%;
+    background-color: var(--bg-m);
+    color: var(--text-c);
+}
+
+.ChatName .GlobeIcon{
+    color: var(--text-c);
+    scale: 2;
+    padding-left: 0.9rem;
+}
+
+.ChatName h2{
+    width: 100px;
+    padding-left:1.7rem;
+}
+.ChatWindowContainer .ChatWindowMessageContainer{
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: center;
+    height: 84%;
+    width: 100%;
+
+
+}
+.MessageHr{
+    height: 1px;
+    width: 99%;
+    background-color: var(--text-c);
+    opacity: 0.2;
+    border: none;
+}
+.ChatWindowContainer .ChatWindowMessageContainer .Message{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    width: 100%;
+    min-height: 7vh;
+    padding: 1rem 0;
+    
+}
+
+.ChatWindowContainer .ChatWindowMessageContainer .Message .ChatContent{
+    width:calc(100% - 10rem);
+    height: fit-content;
+    margin-top: 0.3rem;
+
+}
+
+.ChatWindowContainer .ChatWindowMessageContainer .Message .ChatContent .ChatHeader{
+    display: flex;
+    flex-direction: row;
+    gap: 0.5rem;
+    
+
+    
+
+}
+.ChatWindowContainer .ChatWindowMessageContainer .Message .ChatContent .ChatHeader .HeaderUsername {
+    display: flex;
+    align-items: flex-end;
+    width: fit-content;
+    color: var(--bg-m);
+    font-size: 1.2rem;
+    font-weight: 800;
+    white-space: nowrap;
+}
+
+
+.ChatWindowContainer .ChatWindowMessageContainer .Message .ChatContent .ChatHeader .HeaderDate{
+    display: flex;
+    align-items: flex-end;
+    width: fit-content;
+    color: var(--text-c);
+    opacity: 0.7;
+    font-size: 0.8rem;
+    font-weight: 400;
+    white-space: nowrap;
+    margin-bottom: 0.16rem;
+} 
+
+.ChatWindowContainer .ChatWindowMessageContainer .Message .ChatPfp{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height:7vh;
+    width: 5rem;
+}
+.ChatWindowContainer .ChatWindowMessageContainer .Message .ChatPfp img{
+    aspect-ratio: 1/1;
+    width: 5vh;
+
+    border-radius: 50%;
+    
+}
+
+.ChatWindowContainer .ChatWindowMessageContainer .Message .MessageText{
+    display: flex;
+    height: fit-content;
+    max-width: 100%;
+    overflow: hidden;
+    width: fit-content;
+    overflow: hidden;
+    color: var(--text-c);
+    margin-top: 0.1rem;
+
+}
+.ChatWindowContainer .ChatWindowMessageContainer .Message .MessageText p{
+    height: fit-content;
+    word-break: break-all;
+
+
+
+}
+.ChatWindowContainer .MessageBox{
+    height: 10%;
+    width:100%;
+    background-color:var(--bg-d-l);
+    box-shadow: rgba(0, 0, 0, 0.2) 0px -10px 30px;;
+
+}
