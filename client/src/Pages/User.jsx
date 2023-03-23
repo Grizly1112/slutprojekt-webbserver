@@ -22,8 +22,9 @@ export default function User() {
     const [postImage, setPostImage] = useState({myFile: ""})
 
     const [userProfileHasChanged, setUserProfileHasChanged] = useState(false);
+    const [userProfileEditPfp, setuUerProfileEditPfp] = useState(false);
 
-
+    // Fixa till denna filen och flytta om diverse
 
 
 
@@ -52,9 +53,10 @@ export default function User() {
 
     
     
-    const handleSubmit = (e) => {
+    const handleSubmit = async(e) => {
         e.preventDefault();
         createPost(postImage)
+        setuUerProfileEditPfp(false)
 
     }
 
@@ -161,13 +163,13 @@ export default function User() {
                     <>
                     <form onSubmit={handleSubmit}>
                         {
-                            userProfileHasChanged ? 
+                            userProfileEditPfp ? 
                             <>
                             <label className='editProfilePicture savepfpEdits'>
                               <FaEdit /> Spara profilbild
                              <input type="submit" value="spara" />
                             </label>
-                            <label className='editProfilePicture deleteEdits' onClick={() => setUserProfileHasChanged(false)}>
+                            <label className='editProfilePicture deleteEdits' onClick={() => {setUserProfileHasChanged(false); setuUerProfileEditPfp(false)}}>
                               <FaEdit /> Avbryt
                             </label>
                             </>
@@ -175,7 +177,7 @@ export default function User() {
                         <label className='editProfilePicture'>
                                 <FaEdit /> Ändra profilbild
                                 <input type="file" name="myFile" id="file-upload" accept='.jpeg, .png, .jpg' 
-                                 onChange={async(e) => { await hanldeFileUpload(e);  setUserProfileHasChanged(true); }}
+                                 onChange={async(e) => { await hanldeFileUpload(e);  setUserProfileHasChanged(true);setuUerProfileEditPfp(true) }}
                                  />
                         </label>
                    
