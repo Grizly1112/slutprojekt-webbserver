@@ -67,16 +67,16 @@ function ChatList() {
     return(
         <>
         <div className="ChatContainerSidebar">
-        <div className="ChatContainer">
-            {messageArray.map((message, i) =>{
+            <div className="ChatContainer">
+                {messageArray.map((message, i) =>{
 
-                return <Message name={message.name} pfp={message.pfp} text={message.text}/>
+                    return <Message name={message.name} pfp={message.pfp} text={message.text}/>
 
 
 
-            })}
-           
-        </div>
+                })}
+            
+            </div>
         </div> 
     </>
 

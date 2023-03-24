@@ -9,3 +9,11 @@
     height: calc(100%-var(--nav-size));
     overflow: hidden;
 }
+
+
+.Chat * {
+    animation: fadeInAnimation ease .4s;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+}
+    

@@ -1,7 +1,7 @@
 import './css/Navbar.css'
 import React, { useState, useEffect, useRef } from 'react';
 import { CSSTransition } from 'react-transition-group';
-import { FaBell, FaBolt, FaChevronCircleLeft, FaMailBulk, FaPlus, FaCog, FaChevronRight, FaChevronLeft, FaUserAlt, FaFacebookMessenger, FaMedal, FaStumbleupon, FaDotCircle, FaDemocrat, FaRegCommentAlt, FaRegCommentDots, FaRegUser, FaUserPlus, FaUser, FaUserCircle, FaChevronCircleRight, FaFileArchive, FaQuestion, FaRegQuestionCircle, FaMoon, FaRuler, FaRegNewspaper, FaSun, FaSuitcaseRolling, FaBaby, FaExpandAlt, FaChevronDown, FaClipboard, FaExternalLinkAlt, FaExclamationTriangle, FaFireExtinguisher, FaQuoteLeft, FaFastForward, FaEnvelopeOpenText, FaExternalLinkSquareAlt, FaRegBell, FaConciergeBell, FaToggleOff, FaPowerOff, FaBellSlash, FaRunning, FaHandMiddleFinger, FaInfinity, FaLevelDownAlt, FaHandshake, FaHandshakeSlash } from 'react-icons/fa';
+import { FaBell, FaBolt, FaChevronCircleLeft, FaMailBulk, FaPlus, FaCog, FaChevronRight, FaChevronLeft, FaUserAlt, FaFacebookMessenger, FaMedal, FaStumbleupon, FaDotCircle, FaDemocrat, FaRegCommentAlt, FaRegCommentDots, FaRegUser, FaUserPlus, FaUser, FaUserCircle, FaChevronCircleRight, FaFileArchive, FaQuestion, FaRegQuestionCircle, FaMoon, FaRuler, FaRegNewspaper, FaSun, FaSuitcaseRolling, FaBaby, FaExpandAlt, FaChevronDown, FaClipboard, FaExternalLinkAlt, FaExclamationTriangle, FaFireExtinguisher, FaQuoteLeft, FaFastForward, FaEnvelopeOpenText, FaExternalLinkSquareAlt, FaRegBell, FaConciergeBell, FaToggleOff, FaPowerOff, FaBellSlash, FaRunning, FaHandMiddleFinger, FaInfinity, FaLevelDownAlt, FaHandshake, FaHandshakeSlash, FaArrowDown } from 'react-icons/fa';
 import Modal from './Modal';
 import Utils from '../assets/functiions/Utils'
 import Tooltip from './Tooltip';
@@ -11,6 +11,11 @@ import logo from '../assets/logo.png';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { checkAuthLevel } from '../assets/functiions/Auth';
 
+// Test
+import UserPfpTest from '../assets/avatarDefault.png'
+import { GetUser } from '../api/user';
+import { Spinner } from './Loader';
+
 // Källkod: https://www.youtube.com/watch?v=IF6k0uZuypA&t=382s
 // Inspiration Gymansiearbete Valeria forum
 
@@ -18,17 +23,36 @@ function Navbar() {
   const [notificationCount, SetNotificationCount] = useState(1);
   const resetNotifications = () => SetNotificationCount(0);
 
-  var user = {}
-  let userLoggedIn = false;
+  const [user, setUser] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+  const [userLoggedIn, setUserLoggedIn] = useState(false);
 
-  if(
-    localStorage.getItem('user') 
-    && 
-    checkAuthLevel(JSON.parse(localStorage.getItem('user')).token, 0)) {
-      userLoggedIn = true;
-      user = JSON.parse(localStorage.getItem('user')).userData
-      console.log(user.username)
+  // För animationen
+
+
+  useEffect(() => {
+    if(localStorage.getItem('user') && checkAuthLevel(JSON.parse(localStorage.getItem('user')).token, 0)) {
+      setUserLoggedIn(true)
+      
+      GetUser(JSON.parse(localStorage.getItem('user')).userData.username).then(res => {
+        setUser(res.data)
+        setTimeout(() => setIsLoading(false), 450)
+      }).catch((err) => {
+        try {
+
+            if(err.response.status === 404) {
+                console.log("kunde inte hitta")
+                setNoUserFound(true)
+            } else if(err.response.status === 500) {
+              setServerError(true);
+                console.log("Server error")
+            }
+        } catch(err) {
+            setServerError(true)
+          }
+        });
   } 
+}, [])
 
 
   function NavbarEndLoggedIn() {
@@ -61,7 +85,7 @@ function Navbar() {
         <>
           <div className='navbarModal'>
             <NavLink className='navbarModalNavLink' to={`/user/${user.username}`}>
-              <NavbarModalitem iconleft={<FaUserCircle />} label={user.username} iconRight={<FaChevronCircleRight />}/>
+              <NavbarModalitem iconleft={<FaUserCircle />} label={"Ditt konto"} iconRight={<FaChevronCircleRight />}/>
             </NavLink>
               
             
@@ -123,11 +147,20 @@ function Navbar() {
           </Modal>
         </NavItem>
 
-        <NavItem>
-          <Modal btnLabel={<FaUserAlt />} btnClass="icon-button" activeClass="active-navbar-button">
+        {
+          isLoading ? 
+          <NavItem>
+            <Spinner />
+          </NavItem>
+          :
+          <NavItem>
+          <Modal btnLabel={<img src={
+            user.pfp ? user.pfp.img : UserPfpTest
+            } />} btnClass="icon-button" activeClass="active-navbar-button">
             <UserModal />
           </Modal>
         </NavItem>
+        }
       </>
     )
   }
@@ -183,10 +216,10 @@ function Navbar() {
   function NavbarLinks() {
     return(
       <ul className='navbar-links'>
-        <li>🍅</li>
-        <li>🥫</li>
-        <li>🍅</li>
-        <li>🥫</li>
+        <li>Startskärm</li>
+        <li>Grupper</li>
+        <li>Medlemmar</li>
+        <li>Tickets</li>
       </ul>
     )
   }

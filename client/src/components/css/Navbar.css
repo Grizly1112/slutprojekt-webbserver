@@ -64,7 +64,15 @@
     align-items: center;
     justify-content: center;
     height: 100%;
+    cursor: pointer;
 }
+
+.nav-item  img {
+  width: 100%;
+  aspect-ratio: 1/1;
+  border-radius: 50%;
+}
+
 .notificationbell {
   animation: ring 1s ease-in-out;
 }

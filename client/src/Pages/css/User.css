@@ -5,7 +5,18 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
+ 
 }
+
+.userContainer * {
+   animation: none;
+}
+.hasLoadedInOnce *{
+    animation: fadeInAnimation ease .6s;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;}
+
+
 
 .noUserFound {
     display: flex;
@@ -54,6 +65,7 @@
 
 .userProfile {
     width: 50vw;
+    transition: all .6s ease-in-out;
     padding: 1rem;
     height: 70vh;
     border-radius: 8px;
@@ -63,8 +75,10 @@
     flex-direction: column;
     align-items: center;
     gap: 2rem;
-    /* padding: 2rem; */
+
+    
 }
+
 
 .userProfile .userProfile-header {
     display: flex;
@@ -228,12 +242,12 @@
     display: none;
   }
   .profile-pic img {
-    position: absolute;
     width: 100%;
     aspect-ratio: 1/1;
     box-shadow: 0 0 10px 0 rgba(255, 255, 255, 0.35);
     border-radius: 50%;
     z-index: 0;
+  border-radius: 50%;
   }
   .profile-pic .-label {
     display: none;

@@ -10,6 +10,7 @@ import { checkAuthLevel } from '../assets/functiions/Auth';
 import axios from 'axios';
 
 import defaultAvatar from '../assets/avatarDefault.png'
+import {Loader} from '../components/Loader';
 
 export default function User() {
     const params = useParams()
@@ -26,17 +27,18 @@ export default function User() {
     const [userProfileHasChanged, setUserProfileHasChanged] = useState(false);
     const [userProfileEditPfp, setuUerProfileEditPfp] = useState(false);
 
+    const [hasLoadedInOnce,setHasLoadedInOnce] = useState(false)
+    
+    
+    
     // Fixa till denna filen och flytta om diverse
-
-
-
     var userVisitng = {}
-
     useEffect(() => {
         GetUser(usernameByParam).then(res => {
             setUser(res.data)
             console.log(res.data)
-            setIsLoading(false)
+            setTimeout(() => setIsLoading(false), 450)
+            setTimeout(() => setHasLoadedInOnce(true), 1500)
         }).catch((err) => {
             try {
 
@@ -123,18 +125,16 @@ export default function User() {
 
 
         return(
-            <div className='userProfile'>
+            <div className={hasLoadedInOnce ? 'userProfile ': "userProfile hasLoadedInOnce"}>
                 <div className='userProfile-header'>
                 <div className='userProfile-pfp-div'>
-                    {/* <img src={user.pfp.img} className='userProfile-pfp-img' alt="pfp" /> */}
-                    {/*  */}
 
                     <div class="profile-pic">
-                    <label class="-label" for="file">
+                    <label class="-label" htmlFor="file">
                         <span class="glyphicon glyphicon-camera"></span>
                         <span>Change Image</span>
                     </label>
-                    <input id="file" type="file" onchange="loadFile(event)"/>
+                    <input id="file" type="file"/>
                     
                     {/* Not required but if table images isnt avalibe when this condition will run! */}
                     {
@@ -233,7 +233,7 @@ export default function User() {
     <>
     <div className='userContainer'>
       {
-        noUserFound ? <NoUserFound /> : (isLoading ? <p>Laddar</p> : <UserProfile />)
+        noUserFound ? <NoUserFound /> : (isLoading ? <Loader label="Laddar in användaren" /> : <UserProfile />)
       }
       {
         serverError ? <ServerError /> : null
@@ -254,5 +254,4 @@ const convertToBase64 = (file) => {
             reject(error)
         }
     })
-    return test
 }

@@ -57,4 +57,9 @@ Utils.Logout = function() {
     window.location.reload();
 }
 
+Utils.Sleep = function(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+
 export default Utils;
