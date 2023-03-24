@@ -6,7 +6,6 @@ import './css/ChatWindow.css';
 
 function ChatWindow() {
 
-
     const messageArray = [{
 
         name: "Grizly",
@@ -14,19 +13,21 @@ function ChatWindow() {
         text:"Ut med muslimianerna",
         time: "23:59" ,
     },
+ 
+    
     {
 
-        name: "Isaactope",
-        pfp: "https://cdn.discordapp.com/avatars/606546899083984896/4795d348642ac72c7b900c0389ac10e3.webp?size=128",
-        text:"MAMAMAMGMAGMGMAMGA",
-        time: "22:52" ,
+        name: "Emirzade",
+        pfp: "https://cdn.discordapp.com/avatars/381513130771087370/4419cc95c25b44938d8b6d4d0a6dbb43.webp?size=128",
+        text:"bruhbruhbruhbruhbruhbruhbruhbruhbruhbruhbruhbruhbruhbruhbruhbruhbruhbruhbruhbruhbruhbruhbruhbruhbruhbruhbruhbruhbruhbruhbruhbruhbruhbruhbruhbruhbruhbruhbruhbruhbruhbruhbruhbruhbruhbruhbruhbruhbruhbruhbruhbruhbruhbruhbruhbruhbruhbruhbruh",
+        time: "22:48" ,
 
     },
     {
 
         name: "Emirzade",
         pfp: "https://cdn.discordapp.com/avatars/381513130771087370/4419cc95c25b44938d8b6d4d0a6dbb43.webp?size=128",
-        text:"bruh",
+        text:"brubruhbruhbruhbruhbrubruhbruhbruhbruhbruhbruhbruhbruhhbrubruhbruhbruhbruhbruhbruhbruhbruhhbrubruhbruhbruhbruhbruhbruhbruhbruhhbrubruhbruhbruhbruhbruhbruhbruhbruhhbrubruhbruhbruhbruhbruhbruhbruhbruhhbruhbruhbruhbruhh",
         time: "22:48" ,
 
     },
@@ -40,19 +41,111 @@ function ChatWindow() {
 
     },
 
+    {
+
+        name: "Isaactope",
+        pfp: "https://cdn.discordapp.com/avatars/606546899083984896/4795d348642ac72c7b900c0389ac10e3.webp?size=128",
+        text:"MAMAMAMGMeAGMGMAMGAMAMAMAMGMeAGMGMAMGAMAMAMAMGMeAGMGMAMGA",
+        time: "22:54" ,
+
+    },
+    {
+
+        name: "Isaactope",
+        pfp: "https://cdn.discordapp.com/avatars/606546899083984896/4795d348642ac72c7b900c0389ac10e3.webp?size=128",
+        text:"MAMAMAMGMeAGMGAMAMAMAGGMAMGA",
+        time: "22:54" ,
+
+    },
+    {
+
+        name: "Grizly",
+        pfp: "https://cdn.discordapp.com/avatars/431824979554992132/3a3e21c61bed5e4cf147e7b64d79d441.webp?size=128",
+        text:"Ut med muslimianerna",
+        time: "23:59" ,
+    },
+    {
+
+        name: "Emirzade",
+        pfp: "https://cdn.discordapp.com/avatars/381513130771087370/4419cc95c25b44938d8b6d4d0a6dbb43.webp?size=128",
+        text:"bruhbruhbruhbruhbruhbruhbruhbruhbruhbruhbruhbruhbruhbruhbruhbruhbruhbruhbruhbruhbruhbruhbruhbruhbruhbruhbruhbruhbruhbruhbruhbruhbruhbruhbruhbruhbruhbruhbruhbruhbruhbruhbruhbruhbruhbruhbruhbruhbruhbruhbruhbruhbruhbruhbruhbruhbruhbruhbruh",
+        time: "22:48" ,
+
+    },
+    {
+
+        name: "Grizly",
+        pfp: "https://cdn.discordapp.com/avatars/431824979554992132/3a3e21c61bed5e4cf147e7b64d79d441.webp?size=128",
+        text:"Ut med muslimianerna",
+        time: "23:59" ,
+    },
+    {
+
+        name: "Grizly",
+        pfp: "https://cdn.discordapp.com/avatars/431824979554992132/3a3e21c61bed5e4cf147e7b64d79d441.webp?size=128",
+        text:"Ut med muslimianerna",
+        time: "23:59" ,
+    },
+    {
+
+        name: "Grizly",
+        pfp: "https://cdn.discordapp.com/avatars/431824979554992132/3a3e21c61bed5e4cf147e7b64d79d441.webp?size=128",
+        text:"Ut med muslimianerna",
+        time: "23:59" ,
+    },
+    {
+
+        name: "Grizly",
+        pfp: "https://cdn.discordapp.com/avatars/431824979554992132/3a3e21c61bed5e4cf147e7b64d79d441.webp?size=128",
+        text:"Ut med muslimianerna",
+        time: "23:59" ,
+    },
+    {
+
+        name: "Emirzade",
+        pfp: "https://cdn.discordapp.com/avatars/381513130771087370/4419cc95c25b44938d8b6d4d0a6dbb43.webp?size=128",
+        text:"bruhbruhbruhbruhbruhbruhbruhbruhbruhbruhbruhbruhbruhbruhbruhbruhbruhbruhbruhbruhbruhbruhbruhbruhbruhbruhbruhbruhbruhbruhbruhbruhbruhbruhbruhbruhbruhbruhbruhbruhbruhbruhbruhbruhbruhbruhbruhbruhbruhbruhbruhbruhbruhbruhbruhbruhbruhbruhbruh",
+        time: "22:48" ,
+
+    },
+    {
+
+        name: "Grizly",
+        pfp: "https://cdn.discordapp.com/avatars/431824979554992132/3a3e21c61bed5e4cf147e7b64d79d441.webp?size=128",
+        text:"Ut med muslimianerna",
+        time: "23:59" ,
+    },  {
+
+        name: "Emirzade",
+        pfp: "https://cdn.discordapp.com/avatars/381513130771087370/4419cc95c25b44938d8b6d4d0a6dbb43.webp?size=128",
+        text:"bruhbruhbruhbruhbruhbruhbruhbruhbruhbruhbruhbruhbruhbruhbruhbruhbruhbruhbruhbruhbruhbruhbruhbruhbruhbruhbruhbruhbruhbruhbruhbruhbruhbruhbruhbruhbruhbruhbruhbruhbruhbruhbruhbruhbruhbruhbruhbruhbruhbruhbruhbruhbruhbruhbruhbruhbruhbruhbruh",
+        time: "22:48" ,
+
+    },
+    {
+
+        name: "Grizly",
+        pfp: "https://cdn.discordapp.com/avatars/431824979554992132/3a3e21c61bed5e4cf147e7b64d79d441.webp?size=128",
+        text:"Ut med muslimianerna",
+        time: "23:59" ,
+    },
+    
+ 
 
 ];
-
+var sameUser;
 
 
 
     const Message = (props) => {
-
+        console.log(sameUser)
 
         return(
             <>
-          
-            <div className="Message">
+            {props.same ? <hr className='MessageHr'/> : console.log("MAAAAAAAAAAAAAAAAAAAAAAAAAG") }
+
+            {props.same ? <>
+                <div className="Message">
                     <div className="ChatPfp">
                     <img src={props.pfp} alt="" />
 
@@ -64,8 +157,27 @@ function ChatWindow() {
                 <div className="MessageText"><p>{props.text}</p></div>
                 </div>
             </div>
-           <hr className='MessageHr'/>
             </>
+            
+            
+            
+            
+            
+            
+            : <>
+            <div className="SameUserMessage">
+        
+                <div className="ChatContent">
+             
+            <div className="MessageText"><p>{props.text}</p></div>
+            </div>
+        </div>
+        </> }
+
+            
+       
+            </>
+            
         )
     }     
 
@@ -73,14 +185,15 @@ function ChatWindow() {
         <>
         <div className="ChatWindowContainer">
             <div className="ChatName"> <FaGlobeAfrica className='GlobeIcon'/> <h2>Global</h2>  </div>
-            <div className="ChatWindowMessageContainer">
+            <div className="ChatWindowMessageContainer" id='BottomScroll'>
             {messageArray.map((message, i) =>{
+      
+            if(i>0){
+                (message.name === messageArray[i-1].name) ? sameUser = true: sameUser = false  
+            } 
 
-            return <Message name={message.name}  pfp={message.pfp} text={message.text} time={message.time}/>
+            return  sameUser ? <Message name={message.name} same={false} pfp={message.pfp} text={message.text} time={message.time}/>: <Message name={message.name} same={true} pfp={message.pfp} text={message.text} time={message.time}/>
             })}
-
-
-
 
             </div>
             <div className="MessageBox">
@@ -95,6 +208,9 @@ function ChatWindow() {
 
    
     )
+
+    
 }
+
 
 export default ChatWindow;
