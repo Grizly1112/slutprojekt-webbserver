@@ -3,7 +3,7 @@ const port = process.env.PORT || 8000
 
 import mongoose from 'mongoose'
 import cors from 'cors'
-import { getuser, login, register } from './function/user.js';
+import { getuser, login, register, uploadProfilePicture } from './function/user.js';
 
 // test
 import Image from './Models/image.js';
@@ -47,30 +47,31 @@ connectDb()
 app.post("/user/register", register);
 app.post("/user/login", login);
 app.get("/user/getuser/:id", getuser);
-app.post("/user/updateprofilepicture", async(req, res) => {
-    const {newImage, useriD}= req.body;
-    console.log(newImage)
-    console.log(useriD)
+app.post("/user/updateprofilepicture", uploadProfilePicture)
+// app.post("/user/updateprofilepicture", async(req, res) => {
+//     const {newImage, useriD}= req.body;
+//     console.log(newImage)
+//     console.log(useriD)
     
-    var userpfp = "";
-    try {
-        const createdimg = await Image.create({img: newImage.myFile});
-        userpfp = createdimg._id;
-        console.log("pfp: " + userpfp)
-        createdimg.save()
+//     var userpfp = "";
+//     try {
+//         const createdimg = await Image.create({img: newImage.myFile});
+//         userpfp = createdimg._id;
+//         console.log("pfp: " + userpfp)
+//         createdimg.save()
 
-        let user = await UserModel.findById(useriD);
-        user.pfp = userpfp;
-        await user.save();
+//         let user = await UserModel.findById(useriD);
+//         user.pfp = userpfp;
+//         await user.save();
 
-        // ta bort förra  pfp bilder jao
+//         // ta bort förra  pfp bilder jao
 
-        res.status(201).json({msg: "New image uploaded!!"})
-    } catch(err) {
-        throw err;
-    }
+//         res.status(201).json({msg: "New image uploaded!!"})
+//     } catch(err) {
+//         throw err;
+//     }
 
-})
+// })
 
 
 app.get('/img', async(req, res) => {

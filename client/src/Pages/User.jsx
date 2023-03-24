@@ -21,7 +21,7 @@ export default function User() {
     const [ownerWhoVisit, setOwnerWhoVisit] = useState(false);
     const [activeTab, setActiveTab] = useState("about");
     const [isLoading, setIsLoading] = useState(true);
-    const [postImage, setPostImage] = useState({myFile: ""})
+    const [postImage, setPostImage] = useState({base64: ""})
 
     const [userProfileHasChanged, setUserProfileHasChanged] = useState(false);
     const [userProfileEditPfp, setuUerProfileEditPfp] = useState(false);
@@ -68,10 +68,10 @@ export default function User() {
 
     }
 
-    const createPost = async (newImage) => {
+    const createPost = async (newProfilePicture) => {
         try {
             console.log(userVisitng)
-            await axios.post("http://localhost:8000/user/updateprofilepicture", {newImage, useriD: userVisitng._id})
+            await axios.post("http://localhost:8000/user/updateprofilepicture", {newProfilePicture, userId: userVisitng._id})
         } catch(error) {
             console.log(error)
         }
@@ -82,7 +82,7 @@ export default function User() {
     const hanldeFileUpload = async (e) => {
         const file = e.target.files[0];
         const base64 = await convertToBase64(file);
-        setPostImage({...postImage, myFile: base64})
+        setPostImage({...postImage, base64: base64})
         console.log(postImage)
     }
 
@@ -139,10 +139,10 @@ export default function User() {
                     {/* Not required but if table images isnt avalibe when this condition will run! */}
                     {
                         user.pfp ? 
-                        <img src={userProfileHasChanged ? postImage.myFile : user.pfp.img || "#"} id="output" width="200" />
+                        <img src={userProfileHasChanged ? postImage.base64 : user.pfp.img || "#"} id="output" width="200" />
                         :
                         // If database images is empy
-                        <img src={userProfileEditPfp ? postImage.myFile : defaultAvatar}></img>
+                        <img src={userProfileEditPfp ? postImage.base64 : defaultAvatar}></img>
                     }
                     </div>
                      
@@ -192,7 +192,7 @@ export default function User() {
                             :
                         <label className='editProfilePicture'>
                                 <FaEdit /> Ändra profilbild
-                                <input type="file" name="myFile" id="file-upload" accept='.jpeg, .png, .jpg' 
+                                <input type="file" name="base64" id="file-upload" accept='.jpeg, .png, .jpg' 
                                  onChange={async(e) => { await hanldeFileUpload(e);  setUserProfileHasChanged(true);setuUerProfileEditPfp(true) }}
                                  />
                         </label>

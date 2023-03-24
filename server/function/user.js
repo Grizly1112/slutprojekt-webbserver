@@ -103,100 +103,57 @@ export const getuser = async (req, res) => {
 }
 
 
-// export const uploadPfp = async(req, res) => {
-//     const userId = req.body.userId;
-//     console.log(userId)
-//     console.log("Files: ?")
-//     console.log(req.files)
-//     console.log("_____")
-
-//     console.log(req.body)
-
-//     var userPrf = "";
+export const uploadProfilePicture = async (req, res) => {
+    const { newProfilePicture, userId } = req.body;
+  
+    try {
+        const user = await UserModel.findById(userId);
+        const previousProfilePicture = await Image.findById(user.pfp);
+    
+        const profilePictureIdRegex = /[^\s"]+|"([^"]*)"/gi;
+        const currentProfilePictureId = profilePictureIdRegex.exec(user.pfp.toString())[0];
 
     
-//     if (req.files) {
-        
-//         const promises = req.files.map(async image => {
-//             try {
-                
-//                 const imgId = (await Image.create({ 
-//                         data: image.buffer, 
-//                         contentType: image.mimetype
-//                     }))._id
-                    
-//                 return imgId
-//             } catch (error) {
-//                 console.error(error)
-//                 return
-//             }
-//         });
-
-//         userPrf = await Promise.all(promises)
-//     }
-//     try {
-//         const user = await UserModel.findById(userId);
-//         // console.log(user)
-//         // console.log(userPrf)
-
-//         user.pfp = userPrf._id;
-//         await user.save();
-//         let updatedPfp = await Image.findById(userPrf)
-
-//         res.status(200).json(updatedPfp)
-//     } catch(err) {
-//         console.log(err);
-//         return res.status(500).send({ message: "Serverfel uppstod"})
-//     }
-// }
-
-export const uploadPfp = async(req, res) => {
-        const userId = req.body.userId;
-        console.log(userId)
-        console.log("Files: ?")
-        console.log(req.files)
-        console.log("_____")
+        if (previousProfilePicture !== null) {
+            
+            try {
+            previousProfilePicture.img = newProfilePicture.base64;
+            await previousProfilePicture.save();
     
-        console.log(req.body)
-    
-        var userPrf = "";
-        
-        try {
-            const user = await UserModel.findById(userId);
-            
+            res.status(200).json({ msg: "Profil bilden uppdaterades " });
 
-            const previousPfp = await Image.findById(user.pfp);
+            } catch (err) {
             
-            // Få detta att funka (ta bort förra profilbilden)
-            // if(previousPfp && user.pfp !== "641cdbcb51dc7ad3744fdfc9") await Image.deleteOne({"_id": user.pfp}) 
+                console.log(err);
+            res.status(500).send("Failed to update profile picture");
             
-            if (req.files) {
-                const promises = req.files.map(async image => {
-                    try {
-                        const imgId = (await Image.create({ 
-                                data: image.buffer, 
-                                contentType: image.mimetype
-                            }))._id
-                            
-                        return imgId
-                    } catch (error) {
-                        console.error(error)
-                        return
-                    }
-                });
-                userPrf = await Promise.all(promises)
-            
-                user.pfp = userPrf._id;
-                await user.save();
-
-                // Kanske itne behövs får se
-                let updatedPfp = await Image.findById(userPrf)
-                res.status(200).json(updatedPfp)
-
             }
-        } catch(err) {
+      
+        } else {
+
+            try {
+            const createdProfilePicture = await Image.create({
+                img: newProfilePicture.base64,
+            });
+            
+            let userProfilePicture = createdProfilePicture._id;
+            createdProfilePicture.save();
+    
+            let user = await UserModel.findById(userId);
+            user.pfp = userProfilePicture;
+            await user.save();
+    
+            res.status(201).json({ msg: "Ny profilbild tillagd" });
+            
+            } catch (err) {
             console.log(err);
-            return res.status(500).send({ message: "Serverfel uppstod"})
+            res.status(500).send("Fel uppstod");
+            
+            }
+        
         }
-       
+    } catch (err) {
+      console.log(err);
+      return res.status(500).send({ message: "Serverfel uppstod" });
     }
+  };
