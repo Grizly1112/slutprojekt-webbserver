@@ -5,6 +5,8 @@ import axios from 'axios'
 // https://developer.mozilla.org/en-US/docs/Web/HTTP/Status
 
 import UserModel from "../Models/user.js"
+import Image from "../Models/image.js"
+
 
 dotenv.config()
 
@@ -84,13 +86,13 @@ export const login = async (req, res) => {
 
 export const getuser = async (req, res) => {
     let usernameByParam = req.params.id;
-    console.log(usernameByParam)
+    // console.log(usernameByParam)
     
     // SE ÖVER VAD SOM SKICAKS - SKIACKA INTE MED ALL DATA "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
     try {
-        let userData = await UserModel.findOne({ username: new RegExp(`^${usernameByParam}`, 'i') });
-        console.log(userData)
+        let userData = await UserModel.findOne({ username: new RegExp(`^${usernameByParam}`, 'i') }).populate('pfp', 'img');
+        // console.log(userData)
 
         if (!userData) return res.status(404).send({ message: "Avnändaren finns inte" })
 
@@ -99,3 +101,102 @@ export const getuser = async (req, res) => {
         return res.status(500).send({ message: "Serverfel uppstod"})
     }
 }
+
+
+// export const uploadPfp = async(req, res) => {
+//     const userId = req.body.userId;
+//     console.log(userId)
+//     console.log("Files: ?")
+//     console.log(req.files)
+//     console.log("_____")
+
+//     console.log(req.body)
+
+//     var userPrf = "";
+
+    
+//     if (req.files) {
+        
+//         const promises = req.files.map(async image => {
+//             try {
+                
+//                 const imgId = (await Image.create({ 
+//                         data: image.buffer, 
+//                         contentType: image.mimetype
+//                     }))._id
+                    
+//                 return imgId
+//             } catch (error) {
+//                 console.error(error)
+//                 return
+//             }
+//         });
+
+//         userPrf = await Promise.all(promises)
+//     }
+//     try {
+//         const user = await UserModel.findById(userId);
+//         // console.log(user)
+//         // console.log(userPrf)
+
+//         user.pfp = userPrf._id;
+//         await user.save();
+//         let updatedPfp = await Image.findById(userPrf)
+
+//         res.status(200).json(updatedPfp)
+//     } catch(err) {
+//         console.log(err);
+//         return res.status(500).send({ message: "Serverfel uppstod"})
+//     }
+// }
+
+export const uploadPfp = async(req, res) => {
+        const userId = req.body.userId;
+        console.log(userId)
+        console.log("Files: ?")
+        console.log(req.files)
+        console.log("_____")
+    
+        console.log(req.body)
+    
+        var userPrf = "";
+        
+        try {
+            const user = await UserModel.findById(userId);
+            
+
+            const previousPfp = await Image.findById(user.pfp);
+            
+            // Få detta att funka (ta bort förra profilbilden)
+            // if(previousPfp && user.pfp !== "641cdbcb51dc7ad3744fdfc9") await Image.deleteOne({"_id": user.pfp}) 
+            
+            if (req.files) {
+                const promises = req.files.map(async image => {
+                    try {
+                        const imgId = (await Image.create({ 
+                                data: image.buffer, 
+                                contentType: image.mimetype
+                            }))._id
+                            
+                        return imgId
+                    } catch (error) {
+                        console.error(error)
+                        return
+                    }
+                });
+                userPrf = await Promise.all(promises)
+            
+                user.pfp = userPrf._id;
+                await user.save();
+
+                // Kanske itne behövs får se
+                let updatedPfp = await Image.findById(userPrf)
+                res.status(200).json(updatedPfp)
+
+            }
+        } catch(err) {
+            console.log(err);
+            return res.status(500).send({ message: "Serverfel uppstod"})
+        }
+       
+    }

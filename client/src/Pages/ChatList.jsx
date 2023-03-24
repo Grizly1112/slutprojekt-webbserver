@@ -5,8 +5,8 @@ import './css/ChatList.css';
 function ChatList() {
 
 
-    const messageArray = [{
-
+    const messageArray = [
+        {
         name: "Grizly",
         status: true,
         pfp: "https://cdn.discordapp.com/avatars/431824979554992132/3a3e21c61bed5e4cf147e7b64d79d441.webp?size=32",
