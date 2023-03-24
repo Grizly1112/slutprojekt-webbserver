@@ -138,11 +138,10 @@ var sameUser;
 
 
     const Message = (props) => {
-        console.log(sameUser)
 
         return(
             <>
-            {props.same ? <hr className='MessageHr'/> : console.log("MAAAAAAAAAAAAAAAAAAAAAAAAAG") }
+            {props.same ? <hr className='MessageHr'></hr>  : console.log("MAAAAAAAAAAAAAAAAAAAAAAAAAG") }
 
             {props.same ? <>
                 <div className="Message">

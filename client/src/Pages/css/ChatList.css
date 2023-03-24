@@ -7,79 +7,115 @@
 }
 
 
-
-.ChatContainer{
+.ChatContainerSidebar{
     display: flex;
-    position: fixed;
-    top:4rem;
     flex-direction: column;
     width: 15rem;
-    height: 96vh;
     background-color:var(--bg-d-accent);
     z-index: -99999;
     box-shadow: rgba(0, 0, 0, 0.2) 0px 20px 30px;;
     color: var(--text-c);
 }
+.ChatContainer{
 
-.ChatContainer .message{
+    display: flex;
+    flex-direction: column;
+    height: clamp(fit-content);
+    width: 100%;
+}
+
+.ChatContainer .dm{
     display: flex;
     align-items: flex-start;
     justify-content: center;
     width: 100%;
     height: 8vh;
+    border-bottom: 2px solid var(--bg-m);
     background-color:rgb(27, 27, 27);
-    border-bottom: 2px solid var(--bg-m) ;
-    transition: 0.2s all ease;   
+    transition:  0.2s all ease;   
+    cursor:pointer;
 }
 
 
-.ChatContainer .message .messageContainer{
+
+.ChatContainer .dm:last-child{
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 20px 30px;;
+ 
+}
+
+
+.ChatContainer .dm .messageContainer{
 display: flex;
 flex-direction: column;
 align-items: center;
 justify-content: space-between;
-height: 100%;
+height: 8vh;
 width: 100%;
+overflow: hidden;
+
 }
-.ChatContainer .message .messageContainer .messagePreview{
-    display: none;
+.ChatContainer .dm .messageContainer .messagePreview{
+    display:none;
+   
+    justify-content: flex-start;
     align-items: center;
-    height: 90%;
-    width: 7rem;
-    margin-right: 1.5rem;
+    height:5vh;
+    width: 100%;
+    margin-left: 1rem;
+    overflow: hidden;
+    animation: fadeIn 0.6s ease-in;
+
+
+
 }
 
+.ChatContainer .dm .messageContainer .messagePreview p{
 
-.ChatContainer .message .messageContainer .messagePreview p{
+    height: fit-content;
+    width: 90%;
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;
+    opacity:1;
+    transform:skewX(-10deg);
 }
-.ChatContainer .message .messageContainer .profileContent{
+
+    @keyframes fadeIn {
+        from{
+        
+            opacity: 0;
+        }
+        to{
+         opacity:1; 
+        }
+  }
+
+.ChatContainer .dm .messageContainer .profileContent{
     display: flex;
     flex-direction: row;
-    align-items: center;
+    align-items: flex-start;
     justify-content: flex-start;
-    height: 8vh;
+    height:5vh;
+    padding-top: 1.5vh;
+    padding-bottom: 1.5vh;
     width: 100%;
     background-color: var(--bg-d-accent);
-    
-    
-    
+    user-select:none;
     }
     
     
 
 
-.ChatContainer .message .messageContainer .profileContent .pfp{
+.ChatContainer .dm .messageContainer .profileContent .pfp{
     display: flex;
     align-items: flex-end;
     justify-content: flex-end;
     height: 5vh;
     width: 5vh;
     padding-left: 1rem;
+    
 }
-.ChatContainer .message .messageContainer .profileContent .pfp img{
+.ChatContainer .dm .messageContainer .profileContent .pfp img{
     position: relative;
     width: 100%;
     height: 100%;
@@ -88,7 +124,7 @@ width: 100%;
 
 }
 
-.ChatContainer .message .messageContainer .profileContent .pfp .status{
+.ChatContainer .dm .messageContainer .profileContent .pfp .status{
     position:absolute;
     height:10px;
     width: 10px;
@@ -97,15 +133,23 @@ width: 100%;
     z-index: 9999;
 }
 
-.ChatContainer .message .messageContainer .profileContent .username{
+.ChatContainer .dm .messageContainer .profileContent .username{
     color: var(--bg-m);
     font-weight: 500;
     margin-left: 1rem;
 }
 
-.ChatContainer .message:hover{
-    height: 15vh;
+.ChatContainer .dm:hover, .ChatContainer .dm:hover /* => */ .messageContainer{
+    height: 13vh;
 
+    transition-delay:0.3s;
 
 }
 
+
+
+.ChatContainer .dm:hover .messagePreview{
+    display: flex;
+    
+
+}
