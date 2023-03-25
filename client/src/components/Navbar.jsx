@@ -8,7 +8,7 @@ import Tooltip from './Tooltip';
 import Login from './Login';
 import Register from './Register';
 import logo from '../assets/logo.png';
-import { NavLink, useNavigate } from 'react-router-dom';
+import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { checkAuthLevel } from '../assets/functiions/Auth';
 
 // Test
@@ -84,8 +84,8 @@ function Navbar() {
       return(
         <>
           <div className='navbarModal'>
-            <NavLink className='navbarModalNavLink' to={`/user/${user.username}`}>
-              <NavbarModalitem iconleft={<FaUserCircle />} label={"Ditt konto"} iconRight={<FaChevronCircleRight />}/>
+            <NavLink className='navbarModalNavLink' to={`/user/${user.username}`} onClick={() => { setTimeout(forceUpdate(), 1)}}>
+              <NavbarModalitem iconleft={<FaUserCircle />} label={"Ditt konto"}iconRight={<FaChevronCircleRight />}/>
             </NavLink>
               
             
@@ -117,7 +117,11 @@ function Navbar() {
             }/>
             <hr />
             <NavbarModalitem iconleft={<FaCog />} label={"Inställningar"} iconRight={<FaExternalLinkAlt />} />
-            <NavbarModalitem iconleft={<FaRegNewspaper />} label={"Användarvilkor"} iconRight={<FaExternalLinkAlt />}/>
+  
+            <NavLink className='navbarModalNavLink' to="/terms">
+              <NavbarModalitem iconleft={<FaRegNewspaper />} label={"Användarvilkor"} iconRight={<FaExternalLinkAlt />}/>
+            </NavLink>
+  
             <NavbarModalitem iconleft={<FaRegQuestionCircle />} label={"Hjälp"} iconRight={<FaExternalLinkAlt />}/>
             <hr />
             <NavbarModalitem iconleft={<FaRunning />} label={"Logga ut"} func={Utils.Logout} iconRight={<FaChevronCircleRight />}/>

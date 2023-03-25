@@ -80,22 +80,34 @@
 }
 
 
+.userProfile .userProfile-pfp-div {
+    position: relative;
+    height: 100%;
+    aspect-ratio: 1/1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 .userProfile .userProfile-header {
     display: flex;
     justify-content: flex-start;
     align-items: center;
     width: 100%;
-    gap: 1rem;
+    height: 10rem;
+    gap: 4%;
 }
 .userProfile .userProfile-header .userProfile-header-information{
-    height: 80%;
+    height: 100%;
     width: 100%;
+    display: flex;
+    flex-direction: column;
 }
 .userProfile .userProfile-header .userProfile-header-information .userProfile-username-div {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    height: 30%;
+    height: fit-content;
     color: var(--text-color);
 }
 
@@ -103,8 +115,8 @@
     border: none;
     outline: none;
     background-color: var(--bg-m);
-    padding: .4rem 2rem;
-    font-size: 2rem;
+    padding: .2rem 1rem;
+    font-size: 1.6rem;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -114,40 +126,11 @@
     box-shadow: 0px 1px 2px rgba(255, 255, 255, 0.5);
 }
 
-
-.userProfile .userProfile-pfp-div {
-    position: relative;
-    width: 35%;
-    aspect-ratio: 1/1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-
-
-
-
-/* .userProfile .userProfile-pfp-div:hover::after{
-    content: 'Ändra Profilbild';
-    position: absolute;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    font-weight: bolder;
-    width: 100%;
-    border-radius: 50%;
-    background-color: rgba(255, 255, 255, 0.409);
-} */
-
-
 .userProfile .userProfile-header .userDetails {
     color: var(--text-color);
     display: flex;
     flex-direction: column;
-    height: 70%;
+    height: clamp(190%, 100%, 100%);
     justify-content: flex-end;
     gap: 1rem;
 }

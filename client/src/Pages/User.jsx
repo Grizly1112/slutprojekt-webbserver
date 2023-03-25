@@ -13,9 +13,8 @@ import defaultAvatar from '../assets/avatarDefault.png'
 import {Loader} from '../components/Loader';
 
 export default function User() {
-    const params = useParams()
-    const usernameByParam = params.id;
-
+    const [params, setparams] = useState(useParams());
+   
     const [noUserFound, setNoUserFound] = useState(false);
     const [serverError, setServerError] = useState(false)
     const [user, setUser] = useState(false);
@@ -33,8 +32,12 @@ export default function User() {
     
     // Fixa till denna filen och flytta om diverse
     var userVisitng = {}
+    // location.reload()
     useEffect(() => {
-        GetUser(usernameByParam).then(res => {
+        setIsLoading(true);
+        setHasLoadedInOnce(false)
+        setNoUserFound(false)
+        GetUser(params.id).then(res => {
             setUser(res.data)
             console.log(res.data)
             setTimeout(() => setIsLoading(false), 450)
@@ -53,7 +56,7 @@ export default function User() {
                 setServerError(true)
             }
         });
-    }, [])
+    }, [params.id])
 
     
     
@@ -127,46 +130,37 @@ export default function User() {
         return(
             <div className={hasLoadedInOnce ? 'userProfile ': "userProfile hasLoadedInOnce"}>
                 <div className='userProfile-header'>
-                <div className='userProfile-pfp-div'>
-
-                    <div class="profile-pic">
-                    <label class="-label" htmlFor="file">
-                        <span class="glyphicon glyphicon-camera"></span>
-                        <span>Change Image</span>
-                    </label>
-                    <input id="file" type="file"/>
-                    
-                    {/* Not required but if table images isnt avalibe when this condition will run! */}
-                    {
-                        user.pfp ? 
-                        <img src={userProfileHasChanged ? postImage.base64 : user.pfp.img || "#"} id="output" width="200" />
-                        :
-                        // If database images is empy
-                        <img src={userProfileEditPfp ? postImage.base64 : defaultAvatar}></img>
-                    }
+                    <div className='userProfile-pfp-div'>
+                        <div class="profile-pic">
+                        {
+                            user.pfp ? 
+                            <img src={userProfileHasChanged ? postImage.base64 : user.pfp.img || "#"} id="output" width="200" />
+                            :
+                            // If database images is empy
+                            <img src={userProfileEditPfp ? postImage.base64 : defaultAvatar}></img>
+                        }
+                        </div>
+                        
                     </div>
-                     
-                    {/*  */}
-                </div>
-                <div className="userProfile-header-information">
-                    <div className='userProfile-username-div'>
-                        <h2 className='userProfle-username'>
-                            {user.username}
-                        </h2>
-                        <div>
-                        <Tooltip label="Lägg till vän">  
-                            <button className='userHandling-button'>
-                                <FaUserPlus />
-                            </button>
-                        </Tooltip>
+                    <div className="userProfile-header-information">
+                        <div className='userProfile-username-div'>
+                            <h2 className='userProfle-username'>
+                                {user.username}
+                            </h2>
+                            <div>
+                                <Tooltip label="Lägg till vän">  
+                                    <button className='userHandling-button'>
+                                        <FaUserPlus />
+                                    </button>
+                                </Tooltip>
+                            </div>
+                        </div>
+                        <div className="userDetails">
+                            <h4>{Utils.FormatUserAge(user.dateOfBirth)} år gammal <FaCircle className='circle' /> {user.country} - {user.region}</h4>
+                            <h4><p>Gick med:</p>{Utils.FormatTimeDate(user.dateJoined)}</h4>
+                            <h4><p>Senast online:</p> 5 minuter sedan</h4>
                         </div>
                     </div>
-                    <div className="userDetails">
-                      <h4>{Utils.FormatUserAge(user.dateOfBirth)} år gammal <FaCircle className='circle' /> {user.country} - {user.region}</h4>
-                      <h4><p>Gick med:</p>{Utils.FormatTimeDate(user.dateJoined)}</h4>
-                      <h4><p>Senast online:</p> 5 minuter sedan</h4>
-                    </div>
-                </div>
                 </div>
                 <div className="viewMore">
                 {/* {

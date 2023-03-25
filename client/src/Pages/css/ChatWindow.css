@@ -55,7 +55,7 @@
 .MessageHr{
     width: 99%;
     background-color: var(--text-c);
-    opacity: 0.1;
+    opacity: 0.1 !important;
 }
 .ChatWindowContainer .ChatWindowMessageContainer .Message{
     display: flex;
