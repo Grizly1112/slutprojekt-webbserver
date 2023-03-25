@@ -84,7 +84,8 @@ function Navbar() {
       return(
         <>
           <div className='navbarModal'>
-            <NavLink className='navbarModalNavLink' to={`/user/${user.username}`} onClick={() => { setTimeout(forceUpdate(), 1)}}>
+            {/* <NavLink className='navbarModalNavLink' to={`/user/${user.username}`} onClick={() => { setTimeout(forceUpdate(), 1)}}> */}
+            <NavLink className='navbarModalNavLink' to={`/user/${user.username}`}>
               <NavbarModalitem iconleft={<FaUserCircle />} label={"Ditt konto"}iconRight={<FaChevronCircleRight />}/>
             </NavLink>
               

@@ -28,15 +28,10 @@ export default function User() {
 
     const [hasLoadedInOnce,setHasLoadedInOnce] = useState(false)
     
-    
-    
     // Fixa till denna filen och flytta om diverse
     var userVisitng = {}
     // location.reload()
     useEffect(() => {
-        setIsLoading(true);
-        setHasLoadedInOnce(false)
-        setNoUserFound(false)
         GetUser(params.id).then(res => {
             setUser(res.data)
             console.log(res.data)
