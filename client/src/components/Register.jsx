@@ -1,9 +1,11 @@
 import React, { useState } from 'react'
-import FormInput from './FormInput';
+import FormInput from './assets/FormInput';
 import { RegisterUserServerPost } from '../api/user';
 import { Auth } from '../assets/functiions/Auth';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import './css/AccountModal.css'
+
 // Src: https://youtu.be/tIdNeoHniEY
 
 export default function Register() {
@@ -136,8 +138,3 @@ export default function Register() {
 </div>
   )
 }
-
-/*
-}
-
-*/

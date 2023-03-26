@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react'
 import './css/Tooltip.css'
-import './css/Navbar.css'
 
 export default function Tooltip(props) {
     return(

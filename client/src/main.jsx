@@ -4,14 +4,30 @@ import { BrowserRouter } from 'react-router-dom'
 import App from './App'
 import './index.css'
 import { Route, Routes } from "react-router-dom";
-import PageNotFound from "./Pages/404";
-import Forum from './Pages/Forum'
+import Home from './Pages/Home'
+import Chat from './Pages/Chat'
+import Login from './components/Login'
+import Register from './components/Register'
+import User from './Pages/User'
+import TermsService from './Pages/TermsService'
+import PageNotFound from './components/404'
+import Navbar from './components/Navbar'
 
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-  <React.Fragment>
+  <React.StrictMode>
     <BrowserRouter>
-     <App />
+    <Navbar />
+     <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/chat" element={<Chat />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        {/* <Route path="/members" element={<Use />} /> */}
+        <Route path="/user/:id" element={<User />}/>
+        <Route path="/terms" element={<TermsService />}/>
+        <Route path="*" element={<PageNotFound/>} />
+      </Routes>
     </BrowserRouter>
-  </React.Fragment>,
+  </React.StrictMode>,
 )

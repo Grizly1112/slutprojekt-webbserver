@@ -3,14 +3,14 @@ import { FaCircle, FaEdit, FaExclamationTriangle, FaFileImage, FaImage, FaOpenca
 import { NavLink, useLocation, useParams} from 'react-router-dom'
 import { GetUser } from '../api/user';
 import ServerError from '../components/ServerError';
-import Tooltip from '../components/Tooltip';
+import Tooltip from '../components/assets/Tooltip';
 import './css/User.css'
 import Utils from '../assets/functiions/Utils';
 import { checkAuthLevel } from '../assets/functiions/Auth';
 import axios from 'axios';
 
 import defaultAvatar from '../assets/avatarDefault.png'
-import {Loader} from '../components/Loader';
+import {Loader} from '../components/assets/Loader';
 
 export default function User() {
     const [params, setparams] = useState(useParams());
@@ -35,7 +35,8 @@ export default function User() {
         GetUser(params.id).then(res => {
             setUser(res.data)
             console.log(res.data)
-            setTimeout(() => setIsLoading(false), 450)
+            // setTimeout(() => setIsLoading(false), 450)
+            setIsLoading(false)
             setTimeout(() => setHasLoadedInOnce(true), 1500)
         }).catch((err) => {
             try {
@@ -90,7 +91,7 @@ export default function User() {
         return(
             <div className='noUserFound'>
                 <FaUserSlash className='icon' />
-                <h4>Användaren <p className='noUserFoundSearchedName'>{usernameByParam}</p> hittades inte!</h4>
+                <h4>Användaren <p className='noUserFoundSearchedName'>{params.id}</p> hittades inte!</h4>
                 <NavLink className='goBack' to="/">Gå till Startsida</NavLink>
             </div>
         )
@@ -222,7 +223,7 @@ export default function User() {
     <>
     <div className='userContainer'>
       {
-        noUserFound ? <NoUserFound /> : (isLoading ? <Loader label="Laddar in användaren" /> : <UserProfile />)
+        noUserFound ? <NoUserFound /> : (isLoading ? <Loader />: <UserProfile />)
       }
       {
         serverError ? <ServerError /> : null

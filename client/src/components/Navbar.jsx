@@ -2,9 +2,9 @@ import './css/Navbar.css'
 import React, { useState, useEffect, useRef } from 'react';
 import { CSSTransition } from 'react-transition-group';
 import { FaBell, FaBolt, FaChevronCircleLeft, FaMailBulk, FaPlus, FaCog, FaChevronRight, FaChevronLeft, FaUserAlt, FaFacebookMessenger, FaMedal, FaStumbleupon, FaDotCircle, FaDemocrat, FaRegCommentAlt, FaRegCommentDots, FaRegUser, FaUserPlus, FaUser, FaUserCircle, FaChevronCircleRight, FaFileArchive, FaQuestion, FaRegQuestionCircle, FaMoon, FaRuler, FaRegNewspaper, FaSun, FaSuitcaseRolling, FaBaby, FaExpandAlt, FaChevronDown, FaClipboard, FaExternalLinkAlt, FaExclamationTriangle, FaFireExtinguisher, FaQuoteLeft, FaFastForward, FaEnvelopeOpenText, FaExternalLinkSquareAlt, FaRegBell, FaConciergeBell, FaToggleOff, FaPowerOff, FaBellSlash, FaRunning, FaHandMiddleFinger, FaInfinity, FaLevelDownAlt, FaHandshake, FaHandshakeSlash, FaArrowDown } from 'react-icons/fa';
-import Modal from './Modal';
+import Modal from './assets/Modal';
 import Utils from '../assets/functiions/Utils'
-import Tooltip from './Tooltip';
+import Tooltip from './assets/Tooltip';
 import Login from './Login';
 import Register from './Register';
 import logo from '../assets/logo.png';
@@ -14,13 +14,13 @@ import { checkAuthLevel } from '../assets/functiions/Auth';
 // Test
 import UserPfpTest from '../assets/avatarDefault.png'
 import { GetUser } from '../api/user';
-import { Spinner } from './Loader';
+import { Loader } from './assets/Loader';
 
 // Källkod: https://www.youtube.com/watch?v=IF6k0uZuypA&t=382s
 // Inspiration Gymansiearbete Valeria forum
 
 function Navbar() {
-  const [notificationCount, SetNotificationCount] = useState(1);
+  const [notificationCount, SetNotificationCount] = useState(0);
   const resetNotifications = () => SetNotificationCount(0);
 
   const [user, setUser] = useState(false);
@@ -155,7 +155,7 @@ function Navbar() {
         {
           isLoading ? 
           <NavItem>
-            <Spinner />
+            <Loader />
           </NavItem>
           :
           <NavItem>

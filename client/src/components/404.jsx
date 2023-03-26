@@ -1,7 +1,7 @@
 import './css/404.css'
 import {FaArrowRight} from 'react-icons/fa';
 import { NavLink } from "react-router-dom";
-import Navbar from '../components/Navbar';
+import Navbar from './Navbar';
 
 function PageNotFound() {
     document.title = "Fel | Mag Forum";
