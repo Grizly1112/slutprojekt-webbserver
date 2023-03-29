@@ -7,5 +7,4 @@ export const LoginUserServerPost = async (userData) => await axios.post(`${URL}/
 
 export const GetUser = async (username) => await axios.get(`${URL}/user/getuser/${username}`)
 
-
 export const GetImgTest = async() => await axios.get(`${URL}/img`)

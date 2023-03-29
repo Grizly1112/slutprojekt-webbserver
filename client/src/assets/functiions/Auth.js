@@ -1,6 +1,5 @@
 import jwt_decode from "jwt-decode"
 
-
 export const Auth = async(data) => {
     console.log(data)
     localStorage.setItem('user', JSON.stringify({... data}));
@@ -9,7 +8,6 @@ export const Auth = async(data) => {
 export const checkAuthLevel = async (token, authLevel) => {
     if(!token) return false;
     let exdired = false;
-
     var exp;
 
     const data = await jwt_decode(token)    
@@ -20,5 +18,4 @@ export const checkAuthLevel = async (token, authLevel) => {
         console.log(err)
     }
     return(data.authLevel >= authLevel && exp);
-
 }

@@ -10,11 +10,6 @@
     overflow: hidden;
 }
 
-.home *{
-    animation: fadeInAnimation ease 1s;
-    animation-iteration-count: 1;
-    animation-fill-mode: forwards;
-}
 
 
 .home .left {
