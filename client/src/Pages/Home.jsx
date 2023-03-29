@@ -103,7 +103,7 @@ export default function Home() {
     return (
       <div className="usersOnline">
         {onlineUsers.map((userOnline) => {
-          if (userOnline.userId !== "guest" && userOnline.userId !== undefined) {
+          if (userOnline.userId && userOnline.userId !== undefined) {
             return (
               <NavLink to={`user/${userOnline.userId}`}>
                 <Tooltip key={userOnline.userId} label={userOnline.userId}>
