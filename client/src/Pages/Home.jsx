@@ -27,21 +27,18 @@ export default function Home() {
         .then(res => {
           setUser(res.data)
           setTimeout(() => setHasLoadedInOnce(true), 1500)
-          socket.current.emit("new-user-add", (res.data.username));
+          socket.current.emit("new-user-add", {username: res.data.username, pfp: res.data.pfp.img || null});
         })
         .catch((err) => {
           console.log("något gick fel");
           throw err;
         });
     } else {
-      console.log("euueue")
       socket.current.emit("new-user-add", ("guest"));
     }
 
     socket.current.on("get-users", (users) => {
       setonlineUsers(users);
-      console.log("jejeje")
-      console.log(users)
     });
 
     // Cleanup function
@@ -79,7 +76,8 @@ export default function Home() {
       <SideWidget icon={<FaUsers />} title="Användare online" live={true}>
         <>
           <UsersOnline onlineUsers={onlineUsers} />
-          <h5>Totalt {onlineUsers.length} stycken (Medlemmar: 4, Gäster: 3)</h5>
+          <hr />
+          <h5 className='totalOnlineUSerLabel'>Totalt {onlineUsers.length} stycken (Medlemmar: 4, Gäster: 3)</h5>
           <NavLink to="#" className="viewmore"><FaSearch /> Visa alla användare online</NavLink>
         </>
       </SideWidget>
@@ -90,18 +88,19 @@ export default function Home() {
     return (
       <div className='usersOnline'>
         {onlineUsers.map((userOnline) => {
-          if(userOnline.userId !== 'guest') {
-              return(
-                <Tooltip label={userOnline.userId}>
-                  <img src={userDefault} className="onlineUsers-img" alt="" />
-                </Tooltip>
-              )
+          if(userOnline.userId !== 'guest' && userOnline.userId !== undefined) {
+            // const { _id, img } = userOnline.userI;
+            return (
+              <Tooltip label={userOnline.userId}>
+                <img src={userOnline.pfp || userDefault} className="onlineUsers-img" alt="" />
+              </Tooltip>
+            );
           }
         })}
         {onlineUsers.length > 4 && <h4>{onlineUsers.length - 4}+ andra</h4>}
       </div>
-    )
-  })
+    );
+  });
 
   return (
     <div className={hasLoadedInOnce ? 'home ': "home hasLoadedInOnce"}>

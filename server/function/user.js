@@ -15,6 +15,7 @@ export const register = async (req, res) => {
     const user = req.body;
   
     // https://mongoosejs.com/docs/promises.html
+    // Add that you cant have guest as a profile picture
     try {
         const hashedPassword = await bcrypt.hash(user.password, 12);
 

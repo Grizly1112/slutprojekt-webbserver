@@ -94,21 +94,19 @@
 
 .sideWidget .Widget-body .usersOnline{
     margin-top: 1rem;
-    display: grid;
-    justify-content: space-between;
+    margin-bottom:.5rem;
+    display: flex;
+    justify-content: center;
     align-items: center;
     gap: 1rem;
-    grid-template-columns: repeat(7, auto);
-}
-
-
-.sideWidget .Widget-body p {
-    width: 100%;
-    padding-left: 10px;
 }
 
 .sideWidget .Widget-body .usersOnline h4 {
     cursor: pointer;
+}
+
+.sideWidget .Widget-body .totalOnlineUSerLabel {
+    padding-top: .5rem;
 }
 
 .sideWidget .Widget-body .usersOnline h4:hover {
