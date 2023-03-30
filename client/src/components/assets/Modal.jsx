@@ -2,8 +2,7 @@ import React, { useEffect, useReducer } from "react";
 import ReactDOM from "react-dom";
 import Tooltip from "./Tooltip";
 
-// Källkod: https://codesandbox.io/s/friendly-hofstadter-qtrtn?file=/src/index.js
-// 
+// Källa: https://codesandbox.io/s/friendly-hofstadter-qtrtn?file=/src/index.js
 
 class Modal extends React.Component {
     constructor(props) {

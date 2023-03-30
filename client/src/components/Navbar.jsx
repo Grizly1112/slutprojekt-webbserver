@@ -221,10 +221,10 @@ function Navbar() {
   function NavbarLinks() {
     return(
       <ul className='navbar-links'>
-        <li>Startskärm</li>
-        <li>Grupper</li>
-        <li>Medlemmar</li>
-        <li>Tickets</li>
+        <NavLink to="/">Startskärm</NavLink>
+        <NavLink to="/groups">Grupper</NavLink>
+        <NavLink to="/user">Medlemmar</NavLink>
+        <NavLink to="/tickets">Tickets</NavLink>
       </ul>
     )
   }

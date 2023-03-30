@@ -13,6 +13,7 @@ import PageNotFound from './components/404'
 import Navbar from './components/Navbar'
 
 
+/* Rendering the React app to the DOM. */
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <BrowserRouter>

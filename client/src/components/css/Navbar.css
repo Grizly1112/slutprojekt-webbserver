@@ -175,6 +175,9 @@
   align-items: center;
   gap: .4rem;
 }
+
+
+
 .nav-button:hover {
   /* filter: brightness(1.2); */
 }
@@ -323,14 +326,19 @@
   font-weight: bold;
   transition: color 2s;
 }
-.navbar-links  li {
+
+.navbar-links  a {
   cursor: pointer;
 }
 
-.navbar-links  li:hover {
+.navbar-links  a:hover {
   color: #b5b7bb;
 }
 
+.navbar-links a.active:hover,
+.navbar-links a.active {
+  color: var(--bg-m);
+}
 
 
 
