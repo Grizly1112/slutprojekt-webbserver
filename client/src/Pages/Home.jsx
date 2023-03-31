@@ -1,4 +1,4 @@
-import React, { memo, useEffect, useMemo, useRef, useState } from 'react'
+import React, { memo, useContext, useEffect, useMemo, useRef, useState } from 'react'
 import { FaChartBar, FaChartLine, FaChartPie, FaCircleNotch, FaCriticalRole, FaHammer, FaJsSquare, FaMailBulk, FaRedhat, FaSearch, FaUsers } from 'react-icons/fa'
 import { NavLink } from 'react-router-dom'
 import './css/Home.css'
@@ -6,45 +6,63 @@ import userDefault from '../assets/avatarDefault.png'
 import Tooltip from '../components/assets/Tooltip'
 import { io } from "socket.io-client";
 import { GetUser } from '../api/user'
+import { userContext } from '../context/UserContext'
 
 
 export default function Home() {
   const [userLoggedIn, setUserLoggedIn] = useState(false);
-  const [user, setUser] = useState({});
+  const [user, setUser] = useState([]);
   const [onlineUsers, setonlineUsers] = useState([]);
   const socket = useRef(null);
   const [hasLoadedInOnce,setHasLoadedInOnce] = useState(false)
+  
+  const contextValue = useContext(userContext)
 
-  // Connect socket server
-  useEffect(() => {
-    socket.current = io("ws://localhost:3001");
+  console.log(contextValue.user)
 
-    if (localStorage.getItem('user')) {
-      setUserLoggedIn(true);
-
-      GetUser(JSON.parse(localStorage.getItem('user')).userData.username)
-        .then(res => {
-          setUser(res.data)
-          setTimeout(() => setHasLoadedInOnce(true), 1500)
-          socket.current.emit("new-user-add", {username: res.data.username, pfp: res.data.pfp.img || null});
-        })
-        .catch((err) => {
-          console.log("något gick fel");
-          throw err;
-        });
-    } else {
-      socket.current.emit("new-user-add", (""));
+  useEffect(() => 
+  {
+      socket.current = io("ws://localhost:3001");
+      if(contextValue.user) {
+      socket.current.emit("new-user-add", {username: contextValue.user.username, pfp: contextValue.user.pfp && contextValue.user.pfp.img ? contextValue.user.pfp.img : ""});
     }
-
+    else {
+      socket.current.emit("new-user-add", (""));
+      
+    }
     socket.current.on("get-users", (users) => {
       setonlineUsers(users);
     });
-
-    // Cleanup function
     return () => {
       socket.current.disconnect();
-    };
-  }, []);
+    }
+
+
+  }, [contextValue])
+
+
+  // Connect socket server
+  // useEffect(() => {
+  //   socket.current = io("ws://localhost:3001");
+
+  //   if(contextValue.user) {
+  //     setUser(contextValue.user)
+  //     socket.current.emit("new-user-add", {username: user.username, pfp:( user.pfp ? user.pfp.img: null)});
+  //   } 
+
+  //   else {
+  //     socket.current.emit("new-user-add", (""));
+  //   }
+
+  //   socket.current.on("get-users", (users) => {
+  //     setonlineUsers(users);
+  //   });
+
+  //   // Cleanup function
+  //   return () => {
+  //     socket.current.disconnect();
+  //   };
+  // },[contextValue])
 
 
   const SideWidget = (props) => {
@@ -119,7 +137,8 @@ export default function Home() {
   });
 
   return (
-    <div className={hasLoadedInOnce ? 'home ': "home hasLoadedInOnce"}>
+    <>
+     <div className={hasLoadedInOnce ? 'home ': "home hasLoadedInOnce"}>
       <div className="left"></div>
       <div className="center"></div>
       <div className="right">
@@ -128,5 +147,6 @@ export default function Home() {
         <SideWidget icon={<FaChartBar />} title="Forum statistik" />
       </div>
     </div>
+    </>
   )
 }

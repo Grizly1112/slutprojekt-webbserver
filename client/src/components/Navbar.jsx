@@ -1,5 +1,5 @@
 import './css/Navbar.css'
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useContext, Suspense } from 'react';
 import { CSSTransition } from 'react-transition-group';
 import { FaBell, FaBolt, FaChevronCircleLeft, FaMailBulk, FaPlus, FaCog, FaChevronRight, FaChevronLeft, FaUserAlt, FaFacebookMessenger, FaMedal, FaStumbleupon, FaDotCircle, FaDemocrat, FaRegCommentAlt, FaRegCommentDots, FaRegUser, FaUserPlus, FaUser, FaUserCircle, FaChevronCircleRight, FaFileArchive, FaQuestion, FaRegQuestionCircle, FaMoon, FaRuler, FaRegNewspaper, FaSun, FaSuitcaseRolling, FaBaby, FaExpandAlt, FaChevronDown, FaClipboard, FaExternalLinkAlt, FaExclamationTriangle, FaFireExtinguisher, FaQuoteLeft, FaFastForward, FaEnvelopeOpenText, FaExternalLinkSquareAlt, FaRegBell, FaConciergeBell, FaToggleOff, FaPowerOff, FaBellSlash, FaRunning, FaHandMiddleFinger, FaInfinity, FaLevelDownAlt, FaHandshake, FaHandshakeSlash, FaArrowDown } from 'react-icons/fa';
 import Modal from './assets/Modal';
@@ -10,6 +10,7 @@ import Register from './Register';
 import logo from '../assets/logo.png';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { checkAuthLevel } from '../assets/functiions/Auth';
+import { userContext } from '../context/UserContext';
 
 // Test
 import UserPfpTest from '../assets/avatarDefault.png'
@@ -19,41 +20,26 @@ import { Loader } from './assets/Loader';
 // Källkod: https://www.youtube.com/watch?v=IF6k0uZuypA&t=382s
 // Inspiration Gymansiearbete Valeria forum
 
-function Navbar() {
-  const [notificationCount, SetNotificationCount] = useState(0);
+function Navbar(props) {
+  const contextValue = useContext(userContext)
+
+  const [notificationCount, SetNotificationCount] = useState(3);
   const resetNotifications = () => SetNotificationCount(0);
 
-  const [user, setUser] = useState(false);
+  const [user, setUser] = useState({});
   const [isLoading, setIsLoading] = useState(true);
-  const [userLoggedIn, setUserLoggedIn] = useState(false);
-
-  // För animationen
-
-
+  const [contextLoaded, setContextLoaded] = useState(false);
+ 
   useEffect(() => {
-    if(localStorage.getItem('user') && checkAuthLevel(JSON.parse(localStorage.getItem('user')).token, 0)) {
-      setUserLoggedIn(true)
-      
-      GetUser(JSON.parse(localStorage.getItem('user')).userData.username).then(res => {
-        setUser(res.data)
-        setTimeout(() => setIsLoading(false), 450)
-      }).catch((err) => {
-        try {
+    setTimeout(() => setContextLoaded(true), 250);
 
-            if(err.response.status === 404) {
-                console.log("kunde inte hitta")
-                setNoUserFound(true)
-            } else if(err.response.status === 500) {
-              setServerError(true);
-                console.log("Server error")
-            }
-        } catch(err) {
-            setServerError(true)
-          }
-        });
-  } 
-}, [])
+    if(contextValue.user) {
+      setUser(contextValue.user)
+      setIsLoading(false)
+      if(user.pfp) setUser({...user, userHasPfp: true})
+    } 
 
+  },[contextValue])
 
   function NavbarEndLoggedIn() {
     function NavItem(props) {
@@ -125,7 +111,7 @@ function Navbar() {
   
             <NavbarModalitem iconleft={<FaRegQuestionCircle />} label={"Hjälp"} iconRight={<FaExternalLinkAlt />}/>
             <hr />
-            <NavbarModalitem iconleft={<FaRunning />} label={"Logga ut"} func={Utils.Logout} iconRight={<FaChevronCircleRight />}/>
+            <NavbarModalitem iconleft={<FaRunning />} label={"Logga ut"} func={contextValue.logout} iconRight={<FaChevronCircleRight />}/>
           </div>
         </>
       )
@@ -153,18 +139,18 @@ function Navbar() {
         </NavItem>
 
         {
-          isLoading ? 
+          (!isLoading && user.userHasPfp) ? 
           <NavItem>
-            <Loader />
+            <Modal btnLabel={<img src={
+              user.pfp ? user.pfp.img : UserPfpTest
+              } />} btnClass="icon-button" activeClass="active-navbar-button">
+              <UserModal />
+            </Modal>
           </NavItem>
           :
           <NavItem>
-          <Modal btnLabel={<img src={
-            user.pfp ? user.pfp.img : UserPfpTest
-            } />} btnClass="icon-button" activeClass="active-navbar-button">
-            <UserModal />
-          </Modal>
-        </NavItem>
+            <Loader />
+          </NavItem>
         }
       </>
     )
@@ -231,16 +217,24 @@ function Navbar() {
 
   return (
     <nav className="navbar">
-    <NavLink to="/">
-      <img className='logo' src={logo} alt="" />
-    </NavLink>
-    <NavbarLinks />
-
-    <ul className="navbar-end">
-      {userLoggedIn ? <NavbarEndLoggedIn /> : <NavbarEndNotLoggedIn />}
-    </ul>
-  </nav>
+      {contextLoaded ? (
+        <>
+          <NavLink to="/">
+            <img className="logo" src={logo} alt="" />
+          </NavLink>
+          <NavbarLinks />
+          <ul className="navbar-end">
+            {Object.keys(user).length > 0 ? (
+              <NavbarEndLoggedIn />
+            ) : (
+              <NavbarEndNotLoggedIn />
+            )}
+          </ul>
+        </>
+      ) : null}
+    </nav>
   );
+
 }
 
 export default Navbar;
