@@ -1,22 +1,26 @@
-/* Importing the modules. */
+/* Importing modules. */
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { BrowserRouter } from 'react-router-dom'
 import './index.css'
 import { Route, Routes } from "react-router-dom";
-import Home from './Pages/Home'
-import Chat from './Pages/Chat'
-import Login from './components/Login'
-import Register from './components/Register'
-import User from './Pages/User'
-import TermsService from './Pages/TermsService'
-import PageNotFound from './components/404'
-import Navbar from './components/Navbar'
-import App from './Pages/AppProvider';
-import AppProvider from './Pages/AppProvider';
-import { userContext } from './context/UserContext';
+
+// Proivders
+import AppProvider from './Provider/AppProvider';
+
+// Pages
+import Home from './Pages/Home/Home'
+import Chat from './Pages/Chatt/Chat'
+import Members from './Pages/Members/Members';
+import User from './Pages/Members/components/User'
+import TermsService from './Pages/TermsService/TermsService'
 
 
+// Components
+import Navbar from './components/Navbar';
+import Login from './components/Login';
+import Register from './components/Register';
+import PageNotFound from './components/404';
 
 
 /* Rendering the React app to the DOM. */
@@ -30,7 +34,13 @@ ReactDOM.createRoot(document.getElementById('root')).render(
           <Route path="/chat" element={<Chat />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
-          <Route path="/user/:id" element={<User />}/>
+          <Route path="/members" element={<Members />}>
+            
+            <Route path="user/:id" element={<User />}/>
+
+
+
+          </Route>
           <Route path="/terms" element={<TermsService />}/>
           <Route path="*" element={<PageNotFound/>} />
       </Routes>

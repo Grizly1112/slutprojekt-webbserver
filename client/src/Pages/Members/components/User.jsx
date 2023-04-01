@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from 'react'
 import { FaCircle, FaEdit, FaExclamationTriangle, FaFileImage, FaImage, FaOpencart, FaScrewdriver, FaServer, FaUserCog, FaUserPlus, FaUserSlash } from 'react-icons/fa';
 import { NavLink, useLocation, useParams} from 'react-router-dom'
-import { GetUser } from '../api/user';
-import ServerError from '../components/ServerError';
-import Tooltip from '../components/assets/Tooltip';
-import './css/User.css'
-import Utils from '../assets/functiions/Utils';
-import { checkAuthLevel } from '../assets/functiions/Auth';
+import { GetUser } from '../../../api/user';
+import ServerError from '../../../components/ServerError';
+import Tooltip from '../../../components/assets/Tooltip';
+import '../css/User.css'
+import Utils from '../../../assets/functiions/Utils';
+import { checkAuthLevel } from '../../../assets/functiions/Auth';
 import axios from 'axios';
 
-import defaultAvatar from '../assets/avatarDefault.png'
-import {Loader} from '../components/assets/Loader';
+import defaultAvatar from '../../../assets/avatarDefault.png'
+import {Loader} from '../../../components/assets/Loader';
 
 export default function User() {
     const [params, setparams] = useState(useParams());

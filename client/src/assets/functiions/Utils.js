@@ -52,6 +52,7 @@ Utils.FormatUserAge = function(dateOfBirth) {
     return actualAge;
 }
 
+// ta bort senare
 Utils.Logout = function() {
     localStorage.removeItem('user')
     window.location.reload();

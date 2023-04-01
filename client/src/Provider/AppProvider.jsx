@@ -26,7 +26,6 @@ class AppProvider extends React.Component {
         }
     }
 
-
     logout() {
         this.setState({user: {}});
         localStorage.removeItem('user')

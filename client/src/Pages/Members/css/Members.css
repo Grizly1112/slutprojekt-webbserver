@@ -1,0 +1,72 @@
+.members {
+    width: 100vw;
+    height: auto;
+    margin-top: var(--nav-size);
+    display: flex;
+    flex-direction: column;
+}
+
+.members .members-header {
+    position: relative;
+    width: 100vw;
+    height: 4rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background-color: var(--bg);
+
+} 
+
+.members .members-header .inner-header {
+    width: 80%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-color);
+    position: relative;
+}
+.members .members-header .members-logo {
+    position: absolute;
+    display:flex;
+    align-items: center;
+    gap: 1rem;
+    left: 1.5rem;
+    color: var(--text-color);
+}
+
+
+
+.members .members-header .members-logo svg {
+    color: var(--bg-m);
+    font-size: 2.5rem;
+}
+.members .members-header .inner-header ul {
+    display: flex;
+    height: 100%;
+}
+
+.members .members-header .inner-header ul a{
+    height: 100%;
+    padding: 0 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+}
+
+.members .members-header .inner-header ul a:hover,
+.members .members-header .inner-header ul a.active {
+    color: var(--bg-m);
+    background-color: #1d1d1f;
+}
+
+.members .members-header hr {
+    width: 100vw;
+    outline: none;
+    opacity: .6;
+    height: 1px;
+    background-color: rgba(255, 255, 255, 0.302);
+    border: none;
+}

@@ -2,11 +2,11 @@ import React, { memo, useContext, useEffect, useMemo, useRef, useState } from 'r
 import { FaChartBar, FaChartLine, FaChartPie, FaCircleNotch, FaCriticalRole, FaHammer, FaJsSquare, FaMailBulk, FaRedhat, FaSearch, FaUsers } from 'react-icons/fa'
 import { NavLink } from 'react-router-dom'
 import './css/Home.css'
-import userDefault from '../assets/avatarDefault.png'
-import Tooltip from '../components/assets/Tooltip'
+import userDefault from '../../assets/avatarDefault.png'
+import Tooltip from '../../components/assets/Tooltip'
 import { io } from "socket.io-client";
-import { GetUser } from '../api/user'
-import { userContext } from '../context/UserContext'
+import { GetUser } from '../../api/user'
+import { userContext } from '../../context/UserContext'
 
 
 export default function Home() {
@@ -39,31 +39,6 @@ export default function Home() {
 
 
   }, [contextValue])
-
-
-  // Connect socket server
-  // useEffect(() => {
-  //   socket.current = io("ws://localhost:3001");
-
-  //   if(contextValue.user) {
-  //     setUser(contextValue.user)
-  //     socket.current.emit("new-user-add", {username: user.username, pfp:( user.pfp ? user.pfp.img: null)});
-  //   } 
-
-  //   else {
-  //     socket.current.emit("new-user-add", (""));
-  //   }
-
-  //   socket.current.on("get-users", (users) => {
-  //     setonlineUsers(users);
-  //   });
-
-  //   // Cleanup function
-  //   return () => {
-  //     socket.current.disconnect();
-  //   };
-  // },[contextValue])
-
 
   const SideWidget = (props) => {
     return(
