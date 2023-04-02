@@ -12,7 +12,6 @@
   max-height: calc(100vh - 5rem);
   width: 100%;
   height: auto;
-  overflow-y: scroll;
   display: flex;
   justify-content: center;
 }

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { FaCircle, FaEdit, FaExclamationTriangle, FaFileImage, FaImage, FaOpencart, FaScrewdriver, FaServer, FaUserCog, FaUserPlus, FaUserSlash } from 'react-icons/fa';
+import { FaBars, FaCircle, FaEdit, FaExclamationTriangle, FaFileImage, FaImage, FaOpencart, FaQuestionCircle, FaRecycle, FaScrewdriver, FaServer, FaSpinner, FaUpload, FaUserCog, FaUserEdit, FaUserPlus, FaUserSlash } from 'react-icons/fa';
 import { NavLink, useLocation, useParams} from 'react-router-dom'
 import { GetUser } from '../../../api/user';
 import ServerError from '../../../components/ServerError';
@@ -97,8 +97,6 @@ export default function User() {
         )
     }
 
-  
-
     const UserProfile = () => {
         const UserAbout = () => {
             return(<div>Om mig</div>)
@@ -125,14 +123,66 @@ export default function User() {
 
         return(
             <div className={hasLoadedInOnce ? 'userProfile ': "userProfile hasLoadedInOnce"}>
-                <div className='userProfile-header'>
+                <div className="userProfileHeader">
+                    <div className="userProfileHeaderContainer">
+                        <div className="banner">
+                            <div className='urserInformation'>
+                                <div class="profile-pic">
+                                    {
+                                        user.pfp ? 
+                                        <img src={userProfileHasChanged ? postImage.base64 : user.pfp.img || "#"} id="output" width="200" />
+                                        :
+                                        <img src={userProfileEditPfp ? postImage.base64 : defaultAvatar}></img>
+                                    }
+                                </div>
+
+                                <div className='userDetailsContainer'>
+                                    <div className='username'>
+                                        <h2>
+                                            {user.username} 
+                                        </h2>
+                                        <FaCircle className='circleDot' />
+                                        <h2>
+                                        {Utils.FormatUserAge(user.dateOfBirth)} år
+                                        </h2>
+                                        <Tooltip label="Tidigare använarnamn">
+                                            <FaQuestionCircle />
+                                        </Tooltip>
+                                    </div>
+                                    <div className="userDetails">
+                                        <h4><p>Från:</p>{user.country} - {user.region}</h4>
+                                        <h4><p>Gick med:</p>{Utils.FormatTimeDate(user.dateJoined)}</h4>
+                                        <h4><p>Senast online:</p> 5 minuter sedan</h4>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div className="handleUserButtonsContianer">
+                                {
+                                    ownerWhoVisit? 
+                                    <div className="buttonEditUserProfile">
+                                        <FaUserEdit /> 
+                                        <p>Redigera profil</p>
+                                    </div>
+                                    :
+                                    <div className="buttonEditUserProfile report">
+                                        <FaExclamationTriangle /> 
+                                    <p>Anmäl {user.username}</p>
+                                </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                {/* <div className='userProfile-header'>
                     <div className='userProfile-pfp-div'>
                         <div class="profile-pic">
                         {
                             user.pfp ? 
                             <img src={userProfileHasChanged ? postImage.base64 : user.pfp.img || "#"} id="output" width="200" />
                             :
-                            // If database images is empy
                             <img src={userProfileEditPfp ? postImage.base64 : defaultAvatar}></img>
                         }
                         </div>
@@ -159,11 +209,6 @@ export default function User() {
                     </div>
                 </div>
                 <div className="viewMore">
-                {/* {
-                // Fixa med token också
-                    userViewing ? (userViewing.username === user.username ? <input type="file" accept='image/*' placeholder='Profilbild' /> : null) : null
-                    
-                } */}
                {
                     ownerWhoVisit ? 
                     <>
@@ -214,7 +259,7 @@ export default function User() {
                         activeTab === "friends" ? <UserFriends /> : null
                     }
                    </div>
-                </div>
+                </div> */}
             </div>
         )
     }

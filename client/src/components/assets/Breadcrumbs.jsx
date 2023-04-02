@@ -21,7 +21,6 @@ export default function Breadcrumbs() {
     return(
         <div className='breadcrumbs'>
             {crumbs}
-
         </div>
     )
 }

@@ -4,11 +4,187 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    margin-top: 10rem;
- 
+    margin-top: var(--nav-size);
+
+}
+.userContainer .userProfile {
+    padding-top: 1rem;
+    width: 100vw;
+    height: 30rem;
+    background-color: var(--bg);
+    display: flex;
+    justify-content: center;
 }
 
-.userContainer * {
+.userContainer .userProfileHeader {
+    border-radius: 8px;
+    width: 60vw;
+    /* background-color: red; */
+    display: flex;
+    justify-content: center;
+}
+
+
+
+
+
+.userContainer .userProfileHeader .userProfileHeaderContainer {
+    border-radius: 8px;
+    width: 100%;
+    height: 90%;
+    background: url("https://source.unsplash.com/9wg5jCEPBsw");
+    background-repeat: no-repeat;
+    background-size: 100% 100%; 
+    background-position: center;
+    image-rendering: pixelated;
+}
+
+.userContainer .userProfileHeader .userProfileHeaderContainer .banner {
+    position: relative;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+}
+
+.userContainer .userProfileHeader .userProfileHeaderContainer .banner .urserInformation {
+    height: 50%;
+    width: 95%;
+    gap: 1rem;
+    display: flex;
+}
+
+.userContainer .userProfileHeader .userProfileHeaderContainer .banner .urserInformation .profile-pic {
+    /* width: 22.5%; */
+    height: 90%;
+    margin-top: 1%;
+    position: relative;
+    aspect-ratio: 1/1;
+    /* background-color: red; */
+    color: transparent;
+    transition: all 0.3s ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    transition: all 0.3s ease;
+    border-radius: 50%;
+}
+.userContainer .userProfileHeader .userProfileHeaderContainer .banner .urserInformation .profile-pic img {
+    cursor: pointer;
+    width: 100%;
+    aspect-ratio: 1/1;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.343);
+    border-radius: 50%;
+    border-radius: 50%;
+    z-index: 0;
+
+}
+
+.userContainer .userProfileHeader .userProfileHeaderContainer .banner .userDetailsContainer {
+    width: 100%;
+    height: 90%;
+    margin-top: 1%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: .5rem;
+}
+
+.userContainer .userProfileHeader .userProfileHeaderContainer .banner .userDetailsContainer .username{
+    position: relative;
+    border-radius: 4px;
+    padding: .5rem 1rem;
+    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+    background-color: rgba(36, 37, 38, 0.696);
+    color: var(--text-color);
+    letter-spacing: 1px;
+    font-family: system-ui;
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+}
+
+.userContainer .userProfileHeader .userProfileHeaderContainer .banner .userDetailsContainer .username .circleDot {
+    font-size: .6rem;
+}
+
+.userContainer .userProfileHeader .userProfileHeaderContainer .banner .userDetailsContainer .username .tooltip {
+    width: fit-content;
+    position: absolute;
+    right: 1rem;
+    color: var(--bg-m);
+    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+}
+.userContainer .userProfileHeader .userProfileHeaderContainer .banner .userDetailsContainer .username svg {
+    cursor: pointer;
+    font-size: 1.5rem;
+}
+
+.userContainer .userProfileHeader .userProfileHeaderContainer .banner .userDetails {
+    border-radius: 4px;
+    background-color: rgba(36, 37, 38, 0.696);
+    padding: .5rem 1rem;
+    color: var(--text-color);
+    display: flex;
+    justify-content: center;
+    gap: .5rem;
+    height: 70%;
+    flex-direction: column;
+}
+.userContainer .userProfileHeader .userProfileHeaderContainer .banner .userDetails  h4 {
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+    color: var(--text-color);
+    white-space: nowrap;
+}
+.userContainer .userProfileHeader .userProfileHeaderContainer .banner .userDetails  h4 .circle {
+    color: gray;
+    font-size: .5rem;
+}
+
+.userContainer .userProfileHeader .userProfileHeaderContainer .banner .userDetails  h4 p {
+    color: #ccc;
+    white-space: nowrap;
+} 
+
+.userContainer .userProfileHeader .userProfileHeaderContainer .banner .handleUserButtonsContianer {
+    position: absolute;
+    width: calc(100% - 5%);
+    height: 5%;
+    top: 0;
+    border-radius: 4px;
+    display: flex;
+    gap: .5rem;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 1.5rem 0;
+}
+
+.userContainer .userProfileHeader .userProfileHeaderContainer .banner .handleUserButtonsContianer .buttonEditUserProfile {
+   display: flex;
+   gap: .5rem;
+   align-items: center;
+   justify-content: center;
+   padding: .5rem 1rem;
+   background-color: var(--bg-m);
+   color: var(--text-color);
+   border-radius: 8px;
+    box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.343);
+    cursor: pointer;
+}
+
+.userContainer .userProfileHeader .userProfileHeaderContainer .banner .handleUserButtonsContianer .report {
+    background-color: #EA5455 !important;
+}
+
+
+
+
+
+/* .userContainer * {
    animation: none;
 }
 .hasLoadedInOnce *{
@@ -245,24 +421,6 @@
 
   }
 
-/* Fiza franöver kanske */
-  /* .profile-pic:hover .-label {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: rgba(0, 0, 0, 0.8);
-    z-index: 2;
-    color: rgb(250, 250, 250);
-    transition: background-color 0.2s ease-in-out;
-    border-radius: 50%;
-    margin-bottom: 0;
-  }
-  .profile-pic span {
-    display: inline-flex;
-    padding: 0.2em;
-    height: 2em;
-  } */
-
 .viewMore input[type='file'], 
     .viewMore input[type='submit'] {
     display: none;
@@ -297,4 +455,4 @@
 
 .viewMore .deleteEdits {
     background-color: red;
-}
+} */

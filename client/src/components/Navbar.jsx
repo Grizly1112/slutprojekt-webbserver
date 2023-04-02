@@ -207,7 +207,7 @@ function Navbar(props) {
   function NavbarLinks() {
     return(
       <ul className='navbar-links'>
-        <NavLink to="/">Startskärm</NavLink>
+        <NavLink to="/"> Startskärm</NavLink>
         <NavLink to="/groups">Grupper</NavLink>
         <NavLink to="/members">Medlemmar</NavLink>
         <NavLink to="/tickets">Tickets</NavLink>

@@ -34,7 +34,7 @@ const contextValue = useContext(userContext)
             <h2>Medlemmar</h2>
             <ul>
             <NavLink className='navbarModalNavLink' to={`/members`} end>
-                <NavbarModalitem iconleft={<FaCompass />} label={"Utforska"}iconRight={null}/>
+                <NavbarModalitem iconleft={<FaCompass />} label={"Översikt"}iconRight={null}/>
             </NavLink>
             <NavLink className='navbarModalNavLink' to={`user/${user.username}`}>
                 <NavbarModalitem iconleft={<FaUserCircle />} label={"Ditt konto"}iconRight={null}/>
