@@ -1,29 +1,21 @@
-import React from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import './css/Members.css'
-import { NavLink, Outlet } from 'react-router-dom'
+import { NavLink, Outlet, Link } from 'react-router-dom'
 import { FaGlobe, FaSearch, FaUser, FaUserFriends, FaUserPlus, FaUserSecret, FaUserShield, FaUsers } from 'react-icons/fa'
+import { userContext } from '../../context/UserContext'
+import MembersSideBar from './components/MembersSideBar'
 
 
 export default function Members() {
+
+
   return (
     <>
     <div className='members'>
-      <div className="members-header">
-            <div className="members-logo">
-              <FaUsers />
-              <h4>Medlemmar</h4>
-            </div>
-        <div className="inner-header">
-          <ul>
-            <NavLink to='/members'><FaGlobe />Utforska</NavLink>
-            <NavLink to='/members/user'><FaUser /> Ditt konto</NavLink>
-            <NavLink to='/members/firends'><FaUserFriends /> Vänner</NavLink>
-            <NavLink to='/members/friendrequest'><FaUserPlus /> Vänförfrågningar</NavLink>
-          </ul>
-        </div>
-        <hr />
+      <MembersSideBar />
+      <div className="memebers-container">
+          <Outlet />
       </div>
-    <Outlet />
     </div>
     </>
   )
