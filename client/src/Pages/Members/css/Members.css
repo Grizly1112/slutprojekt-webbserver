@@ -1,6 +1,5 @@
 .members {
     width: 100vw;
-    max-height: calc(100vh - 4rem);
     overflow: hidden;
     display: flex;
     flex-direction: row;
@@ -9,7 +8,8 @@
 
 .memebers-container {
   /* Sidebar widht */
-  max-height: calc(100vh - 5rem);
+  max-height: calc(100vh -4rem);
+  overflow: hidden;
   width: 100%;
   height: auto;
   display: flex;

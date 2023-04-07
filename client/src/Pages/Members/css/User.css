@@ -1,18 +1,21 @@
 .userContainer {
+    overflow-y: scroll;
     width: 100vw;
+    height: auto;
+    overflow-x: hidden;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     margin-top: var(--nav-size);
-
 }
 .userContainer .userProfile {
-    padding-top: 1rem;
+    padding-top: 3rem;
     width: 100vw;
     height: 30rem;
     background-color: var(--bg);
     display: flex;
+    
     justify-content: center;
 }
 
@@ -21,11 +24,9 @@
     width: 60vw;
     /* background-color: red; */
     display: flex;
+    flex-direction: column;
     justify-content: center;
 }
-
-
-
 
 
 .userContainer .userProfileHeader .userProfileHeaderContainer {
@@ -106,6 +107,15 @@
     gap: .5rem;
 }
 
+.staffBadge {
+    background-color: #EA5455;
+    padding: 0em .3rem;
+    border: 1px solid var(--border-color);
+    text-shadow: none;
+    border-radius: 8px;
+    font-size: .875rem;
+}
+
 .userContainer .userProfileHeader .userProfileHeaderContainer .banner .userDetailsContainer .username .circleDot {
     font-size: .6rem;
 }
@@ -182,6 +192,56 @@
 
 
 
+.userContainer .userProfile ul {
+    padding: 1rem 0 2rem 0;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+  
+.userContainer .userProfile ul .navbarModalNavLink {
+    height: 3rem;
+  }
+  
+  .userContainer .userProfile ul .navbarModal-item {
+     border-radius: 8px;
+      display: flex;
+      height: 100%;
+      align-items: center;
+      padding: 0rem 1rem;
+      color: lightgray;
+      cursor: pointer;
+      justify-content: space-between;
+      gap: 1rem;
+  } 
+  
+  .userContainer .userProfile ul .active .navbarModal-item > *{
+    color: var(--bg-m) !important;
+  }
+  .userContainer .userProfile ul .active .navbarModal-item:hover {
+    background-color: transparent;
+  }
+  
+  .userContainer .userProfile ul .navbarModal-item:hover{
+      background-color: var(--bg-accent);
+  }
+  
+  .userContainer .userProfile ul .navbarModal-item .navbarModal-item-icon-left
+    {
+      height: 100%;
+      display: flex;
+      align-items: center;
+      font-size: 1.6rem;
+      justify-content: start;
+     }
+    
+
+
+/* UserContent */
+
+.userContainer .userContent {
+    color: yellow;
+}
 
 
 /* .userContainer * {

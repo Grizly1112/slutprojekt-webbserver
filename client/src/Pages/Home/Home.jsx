@@ -1,12 +1,13 @@
 import React, { memo, useContext, useEffect, useMemo, useRef, useState } from 'react'
-import { FaChartBar, FaChartLine, FaChartPie, FaCircleNotch, FaCriticalRole, FaHammer, FaJsSquare, FaMailBulk, FaRedhat, FaSearch, FaUsers } from 'react-icons/fa'
+import { FaChartBar, FaChartLine, FaChartPie, FaCircleNotch, FaCriticalRole, FaHammer, FaHashtag, FaJsSquare, FaMailBulk, FaPaperPlane, FaRedhat, FaSearch, FaUsers } from 'react-icons/fa'
 import { NavLink } from 'react-router-dom'
 import './css/Home.css'
 import userDefault from '../../assets/avatarDefault.png'
 import Tooltip from '../../components/assets/Tooltip'
 import { io } from "socket.io-client";
-import { GetUser } from '../../api/user'
+import { GetForumStatistics, GetUser } from '../../api/user'
 import { userContext } from '../../context/UserContext'
+import GlobalChat from './GlobalChat'
 
 
 export default function Home() {
@@ -18,7 +19,6 @@ export default function Home() {
   
   const contextValue = useContext(userContext)
 
-  console.log(contextValue.user)
 
   useEffect(() => 
   {
@@ -28,7 +28,6 @@ export default function Home() {
     }
     else {
       socket.current.emit("new-user-add", (""));
-      
     }
     socket.current.on("get-users", (users) => {
       setonlineUsers(users);
@@ -36,16 +35,15 @@ export default function Home() {
     return () => {
       socket.current.disconnect();
     }
-
-
   }, [contextValue])
+
 
   const SideWidget = (props) => {
     return(
       <div className='sideWidget'>
         <div className="header">
           {props.icon}
-          <h2>{props.title}</h2>
+          <h4>{props.title}</h4>
           {
             props.live ? 
               <div className="circle"></div>
@@ -111,15 +109,21 @@ export default function Home() {
     );
   });
 
+
+
   return (
     <>
      <div className={hasLoadedInOnce ? 'home ': "home hasLoadedInOnce"}>
       <div className="left"></div>
-      <div className="center"></div>
+      <div className="center">
+        <GlobalChat user={contextValue.user} />
+      </div>
       <div className="right">
         <OnlineUserWidget />
-        <SideWidget icon={<FaMailBulk />} title="Aktiva trådar" />
-        <SideWidget icon={<FaChartBar />} title="Forum statistik" />
+        <SideWidget icon={<FaMailBulk />} title="Aktiva Grupper" />
+        <SideWidget icon={<FaChartBar />} title="Forum statistik">
+         
+        </SideWidget>
       </div>
     </div>
     </>

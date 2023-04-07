@@ -1,8 +1,5 @@
 :root {
-    --bg:  #242526;
-    --bg-accent: #484a4d;
-    --text-color: #dadce1;
-    --nav-size: 4rem;
+    --nav-size: 3.5rem;
     --border: 1px solid #474a4d;
     --border-radius: 8px;
     --speed: 500ms; 
@@ -25,19 +22,21 @@
   .navbar {
     top: 0;
     position: fixed;
-    width: calc(100% - 2rem);
+    width: 100%;
     font-family: roboto;
     height: var(--nav-size);
+    /* background-color: var(--bg); 
+    */
     background-color: var(--bg-d);
     padding: 0 1.5rem;
-    border-bottom: var(--border);
+    border-bottom: var(--border-color);
     color: var(--text-color);
     box-shadow: var(--boxshadow-l);
 
     display: flex;
     align-items: center;
     justify-content: space-between;
-    z-index: 9999999999999999999999999999;
+    z-index: 99999;
   }
 
   .navbar .logo {
@@ -46,6 +45,7 @@
   
   /* <ul> */
   .navbar-end {
+    margin-right: 2.5rem;
     max-width: 33.3%;
     height: 100%;
     display: flex;
@@ -119,7 +119,9 @@
     width: var(--button-size);
     height: var(--button-size); 
     background-color: var(--bg-d-accent);
+    border: 1px solid var(--border-color);
     border-radius: 50%;
+    box-shadow: 0px 1px 2px var(--boxshadow-l);
     height: 67.5%;
     aspect-ratio: 1/1;
     display: flex;
@@ -281,11 +283,11 @@
 
 .navbarModal .navbarModal-item .navbarModal-item-icon-left
 {
-  color: lightgray;
+  color: var(--text-color);
   height: 100%;
   display: flex;
   align-items: center;
-  font-size: 1.8rem;
+  font-size: 1.5rem;
   justify-content: start;
   width: 20%;
 }
@@ -329,15 +331,19 @@
 
 .navbar-links  a {
   cursor: pointer;
+  font-size: 1rem;
+  line-height: 1;
+  font-weight: 600;
+  letter-spacing: -.01em;
 }
 
 .navbar-links  a:hover {
-  color: #b5b7bb;
+  color: var(--bg-m);
 }
 
 .navbar-links a.active:hover,
 .navbar-links a.active {
-  color: var(--bg-m);
+  color: var(--bg-m) !important;
 }
 
 

@@ -52,6 +52,21 @@ Utils.FormatUserAge = function(dateOfBirth) {
     return actualAge;
 }
 
+Utils.FomratMessageTimeDate = function(Timestamp, shortReturn) {
+    var Date_obj = new Date(Timestamp);
+
+    var hours = ('0' + Date_obj.getHours()).slice(-2);
+    var minutes = ('0' + Date_obj.getMinutes()).slice(-2);
+
+    if(shortReturn) {
+        return `${('0' + Date_obj.getHours()).slice(-2)}:${('0' + Date_obj.getMinutes()).slice(-2)}`
+    } else {
+    var formatted_date = `${('0' + Date_obj.getDate()).slice(-2)}/${('0' + (Date_obj.getMonth() + 1)).slice(-2)}/${Date_obj.getFullYear()}`;
+        return formatted_date + " " + `${hours}:${minutes}`;
+    }
+}
+
+
 // ta bort senare
 Utils.Logout = function() {
     localStorage.removeItem('user')

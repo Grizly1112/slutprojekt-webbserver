@@ -1,7 +1,7 @@
 import './css/Navbar.css'
 import React, { useState, useEffect, useRef, useContext, Suspense } from 'react';
 import { CSSTransition } from 'react-transition-group';
-import { FaBell, FaBolt, FaChevronCircleLeft, FaMailBulk, FaPlus, FaCog, FaChevronRight, FaChevronLeft, FaUserAlt, FaFacebookMessenger, FaMedal, FaStumbleupon, FaDotCircle, FaDemocrat, FaRegCommentAlt, FaRegCommentDots, FaRegUser, FaUserPlus, FaUser, FaUserCircle, FaChevronCircleRight, FaFileArchive, FaQuestion, FaRegQuestionCircle, FaMoon, FaRuler, FaRegNewspaper, FaSun, FaSuitcaseRolling, FaBaby, FaExpandAlt, FaChevronDown, FaClipboard, FaExternalLinkAlt, FaExclamationTriangle, FaFireExtinguisher, FaQuoteLeft, FaFastForward, FaEnvelopeOpenText, FaExternalLinkSquareAlt, FaRegBell, FaConciergeBell, FaToggleOff, FaPowerOff, FaBellSlash, FaRunning, FaHandMiddleFinger, FaInfinity, FaLevelDownAlt, FaHandshake, FaHandshakeSlash, FaArrowDown } from 'react-icons/fa';
+import { FaBell, FaBolt, FaChevronCircleLeft, FaMailBulk, FaPlus, FaCog, FaChevronRight, FaChevronLeft, FaUserAlt, FaFacebookMessenger, FaMedal, FaStumbleupon, FaDotCircle, FaDemocrat, FaRegCommentAlt, FaRegCommentDots, FaRegUser, FaUserPlus, FaUser, FaUserCircle, FaChevronCircleRight, FaFileArchive, FaQuestion, FaRegQuestionCircle, FaMoon, FaRuler, FaRegNewspaper, FaSun, FaSuitcaseRolling, FaBaby, FaExpandAlt, FaChevronDown, FaClipboard, FaExternalLinkAlt, FaExclamationTriangle, FaFireExtinguisher, FaQuoteLeft, FaFastForward, FaEnvelopeOpenText, FaExternalLinkSquareAlt, FaRegBell, FaConciergeBell, FaToggleOff, FaPowerOff, FaBellSlash, FaRunning, FaHandMiddleFinger, FaInfinity, FaLevelDownAlt, FaHandshake, FaHandshakeSlash, FaArrowDown, FaRegMoon, FaRegSun } from 'react-icons/fa';
 import Modal from './assets/Modal';
 import Utils from '../assets/functiions/Utils'
 import Tooltip from './assets/Tooltip';
@@ -33,13 +33,17 @@ function Navbar(props) {
   useEffect(() => {
     setTimeout(() => setContextLoaded(true), 250);
 
+    console.log(contextValue)
+
     if(contextValue.user) {
       setUser(contextValue.user)
       setIsLoading(false)
       if(user.pfp) setUser({...user, userHasPfp: true})
+
     } 
 
   },[contextValue])
+
 
   function NavbarEndLoggedIn() {
     function NavItem(props) {
@@ -52,7 +56,8 @@ function Navbar(props) {
     }
 
     function UserModal() {
-      const [theme, setTheme] = useState(true);
+      const [theme, setTheme] = useState(JSON.parse(localStorage.getItem('theme')).theme);
+      console.log(theme)
       const [status, setStatus] = useState(true);
       const [notifactions, setNotifiactions] = useState(true);
       let navigate = useNavigate();
@@ -94,10 +99,17 @@ function Navbar(props) {
               </>
             }/>
             
-             <NavbarModalitem iconleft={ theme ? <FaMoon /> : <FaSun />} label={theme ? "Mörkt": "Ljust"}iconRight={
+             <NavbarModalitem iconleft={ !theme ? <FaRegSun /> : <FaRegMoon />} label={!theme ? "Ljust": "Mörkt"}iconRight={
               <>
               <label className="switch">
-                <input type="checkbox"defaultChecked={theme} onChange={()=> setTimeout(() => {setTheme(!theme)}, 200) }/>
+                <input type="checkbox"defaultChecked={theme} onChange={()=> setTimeout(() => {
+                  setTheme(theme ? false : true)
+                  console.log(theme)
+                  localStorage.setItem('theme', JSON.stringify({theme: theme ? false : true}))
+                  document.documentElement.setAttribute('data-dark-mode', theme ? false : true);
+
+
+                }, 200) }/>
                 <span className="slider round"></span>
               </label>
               </>

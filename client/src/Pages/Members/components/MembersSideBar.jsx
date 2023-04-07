@@ -2,7 +2,6 @@ import React, { useContext, useEffect, useState } from 'react'
 import { FaChessRook, FaChevronCircleRight, FaCog, FaCogs, FaCompass, FaHouseUser, FaRegUserCircle, FaUserAstronaut, FaUserCheck, FaUserCircle, FaUserFriends, FaUserPlus, FaUserTimes, FaUsers } from 'react-icons/fa'
 import { Link, NavLink } from 'react-router-dom'
 import { userContext } from '../../../context/UserContext'
-import Breadcrumbs from '../../../components/assets/Breadcrumbs'
 import Tooltip from '../../../components/assets/Tooltip'
 
 export default function MembersSideBar() {
@@ -14,7 +13,6 @@ document.title ="Mag Forum | Medlemmar"
 const contextValue = useContext(userContext)
     useEffect(() => {
         if(contextValue.user) setUser(contextValue.user);
-        console.log(user)
     }, [contextValue])
 
 

@@ -34,9 +34,9 @@ export const register = async (req, res) => {
         const userIp = await axios.get('https://ipapi.co/json/');
         user.ip = userIp.data.ip
 
-        const regionNamesInEnglish = new Intl.DisplayNames(['sv'], { type: 'region' });
+        const regionNamesInSwedish = new Intl.DisplayNames(['sv'], { type: 'region' });
         
-        user.country = regionNamesInEnglish.of(userIp.data.country_code);
+        user.country = regionNamesInSwedish.of(userIp.data.country_code);
         user.region = userIp.data.region.split(" ")[0];
 
         console.log(user)
@@ -111,6 +111,8 @@ export const uploadProfilePicture = async (req, res) => {
         const user = await UserModel.findById(userId);
         const previousProfilePicture = await Image.findById(user.pfp);
     
+      /* These two lines of code are creating a regular expression to extract the ID of the current
+      profile picture from the user object. */
         const profilePictureIdRegex = /[^\s"]+|"([^"]*)"/gi;
         const currentProfilePictureId = profilePictureIdRegex.exec(user.pfp.toString())[0];
 

@@ -130,7 +130,7 @@
 
 }
 
-.Message .MessageText, .SameUserMessage .MessageText{
+.ChatWindowContainer .ChatWindowMessageContainer .Message .MessageText, .SameUserMessage .MessageText{
     display: flex;
     height: fit-content;
     max-width: 100%;
@@ -142,10 +142,8 @@
 
 }
 
-.SameUserMessage .MessageText{
-
+.ChatWindowContainer .ChatWindowMessageContainer .SameUserMessage .MessageText{
     margin-left: 5rem;
-
 }
 
 
@@ -170,7 +168,7 @@
 }
 
 
-.SameUserMessage .MessageText{
+.ChatWindowContainer .ChatWindowMessageContainer .SameUserMessage .MessageText{
     display: flex;
     height: fit-content;
     max-width: 100%;

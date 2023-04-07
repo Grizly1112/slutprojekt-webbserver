@@ -12,6 +12,8 @@ const userSchema = new mongoose.Schema({
     country: {type: String, required: true},
     region: {type: String, required: true},
     userDescription: {type: String},
+    previousUsernames: {type: Array, default: []},
+    lastSeen: {type: Date, default: () => Date.now},
     staff: {type: Boolean, default: false},
     dateJoined: {type: Date, default: () => Date.now()},
 })

@@ -1,3 +1,4 @@
+
 const io = require("socket.io")(3001, {
     cors: {
       origin: "*",
@@ -25,11 +26,18 @@ io.on("connection", (socket) => {
     io.emit("get-users", activeUsers);
   })
 
+
+  socket.on('getOnlineUSers', (name) => {
+    console.log("hehehehe")
+    io.emit('get-users', activeUsers);
+  })
+
   socket.on("disconnect", () => {
     // remove user from active users
+    currentUser = activeUsers.filter((user) => user.socketId === socket.id);
+    // SetUserLastSeen(currentUser.username)
     activeUsers = activeUsers.filter((user) => user.socketId !== socket.id);
     console.log("User Disconnected");
-
     // send all active users to all users
     io.emit("get-users", activeUsers);
   });

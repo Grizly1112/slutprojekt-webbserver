@@ -1,0 +1,9 @@
+.editUser {
+    margin-top: var(--nav-size);
+    color: var(--text-color);
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

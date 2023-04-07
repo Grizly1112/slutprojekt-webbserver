@@ -13,6 +13,10 @@ class AppProvider extends React.Component {
     }
 
     componentDidMount () {
+        if(!localStorage.getItem('theme')) {
+            localStorage.setItem('theme', JSON.stringify({theme: false}));
+        }
+        
         if(localStorage.getItem('user')) {
             GetUser(JSON.parse(localStorage.getItem('user')).userData.username).then(res => {
                 this.setState({
@@ -21,22 +25,26 @@ class AppProvider extends React.Component {
             })
         } else {
             this.setState({
+                ...this.state,
                 user: {}
             })
         }
     }
 
     logout() {
-        this.setState({user: {}});
+        this.setState({...this.state, user: {}});
         localStorage.removeItem('user')
         window.location.reload();
     }
 
     render() {
+
         const value = {
-        user: this.state.user,
-        logout: this.logout
-    }
+            user: this.state.user,
+            logout: this.logout,
+        }
+
+    console.log(value)
         return ( 
             <userContext.Provider value={value}> 
             {this.props.children}

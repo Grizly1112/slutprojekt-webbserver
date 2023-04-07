@@ -1,6 +1,6 @@
 .home {
-    margin-top: 4rem;
-    height: calc(100vh - 4rem);
+    margin-top: 1.5rem;
+    height: 100vh;
     width: 100vw;
     background-repeat: no-repeat;
     display: flex;
@@ -11,21 +11,42 @@
 }
 
 
+/* Srcrolbar Styleing */
+.home *::-webkit-scrollbar-track
+{
+	border-radius: 10px;
+  background-color: var(--bg-d-l);
+}
+
+.home *::-webkit-scrollbar
+{
+	width: 12px;
+    box-shadow: 0;
+}
+
+.home *::-webkit-scrollbar-thumb
+{
+	border-radius: 10px;
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+	background-color: var(--bg-d);
+}
+
+
 
 .home .left {
     /* background-color: red; */
-    flex: 1 1 30%;
+    flex: 1 1 25%;
     height: 100%;
 }
 
 .home .center {
     /* background-color: yellow; */
-    flex: 1 1 30%;
+    flex: 1 1 50%;
     height: 100%;
 }
 
 .home .right {
-    flex: 1 1 30%;
+    flex: 1 1 25%;
     margin-top: 4rem;
     height: 100%;
     display: flex;
@@ -38,32 +59,34 @@
 
 
 .sideWidget {
-    margin-right: 1rem;
-    width: 380px;
+    margin-right: 2.5rem;
+    box-shadow: var(--box-shadow1-l);
+    width: 360px;
     padding: 1.1rem;
     height: auto;
     border-radius: 8px;
     background-color: var(--bg-d);
-    box-shadow: 4px 2px 6px 3px rgba(0, 0, 0, 0.296);
-}
+    /* box-shadow: 4px 2px 6px 3px rgba(0, 0, 0, 0.296); */
+    border: 1px solid var(--border-color);
+  }
 
 .sideWidget .header {
     position: relative;
     display: inline-flex;
     align-items: center;
-    gap: 1rem;
+    gap: .5rem;
     background-color: var(--bg-);
     width: 100%;
     border-radius: 8px;
     color: var(--text-color);
     /* justify-content: center; */
-    gap: 1rem;
 }
 
 
 
 .sideWidget hr {
-    width: 99%;
+  margin-top: .5rem;
+    width: 100%;
     background-color: var(--text-c);
     opacity: 0.1 !important;
 }
@@ -182,3 +205,241 @@
     }
   }
   
+
+
+  .home .center {
+    margin-top: 4rem;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+/* Global chat */
+
+.globalChat {
+    height: 85%;
+    width: calc(100% - 2rem);
+    border-radius: 8px;
+    background-color: var(--bg-d);
+    box-shadow: var(--box-shadow1-l);
+    border: 1px solid var(--border-color);
+    padding: 1rem;
+
+  }
+
+.globalChat .header {
+
+  width: 100%;
+  position: relative;
+  display: inline-flex;
+  gap: .5rem;
+  color: var(--text-c);
+  align-items: center;
+  padding: 0 0 .75rem 0;
+}
+
+
+.globalChat hr {
+  opacity: .1 !important;
+}
+
+.globalChat .formInput {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  height: auto;
+}
+
+.globalChat .formInput .input {
+  position: relative;
+  margin-top: 1rem;
+  width: 100%;
+  height: auto;
+  margin-bottom: 2rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.globalChat .content {
+  max-height: 83%;
+  height:auto;
+  /* min-height: 84%; */
+  height: 83%;
+  overflow-y: scroll;
+
+  display: flex;
+  flex-direction: column;
+  padding: .5rem 0;
+  justify-content: flex-end;
+}
+
+/* input container, lägg till emoju och grejer */
+.globalChat .formInput .input textarea {
+  position: relative;
+  /* background-color: var(--bg-d-l); */
+  background-color: var(--bg-d-l);
+  border: none;
+  outline: none;
+  border: 1px solid var(--border-color);
+  color: var(--text-color);
+  border-radius: 8px;
+  width: 90%;
+  padding: 1rem .5rem;
+  resize: none;
+  vertical-align: center;
+  min-height: fit-content;
+  transition: all 0.3s ease-in-out;
+  box-shadow: var(--box-shadow1-l);
+}
+
+.globalChat .formInput .input textarea:focus {
+  border-color: var(--bg-m);
+}
+
+.globalChat .formInput .input::after {
+  content: 'Du kan skicka meddelanden genom att trycka på Enter.';
+  position: absolute;
+  bottom: -47.5%;
+  left: .75rem;
+  font-size: .715rem;
+  color: var(--text-color);
+  opacity: .7;
+}
+
+.globalChat .formInput .input textarea:disabled {
+  background-color: var(--bg-d-accent) !important;
+  cursor:not-allowed;
+}
+
+.globalChat .formInput .input button:disabled {
+  background-color: var(--bg-d-accent) !important;
+  cursor:not-allowed;
+}
+
+.globalChat .formInput .input button {
+  padding: .9rem 1rem;
+  display: flex;
+  gap: .5rem;
+  border-radius: 8px;
+  background-color: var(--bg-d-l);
+  font-weight: normal !important;
+  border: 1px solid var(--bg-m);
+  outline: none;
+  cursor: pointer;
+  color: var(--text-color);
+  transition: .45s ease-in-out;
+  box-shadow: var(--box-shadow1-l);
+}
+
+.globalChat .formInput .input button h4 {
+  font-weight: normal;
+  opacity: .6;
+}
+
+.globalChat .formInput .input button:hover {
+  background-color: var(--bg-m);
+  border-color: var(--border-color);
+  opacity: 1 !important;
+}
+
+.globalChat .content::-webkit-scrollbar-thumb {
+  background-color: var(--bg-d-l);
+  
+}
+
+.globalChat .content::-webkit-scrollbar-track {
+  box-shadow: none;
+}
+
+.globalChat .content .MessageHr{
+    width: 99%;
+    background-color: var(--text-c);
+    opacity: 0.1 !important;
+}
+.globalChat .content .Message{
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  width: 90%;
+  padding-top: 1rem;
+  
+}
+
+.globalChat .content .Message .ChatContent .ChatHeader {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: .75rem;
+  height: 1rem;
+  font-size: 1rem;
+  color: var(--text-c);
+  opacity: 0.9;
+
+}
+
+.globalChat .content .Message .ChatContent .ChatHeader .HeaderUsername:hover {
+  text-decoration: underline;
+  cursor: pointer;
+
+}
+
+.globalChat .content .Message .ChatContent .ChatHeader .HeaderDate{
+  color: var(--text-c);
+  opacity: 0.7;
+  display: flex;
+  align-items: center;
+  font-size: 0.8rem;
+  font-weight: 400;
+  white-space: nowrap;
+} 
+
+.globalChat .content .Message .ChatPfp{
+  display: flex;
+  align-items: flex-start;
+  width: 2.5rem;
+  min-width: 2.5rem;
+  margin-right: 1rem;
+}
+.globalChat .content .Message .ChatPfp img{
+  aspect-ratio: 1/1;
+  width: 100%;
+
+  border-radius: 50%;
+  cursor:pointer;
+  user-select: none;
+
+
+}
+
+.globalChat .content .Message .MessageText, .SameUserMessage .MessageText{
+  display: flex;
+  height: fit-content;
+  max-width: 100%;
+  overflow: hidden;
+  width: fit-content;
+  justify-content: flex-start;
+  overflow: hidden;
+  color: var(--text-c);
+
+}
+
+.globalChat .content .SameUserMessage {
+  padding: 0;
+}
+
+.globalChat .content .SameUserMessage .ChatPfp {
+  aspect-ratio: none;
+  height: auto !important;
+  color: var(--text-c);
+  opacity: 0.7;
+  font-size: 0.8rem;
+  font-weight: 400;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  visibility: hidden;
+}
+
