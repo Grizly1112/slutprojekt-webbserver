@@ -96,7 +96,7 @@ export default function Home() {
         {onlineUsers.map((userOnline) => {
           if (userOnline.userId && userOnline.userId !== undefined) {
             return (
-              <NavLink to={`user/${userOnline.userId}`}>
+              <NavLink to={`members/user/${userOnline.userId}`}>
                 <Tooltip key={userOnline.userId} label={userOnline.userId}>
                   <img src={userOnline.pfp || userDefault} className="onlineUsers-img" alt="" />
                 </Tooltip>

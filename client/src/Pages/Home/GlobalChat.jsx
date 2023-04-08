@@ -1,17 +1,21 @@
 import React, { useContext, useEffect, useRef, useState } from 'react'
-import { FaArrowCircleUp, FaArrowUp, FaCircle, FaHashtag, FaPaperPlane, FaPaperclip, FaRegPaperPlane } from 'react-icons/fa';
+import { FaArrowCircleUp, FaArrowUp, FaCircle, FaHashtag, FaImage, FaPaperPlane, FaPaperclip, FaRegPaperPlane, FaTrash } from 'react-icons/fa';
 import { GetGlobalChatMessages, SendGlobalChatMessage } from '../../api/messages';
 import { userContext } from '../../context/UserContext';
 import Utils from '../../assets/functiions/Utils';
 
 import DefaultPFp from '../../assets/avatarDefault.png'
 import { Link } from 'react-router-dom';
+import { Loader } from '../../components/assets/Loader';
 
 export default function GlobalChat(props) {
   // https://stackoverflow.com/questions/6014702/how-do-i-detect-shiftenter-and-generate-a-new-line-in-textarea
   const [value, setValue] = useState("");
-  const [isLoading, setLoading] = useState("");
+  const [isLoading, setLoading] = useState(true);
   const [messageArray, setmessageArray] = useState([]);
+  const [userHasLoadedIn, setUSerHasLoadidin] = useState(false)
+
+  const [messageImgUpload, setMessageImgUpload] = useState("");
 
   function handleKeyPress(event) {
     if (event.keyCode === 13) {
@@ -31,21 +35,20 @@ export default function GlobalChat(props) {
   const [user, setUser] = useState({});
     const contextValue = useContext(userContext)
     useEffect(() => {
-        Scroll()
-
-        GetGlobalChatMessages().then(res => {
+      
+      GetGlobalChatMessages().then(res => {
             setmessageArray(res.data.messageArray)
-            console.log(res.data.messageArray)
-            messageArray.map(msg => {
-                console.log(msg.creator.username)
-            })
             setLoading(false);
+            Scroll()
         })
 
-        if(contextValue.user) {
+        if(contextValue.user && !userHasLoadedIn) {
           setUser(contextValue.user)
+          setUSerHasLoadidin(true)
+
         }
     }, [contextValue])
+
 
 const Message = (props) => {
     return (
@@ -59,16 +62,21 @@ const Message = (props) => {
                         <div className='ChatContent'>
                             <div className='ChatHeader'>
                               <Link className='HeaderUsername' to={`/members/user/${props.name}`}>{props.name}</Link>
-                                {
+                                {/* {
                                   user.staff? 
                                   <p className='staffBadge'>Moderator</p>
                                   : null
-                                }
+                                } */}
                                 <div className='HeaderDate'>{Utils.FomratMessageTimeDate(props.timestamp, false)}</div>{" "}
                             </div>
                             <div className='MessageText'>
                                 <p>{props.text}</p>
                             </div>
+                                {
+                                  props.img ? 
+                                  <img src={props.img} />
+                                  : null
+                                }
                         </div>
                     </div>
                 </>
@@ -90,6 +98,11 @@ const Message = (props) => {
                         <div className='ChatContent'>
                             <div className='MessageText'>
                                 <p>{props.text}</p>
+                                {
+                                  props.img ? 
+                                  <img src={props.img.img} />
+                                  : null
+                                }
                             </div>
                         </div>
                     </div>
@@ -103,15 +116,16 @@ const Message = (props) => {
   const container = useRef(null)
   
   const Scroll = () => {
+    console.log("MMASLMSLKSADLKSASKLAJD")
     console.log(container.current.scrollHeight)
     
     // Ta bort när messages finns
-    container.current.scrollTo(0, container.current.scrollHeight)
+    const { offsetHeight, scrollHeight, scrollTop } = container.current
+    container.current.scrollTo(0, scrollHeight)
     
-    // const { offsetHeight, scrollHeight, scrollTop } = container.current
-    // if (scrollHeight <= scrollTop + offsetHeight + 100) {
-        //   container.current.scrollTo(0, scrollHeight)
-        // }
+    if (scrollHeight <= scrollTop + offsetHeight + 100) {
+          container.current.scrollTo(0, scrollHeight)
+      }
     }
     
     
@@ -122,19 +136,51 @@ const Message = (props) => {
         console.log(messagetext);
     }
 
+    
+    const hanldeFileUpload = async (e) => {
+      const file = e.target.files[0];
+      const base64 = await convertToBase64(file);
+      // setPostImage({...postImage, base64: base64})
+      console.log(base64)
+      setMessageImgUpload(base64)
+      // console.log(postImage)
+  }
+  
+  useEffect(() => {
+    Scroll()
+  },[])
 
-  const onFormSubmit = e => {
-    e.preventDefault();
-    console.log(messagetext)
-    SendGlobalChatMessage({userId: user._id, messageText: messagetext})
 
-    console.log(user._id)
+  const convertToBase64 = (file) => {
+    return new Promise((resolve, reject) => {
+      const fileSize = file.size; // get the file size in bytes
+      const maxSize = .1 * 1024 * 1024; // 5MB in bytes
+  
+      if (fileSize > maxSize) {
+        // If file size is greater than 5MB, reject the promise with an error message
+        reject(new Error("File is too large"));
+        alert("File to Large")
+        return;
+      }
+  
+      const fileReader = new FileReader();
+      fileReader.readAsDataURL(file);
+      fileReader.onload = () => {
+        resolve(fileReader.result);
+      };
+      fileReader.onerror = (error) => {
+        reject(error);
+      };
+    });
+  };
 
-    // send state to server with e.g. `window.fetch`
-}
 
+    const onFormSubmit = e => {
+      e.preventDefault();
+      SendGlobalChatMessage({userId: contextValue.user._id, messageText: messagetext, img: messageImgUpload})
 
-
+      // send state to server with e.g. `window.fetch`
+  }
 
   return(
     <>
@@ -147,18 +193,29 @@ const Message = (props) => {
       </div>
       <hr/>
       <div className="content" ref={container}> 
-      {
-        isLoading && messageArray.length === 0? 
-        <p>laddar</p>
+        {
+        isLoading ?
+        <Loader />
         :
         <>
-        {messageArray.map((message, i) => {
+        {
+        messageArray.map((message, i) => {
             var sameUser = false;
             if (i > 0) {
                 message.creator.username === messageArray[i - 1].creator.username
                 ? (sameUser = true)
 									: (sameUser = false);
-							}
+               
+                  const thisDate = new Date(message.timestamp);
+                  const previousMsgDate = new Date(messageArray[i - 1].timestamp);
+                  const diff = thisDate.getTime() - previousMsgDate.getTime();
+                  // Convert the difference to days
+                  const diffInDays = diff / (1000 * 60 * 60 * 1);
+                  if (diffInDays > 1) {
+                   sameUser = false;
+                  //  ev lägga till hr med datum i mitten
+                  }
+                }
 
 							return sameUser ? (
 								<Message
@@ -168,6 +225,7 @@ const Message = (props) => {
 									text={message.text}
 									timestamp={message.timestamp}
                   id={message._id}
+                  img={message.img}
                 />
               ) : (
                 <Message
@@ -177,17 +235,37 @@ const Message = (props) => {
                     text={message.text}
                     timestamp={message.timestamp}
                     id={message._id}
+                    img={message.img}
                 />
                 );
               })}
         </>
-        }
+        } 
       </div>
+
       <hr />
       <form className='formInput' onSubmit={onFormSubmit}>
+        {
+          messageImgUpload.length > 0 ? 
+          <div className="imagePreview">
+          <div className='imagePreviewContainer'>
+            <FaTrash onClick={() => setMessageImgUpload("")}/>
+            <img src={messageImgUpload} alt="" />
+          </div>
+        </div>
+          : 
+          null
+        }
+         
         <div className="input">
-          <textarea value={value} disabled={Object.keys(user).length > 0 ? false: true} onChange={handleChange} rows={1} placeholder={Object.keys(user).length > 0 ? "Skriv i Global Chatt": "Du måste logga in för att skriva"}/>
-          <button type='submit' disabled={Object.keys(user).length > 0 ? false: true}><h4>Skicka</h4></button>
+          <textarea value={value} disabled={Object.keys(contextValue.user).length > 0 ? false: true} onChange={handleChange} rows={1} placeholder={Object.keys(contextValue.user).length > 0 ? "Skriv i Global Chatt": "Du måste logga in för att skriva"}/>
+          <button onClick={() => upFile.click()}>
+            <input type="file" name="" id="upFile" accept='.jpeg, .png, .jpg'  
+            onChange={async(e) => { await hanldeFileUpload(e); }}
+             />
+            <FaImage />           
+          </button>
+          <button type='submit' disabled={Object.keys(contextValue.user).length > 0 ? false: true}><h4>Skicka</h4></button>
         </div>
       </form>
     </div>

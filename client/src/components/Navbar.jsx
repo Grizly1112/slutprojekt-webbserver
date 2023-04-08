@@ -56,7 +56,7 @@ function Navbar(props) {
     }
 
     function UserModal() {
-      const [theme, setTheme] = useState(JSON.parse(localStorage.getItem('theme')).theme);
+      const [theme, setTheme] = useState("");
       console.log(theme)
       const [status, setStatus] = useState(true);
       const [notifactions, setNotifiactions] = useState(true);

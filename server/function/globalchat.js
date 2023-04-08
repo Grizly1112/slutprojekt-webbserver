@@ -14,19 +14,38 @@ dotenv.config()
 
 
 export const globalChatMessageUpload = async(req, res) => {
-    const {userId, messageText} = req.body;
+    const {userId, messageText, img} = req.body;
+    var imgOfMessage;
+    try{
+        console.log(img);
+        console.log(userId)
+        if(userId) {
 
-
-    GlobalChatModel.create({
-        text: messageText,
-        creator: userId
-    })
+            if(img) {
+                imgOfMessage = await Image.create({
+                    img: img
+            })
+            GlobalChatModel.create({
+                text: messageText || "",
+                    creator: userId,
+                    img: imgOfMessage._id || null,
+                })
+            } else if(messageText) {
+                GlobalChatModel.create({
+                    text: messageText,
+                    creator: userId,
+                })
+            }
+        }
+        // Un kommentera
+    } catch(err) {
+        throw err;
+    }
 }
 
 export const globalChatMessageGet = async(req, res) => {
-    console.log("ejejeje")
     try {
-        const messageArray = await GlobalChatModel.find().populate('creator');
+        const messageArray = await GlobalChatModel.find().populate('creator').populate('img');
 
         // promise för att fixa med await 
         await Promise.all(messageArray.map(async (msg, i) => {
@@ -37,6 +56,8 @@ export const globalChatMessageGet = async(req, res) => {
         return res.status(200).send({messageArray})
 
     } catch (err) {
+       
+
         console.log(err);
         return res.status(500).send({message: "Serverfel uppstod"})
     }

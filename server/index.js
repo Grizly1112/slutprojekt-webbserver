@@ -24,9 +24,9 @@ app.use(cors())
 
 /* A middleware that parses the body of the request. */
 // Set limit to the parser, used with File-uploads. 
-app.use(bodyParser.json({limit: '1mb'}));
-app.use(bodyParser.urlencoded({limit: '1mb', extended: true}));
-app.use(bodyParser.text({ limit: '1mb' }));
+app.use(bodyParser.json({limit: '5mb'}));
+app.use(bodyParser.urlencoded({limit: '5mb', extended: true}));
+app.use(bodyParser.text({ limit: '5mb' }));
 
 /* It connects to the database and throws an error if it fails to connect. */
 // We're use a function here, so we can use async and await on the db connection! 

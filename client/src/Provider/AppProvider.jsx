@@ -13,9 +13,6 @@ class AppProvider extends React.Component {
     }
 
     componentDidMount () {
-        if(!localStorage.getItem('theme')) {
-            localStorage.setItem('theme', JSON.stringify({theme: false}));
-        }
         
         if(localStorage.getItem('user')) {
             GetUser(JSON.parse(localStorage.getItem('user')).userData.username).then(res => {
