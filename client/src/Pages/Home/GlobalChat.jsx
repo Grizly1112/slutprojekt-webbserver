@@ -32,15 +32,15 @@ export default function GlobalChat(props) {
     }
   }
 
+  GetGlobalChatMessages().then(res => {
+        setmessageArray(res.data.messageArray)
+        setLoading(false);
+        Scroll()
+    })
   const [user, setUser] = useState({});
     const contextValue = useContext(userContext)
     useEffect(() => {
       
-      GetGlobalChatMessages().then(res => {
-            setmessageArray(res.data.messageArray)
-            setLoading(false);
-            Scroll()
-        })
 
         if(contextValue.user && !userHasLoadedIn) {
           setUser(contextValue.user)
@@ -74,7 +74,7 @@ const Message = (props) => {
                             </div>
                                 {
                                   props.img ? 
-                                  <img src={props.img} />
+                                  <img src={props.img.img} />
                                   : null
                                 }
                         </div>
@@ -140,8 +140,11 @@ const Message = (props) => {
     const hanldeFileUpload = async (e) => {
       const file = e.target.files[0];
       const base64 = await convertToBase64(file);
+      let baseString = base64.split(",")[1]
+      let imgBUffered = await new Buffer(baseString, "base64");
+      console.log(imgBUffered)
       // setPostImage({...postImage, base64: base64})
-      console.log(base64)
+      // console.log(imgBuffer)
       setMessageImgUpload(base64)
       // console.log(postImage)
   }
@@ -154,7 +157,7 @@ const Message = (props) => {
   const convertToBase64 = (file) => {
     return new Promise((resolve, reject) => {
       const fileSize = file.size; // get the file size in bytes
-      const maxSize = .1 * 1024 * 1024; // 5MB in bytes
+      const maxSize = 1 * 1024 * 1024; // 5MB in bytes
   
       if (fileSize > maxSize) {
         // If file size is greater than 5MB, reject the promise with an error message
@@ -177,7 +180,7 @@ const Message = (props) => {
 
     const onFormSubmit = e => {
       e.preventDefault();
-      SendGlobalChatMessage({userId: contextValue.user._id, messageText: messagetext, img: messageImgUpload})
+      // SendGlobalChatMessage({userId: contextValue.user._id, messageText: messagetext, img: messageImgUpload})
 
       // send state to server with e.g. `window.fetch`
   }
@@ -198,48 +201,30 @@ const Message = (props) => {
         <Loader />
         :
         <>
-        {
-        messageArray.map((message, i) => {
-            var sameUser = false;
-            if (i > 0) {
-                message.creator.username === messageArray[i - 1].creator.username
-                ? (sameUser = true)
-									: (sameUser = false);
-               
-                  const thisDate = new Date(message.timestamp);
-                  const previousMsgDate = new Date(messageArray[i - 1].timestamp);
-                  const diff = thisDate.getTime() - previousMsgDate.getTime();
-                  // Convert the difference to days
-                  const diffInDays = diff / (1000 * 60 * 60 * 1);
-                  if (diffInDays > 1) {
-                   sameUser = false;
-                  //  ev lägga till hr med datum i mitten
-                  }
-                }
-
-							return sameUser ? (
-								<Message
-                  name={message.creator.username}
-									same={false}
-                  pfp={message.creator.pfp ? message.creator.pfp.img : <DefaultPFp />}
-									text={message.text}
-									timestamp={message.timestamp}
-                  id={message._id}
-                  img={message.img}
-                />
-              ) : (
-                <Message
-                    name={message.creator.username}
-                    same={true}
-                    pfp={message.creator.pfp ? message.creator.pfp.img : <DefaultPFp />}
-                    text={message.text}
-                    timestamp={message.timestamp}
-                    id={message._id}
-                    img={message.img}
-                />
-                );
-              })}
-        </>
+        {messageArray.map((message, i) => {
+          let sameUser = false;
+          if (i > 0) {
+            sameUser = message.creator.username === messageArray[i - 1].creator.username;
+            const thisDate = new Date(message.timestamp);
+            const previousMsgDate = new Date(messageArray[i - 1].timestamp);
+            if (thisDate.getDate() - previousMsgDate.getDate() > 0) {
+              sameUser = false;
+              // ev lägga till hr med datum i mitten
+            }
+          }
+          return (
+            <Message
+              name={message.creator.username}
+              same={sameUser}
+              pfp={message.creator.pfp ? message.creator.pfp.img : <DefaultPFp />}
+              text={message.text}
+              timestamp={message.timestamp}
+              id={message._id}
+              img={message.img}
+            />
+          );
+        })}
+      </>
         } 
       </div>
 

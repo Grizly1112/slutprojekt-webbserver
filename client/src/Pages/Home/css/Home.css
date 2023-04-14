@@ -523,7 +523,7 @@ gap: 1rem;
 
 }
 
-.globalChat .content .Message .MessageText img, .SameUserMessage .MessageText img {
+.Message .textImg {
   max-width: 40%;
   border-radius: 8px;
   box-shadow: 0px 1px 2px var(--box-shadow1-l);

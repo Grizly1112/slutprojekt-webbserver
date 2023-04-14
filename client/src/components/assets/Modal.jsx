@@ -1,60 +1,55 @@
-import React, { useEffect, useReducer } from "react";
-import ReactDOM from "react-dom";
+// Källa: https://codesandbox.io/s/friendly-hofstadter-qtrtn?file=/src/index.js
+import React, { useEffect, useRef, useState } from "react";
 import Tooltip from "./Tooltip";
 
-// Källa: https://codesandbox.io/s/friendly-hofstadter-qtrtn?file=/src/index.js
+const Modal = ({ openState = false, tooltip, btnClass, activeClass, btnLabel, func, children }) => {
+  const [showModal, setShowModal] = useState(openState);
+  const modalRef = useRef(null);
 
-class Modal extends React.Component {
-    constructor(props) {
-      super();
-      this.escFunction = this.escFunction.bind(this);
-      this.state = {
-        showModal: props.openState || false
-      };
-    }
-
-    escFunction(event){
-      if (event.key === "Escape") this.handleClick();
-    }
-  
-    handleClick = () => {
-      if (!this.state.showModal) {
-        document.addEventListener("click", this.handleOutsideClick, false);
-        document.addEventListener("keydown", this.escFunction, false);
-      } else {
-        document.removeEventListener("click", this.handleOutsideClick, false);
-        document.removeEventListener("keydown", this.escFunction, false);
-        
-        this.props.func ? 
-        setTimeout(() => {
-          this.props.func()
-        }, 100)
-        : null;
+  useEffect(() => {
+    const handleEscKey = (event) => {
+      if (event.key === "Escape") {
+        setShowModal(false);
       }
-      
-      this.setState(prevState => ({
-        showModal: !prevState.showModal
-      }));
     };
 
-    handleOutsideClick = e => {
-      if  (!this.node.contains(e.target)) this.handleClick() 
-    };
-
-    render() {
-      return (
-        <div
-          ref={node => {
-            this.node = node;
-          }}
-        >
-          <Tooltip label={this.props.tooltip}>
-            <span onClick={() => {this.handleClick()}} className={this.state.showModal ? this.props.activeClass + this.props.btnClass : this.props.btnClass}>{this.props.btnLabel}</span>
-          </Tooltip>
-          {this.state.showModal && this.props.children}
-        </div>
-      );
+    if (showModal) {
+      document.addEventListener("keydown", handleEscKey, false);
+      document.addEventListener("click", handleOutsideClick, false);
     }
-  }
+
+    return () => {
+      document.removeEventListener("keydown", handleEscKey, false);
+      document.removeEventListener("click", handleOutsideClick, false);
+    };
+  }, [showModal]);
+
+  const handleOutsideClick = (event) => {
+    if (!modalRef.current.contains(event.target)) {
+      setShowModal(false);
+    }
+  };
+
+  const handleClick = () => {
+    setShowModal(!showModal);
+    if (func) {
+      setTimeout(() => {
+        func();
+      }, 100);
+    }
+  };
+
+  return (
+    <div ref={modalRef}>
+      <Tooltip label={tooltip}>
+        <span onClick={handleClick} className={`${btnClass} ${showModal ? activeClass : ""}`}>
+          {btnLabel}
+        </span>
+      </Tooltip>
+      {showModal && children}
+    </div>
+  );
+};
+
 
 export default Modal;

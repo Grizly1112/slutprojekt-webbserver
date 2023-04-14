@@ -28,19 +28,13 @@ app.use(bodyParser.json({limit: '5mb'}));
 app.use(bodyParser.urlencoded({limit: '5mb', extended: true}));
 app.use(bodyParser.text({ limit: '5mb' }));
 
-/* It connects to the database and throws an error if it fails to connect. */
-// We're use a function here, so we can use async and await on the db connection! 
-async function connectDb() {
-    try {
-        await mongoose.connect(process.env.DB_CONNECTION_STR);
-        console.log("MongoDB Databas är uppkopplad");
-    } catch (error) {
-        throw error;
-    }
-}
+/* Connect to the database using a connection pool. */
+const dbUrl = process.env.DB_CONNECTION_STR;
+const dbOptions = { useNewUrlParser: true, useUnifiedTopology: true };
+mongoose.connect(dbUrl, dbOptions)
+  .then(() => console.log("MongoDB Databas är uppkopplad"))
+  .catch(error => console.error(`Failed to connect to MongoDB: ${error.message}`));
 
-/* Connecting to the database. */
-connectDb()
 
 /* Server Routes. */
 app.post("/user/register", register);

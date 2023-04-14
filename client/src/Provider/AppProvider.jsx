@@ -6,6 +6,7 @@ class AppProvider extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            hasloaded: false,
             user: {}
         }
 
@@ -13,17 +14,18 @@ class AppProvider extends React.Component {
     }
 
     componentDidMount () {
-        
         if(localStorage.getItem('user')) {
             GetUser(JSON.parse(localStorage.getItem('user')).userData.username).then(res => {
                 this.setState({
-                    user: res.data
+                    user: res.data,
+                    hasloaded: true
                 })
             })
         } else {
             this.setState({
                 ...this.state,
-                user: {}
+                user: {},
+                hasloaded: true
             })
         }
     }
@@ -44,7 +46,7 @@ class AppProvider extends React.Component {
     console.log(value)
         return ( 
             <userContext.Provider value={value}> 
-            {this.props.children}
+           {this.state.hasloaded && this.props.children}
         </userContext.Provider>
         )
     }

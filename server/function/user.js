@@ -86,22 +86,19 @@ export const login = async (req, res) => {
 }
 
 export const getuser = async (req, res) => {
-    let usernameByParam = req.params.id;
-    // console.log(usernameByParam)
-    
-    // SE ÖVER VAD SOM SKICAKS - SKIACKA INTE MED ALL DATA "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
+    const usernameByParam = req.params.id;
+  
     try {
-        let userData = await UserModel.findOne({ username: new RegExp(`^${usernameByParam}`, 'i') }).populate('pfp', 'img');
-        // console.log(userData)
-
-        if (!userData) return res.status(404).send({ message: "Avnändaren finns inte" })
-
-        return res.status(200).send(userData)
+      const userData = await UserModel.findOne({ username: new RegExp(`^${usernameByParam}`, 'i') }).populate('pfp', 'img');
+      if (!userData) {
+        return res.status(404).send({ message: "Användaren finns inte" });
+      }
+      return res.status(200).send(userData);
     } catch (error) {
-        return res.status(500).send({ message: "Serverfel uppstod"})
+      console.error(error);
+      return res.status(500).send({ message: "Serverfel uppstod" });
     }
-}
+  };
 
 
 export const uploadProfilePicture = async (req, res) => {

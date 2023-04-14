@@ -1,7 +1,7 @@
 import './css/Navbar.css'
-import React, { useState, useEffect, useRef, useContext, Suspense } from 'react';
+import React, { useState, useEffect, useRef, useContext, Suspense, useCallback } from 'react';
 import { CSSTransition } from 'react-transition-group';
-import { FaBell, FaBolt, FaChevronCircleLeft, FaMailBulk, FaPlus, FaCog, FaChevronRight, FaChevronLeft, FaUserAlt, FaFacebookMessenger, FaMedal, FaStumbleupon, FaDotCircle, FaDemocrat, FaRegCommentAlt, FaRegCommentDots, FaRegUser, FaUserPlus, FaUser, FaUserCircle, FaChevronCircleRight, FaFileArchive, FaQuestion, FaRegQuestionCircle, FaMoon, FaRuler, FaRegNewspaper, FaSun, FaSuitcaseRolling, FaBaby, FaExpandAlt, FaChevronDown, FaClipboard, FaExternalLinkAlt, FaExclamationTriangle, FaFireExtinguisher, FaQuoteLeft, FaFastForward, FaEnvelopeOpenText, FaExternalLinkSquareAlt, FaRegBell, FaConciergeBell, FaToggleOff, FaPowerOff, FaBellSlash, FaRunning, FaHandMiddleFinger, FaInfinity, FaLevelDownAlt, FaHandshake, FaHandshakeSlash, FaArrowDown, FaRegMoon, FaRegSun } from 'react-icons/fa';
+import { FaUserCircle, FaChevronCircleRight, FaHandshake, FaUser, FaUserPlus, FaHandshakeSlash, FaRegBell, FaBellSlash, FaRegSun, FaRegMoon, FaCog, FaExternalLinkAlt, FaRegNewspaper, FaRegQuestionCircle, FaRunning, FaPlus, FaRegCommentDots, FaBell } from 'react-icons/fa';
 import Modal from './assets/Modal';
 import Utils from '../assets/functiions/Utils'
 import Tooltip from './assets/Tooltip';
@@ -33,8 +33,6 @@ function Navbar(props) {
   useEffect(() => {
     setTimeout(() => setContextLoaded(true), 250);
 
-    console.log(contextValue)
-
     if(contextValue.user) {
       setUser(contextValue.user)
       setIsLoading(false)
@@ -62,15 +60,13 @@ function Navbar(props) {
       const [notifactions, setNotifiactions] = useState(true);
       let navigate = useNavigate();
    
-      const NavbarModalitem = (props) => {
-        return(
-        <div className='navbarModal-item title' onClick={() => props.func ? props.func(): null}>
+      const NavbarModalitem = useCallback((props) => (
+        <div className="navbarModal-item title" onClick={props.func ? props.func : null}>
           <i className="navbarModal-item-icon-left">{props.iconleft}</i>
-          <h4 className='navbarModal-label'>{props.label}</h4>
+          <h4 className="navbarModal-label">{props.label}</h4>
           <i className="navbarModal-item-icon-right">{props.iconRight}</i>
         </div>
-        )
-      }
+      ), []);
 
       return(
         <>
@@ -106,9 +102,7 @@ function Navbar(props) {
                   setTheme(theme ? false : true)
                   console.log(theme)
                   localStorage.setItem('theme', JSON.stringify({theme: theme ? false : true}))
-                  document.documentElement.setAttribute('data-dark-mode', theme ? false : true);
-
-
+                  document.documentElement.setAttribute('data-dark-mode', theme ? 'false' : 'true');
                 }, 200) }/>
                 <span className="slider round"></span>
               </label>
@@ -227,23 +221,19 @@ function Navbar(props) {
     )
   }
 
-  return (
+  return contextLoaded && (
     <nav className="navbar">
-      {contextLoaded ? (
-        <>
-          <NavLink to="/">
-            <img className="logo" src={logo} alt="" />
-          </NavLink>
-          <NavbarLinks />
-          <ul className="navbar-end">
-            {Object.keys(user).length > 0 ? (
-              <NavbarEndLoggedIn />
-            ) : (
-              <NavbarEndNotLoggedIn />
-            )}
-          </ul>
-        </>
-      ) : null}
+      <NavLink to="/">
+        <img className="logo" src={logo} alt="" />
+      </NavLink>
+      <NavbarLinks />
+      <ul className="navbar-end">
+        {Object.keys(user).length > 0 ? (
+          <NavbarEndLoggedIn />
+        ) : (
+          <NavbarEndNotLoggedIn />
+        )}
+      </ul>
     </nav>
   );
 

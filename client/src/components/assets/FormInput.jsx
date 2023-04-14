@@ -7,17 +7,21 @@ import './css/FormInput.css'
 export default function FormInput(props) {
     const [focused, setFocused] = useState(false);
     const { label, errorMessage, onChange, id, type, ...inputProps } = props;
-    const [InputType, setType] = useState(type);
+    const [inputType, setType] = useState(type);
 
     const handleFocus = (e) => {
         setFocused(true);
     };
 
+    const handleBlur = () => {
+      setFocused(false);
+    };
+
     const TogglePasswordEye = () => {
         return(
             <div className="passwordEye" onClick={() => {
-              setTimeout(() => {InputType === "password" ? setType("text"): setType("password")},100);
-            }}>{InputType === "password" ? <FaEye /> : <FaEyeSlash />}</div>
+              setTimeout(() => {inputType === "password" ? setType("text"): setType("password")},100);
+            }}>{inputType === "password" ? <FaEye /> : <FaEyeSlash />}</div>
         )
     }
 
@@ -27,16 +31,14 @@ export default function FormInput(props) {
         <div className='formInpt-input'>
 
         <input
-        autoComplete="true"
-         {...inputProps}
-         type={type === "password" ? InputType: type}
-         onChange={onChange}
-         onBlur={handleFocus}
-         onFocus={() =>
-            inputProps.name === "confirmPassword" && setFocused(true)
-        }
-        focused={focused.toString()}
-        ></input>
+          autoComplete="true"
+          {...inputProps}
+          type={type === "password" ? inputType : type}
+          onChange={onChange}
+          onBlur={handleBlur}
+          onFocus={handleFocus}
+          className={`formInpt-input ${focused ? "focused" : ""}`}
+        />
         {
             type === "password" ? <TogglePasswordEye /> : null
         }
