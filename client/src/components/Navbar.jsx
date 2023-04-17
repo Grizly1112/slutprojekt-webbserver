@@ -38,6 +38,8 @@ function Navbar(props) {
       setIsLoading(false)
       if(user.pfp) setUser({...user, userHasPfp: true})
 
+      console.log(user)
+
     } 
 
   },[contextValue])
@@ -148,7 +150,7 @@ function Navbar(props) {
           (!isLoading && user.userHasPfp) ? 
           <NavItem>
             <Modal btnLabel={<img src={
-              user.pfp ? user.pfp.img : UserPfpTest
+              user.pfp ? Utils.FormatImageStr(user.pfp.data.data) : UserPfpTest
               } />} btnClass="icon-button" activeClass="active-navbar-button">
               <UserModal />
             </Modal>

@@ -89,10 +89,11 @@ export const getuser = async (req, res) => {
     const usernameByParam = req.params.id;
   
     try {
-      const userData = await UserModel.findOne({ username: new RegExp(`^${usernameByParam}`, 'i') }).populate('pfp', 'img');
+      const userData = await UserModel.findOne({ username: new RegExp(`^${usernameByParam}`, 'i') }).populate('pfp');
       if (!userData) {
         return res.status(404).send({ message: "Användaren finns inte" });
       }
+
       return res.status(200).send(userData);
     } catch (error) {
       console.error(error);

@@ -9,10 +9,9 @@ import { Route, Routes } from "react-router-dom";
 import AppProvider from './Provider/AppProvider';
 
 // Pages
-// import Chat from './Pages/Chatt/Chat'
-// import Members from './Pages/Members/Members';
-// import User from './Pages/Members/components/User'
-// import TermsService from './Pages/TermsService/TermsService'
+import Members from './Pages/Members/Members';
+import User from './Pages/Members/components/User'
+import TermsService from './Pages/TermsService/TermsService'
 
 
 // Components
@@ -27,11 +26,15 @@ import Footer from './components/Footer';
 
 
 // Pages
-const Home = lazy(() => import('./Pages/Home/Home'))
-const Members = lazy(() => import('./Pages/Members/Members'))
-const User = lazy(() => import('./Pages/Members/components/User'))
-const TermsService = lazy(() => import('./Pages/TermsService/TermsService'))
 
+// fixa Loading aniamtion annars fukcar saker och ting då va
+// const Home = lazy(() => import('./Pages/Home/Home'))
+// const Members = lazy(() => import('./Pages/Members/Members'))
+// const User = lazy(() => import('./Pages/Members/components/User'))
+// const TermsService = lazy(() => import('./Pages/TermsService/TermsService'))
+
+
+import Home from './Pages/Home/Home';
 
 /* Rendering the React app to the DOM. */
 ReactDOM.createRoot(document.getElementById('root')).render(
@@ -45,11 +48,8 @@ ReactDOM.createRoot(document.getElementById('root')).render(
           {/* Home */}
           <Route path="/" element={<Home />} />
 
-          
-          {/* Login */}
           <Route path="/login" element={<Login />} />
 
-          {/* Register */}
           <Route path="/register" element={<Register />} />
 
           {/* Members nested Routing */}

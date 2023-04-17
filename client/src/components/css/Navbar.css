@@ -238,19 +238,10 @@
 @keyframes dropdown {
   0% {
     opacity: 0;
-    max-height: 0%;
-    margin-left: -.5rem;
-    padding-left: .5rem;
-    padding-right: .5rem;
-
   }
 
   100% {
-    margin-left: 0rem;
     opacity: 1;
-    padding-left: 0;
-    padding-right: 0;
-      max-height: 39vh;
   }
 }
 

@@ -5,14 +5,22 @@ import GlobalChatModel from "../Models/globalchat.js"
 export const globalChatMessageUpload = async(req, res) => {
     try {
         const { userId, messageText, img } = req.body;
-    
-        const imgOfMessage = img ? await Image.create({ img }) : null;
-    
-        await GlobalChatModel.create({
-          text: messageText || "",
-          creator: userId,
-          img: imgOfMessage ? imgOfMessage._id : null,
-        });
+
+        var imgOfMessage = null;
+
+        if (img) {
+            // const imageData = Buffer.from(img, 'base64'); // Convert Base64 to binary data
+            const buffer = Buffer.from(img.split(',')[1], 'base64');
+            imgOfMessage = await Image.create({ data: buffer}); // Create new Image document with binary data
+        }
+
+        if(img || messageText) {
+            await GlobalChatModel.create({
+                text: messageText,
+                creator: userId,
+                img: imgOfMessage ? imgOfMessage._id : null,
+            });
+        }
       } catch (err) {
         throw err;
     }
@@ -20,28 +28,17 @@ export const globalChatMessageUpload = async(req, res) => {
 
 export const globalChatMessageGet = async(req, res) => {
     try {
+
         const messageArray = await GlobalChatModel.find().populate('creator').populate('img');
 
-        // Set prevoius message user 
-        const userIdToPfpMap = {}; // Create a cache to store previously fetched profile images
+        // Loop through each message to get user info
         await Promise.all(messageArray.map(async (msg, i) => {
-            const creatorId = msg.creator;
-            let creator = null;
-
-            // Check if the creator's profile image is already in the cache
-            if (userIdToPfpMap[creatorId] && i > 0) {
-                creator = await UserModel.findById(creatorId);
-                creator.pfp = userIdToPfpMap[creatorId];
-            } else {
-                // Fetch the creator's profile image and add it to the cache
-                creator = await UserModel.findById(creatorId).populate('pfp', 'img');
-                userIdToPfpMap[creatorId] = creator.pfp;
-            }
-
-            messageArray[i].creator = creator;
+          const creatorId = msg.creator._id;
+          const creator = await UserModel.findById(creatorId).populate('pfp');
+          messageArray[i].creator = creator;
         }));
-
-        return res.status(200).send({messageArray})
+        
+        return res.status(200).send({ messageArray });
     } catch (err) {
         console.log(err);
         return res.status(500).send({message: "Serverfel uppstod"})

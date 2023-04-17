@@ -7,7 +7,7 @@ import mongoose from "mongoose";
 // })
 // https://youtu.be/pfxd7L1kzio
 const imageSchema = new mongoose.Schema({
-   img: String 
+   data: Buffer, 
 })
 
 

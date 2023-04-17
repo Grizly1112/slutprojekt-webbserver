@@ -1,5 +1,5 @@
 import React, { memo, useContext, useEffect, useMemo, useRef, useState } from 'react'
-import { FaChartBar, FaChartLine, FaChartPie, FaCircleNotch, FaCriticalRole, FaHammer, FaHashtag, FaJsSquare, FaMailBulk, FaPaperPlane, FaRedhat, FaSearch, FaUsers } from 'react-icons/fa'
+import { FaChartBar, FaChartLine, FaChartPie, FaCircleNotch, FaCriticalRole, FaGlobeEurope, FaHammer, FaHashtag, FaJsSquare, FaMailBulk, FaPaperPlane, FaRedhat, FaSearch, FaUsers } from 'react-icons/fa'
 import { NavLink } from 'react-router-dom'
 import './css/Home.css'
 import userDefault from '../../assets/avatarDefault.png'
@@ -8,6 +8,8 @@ import { io } from "socket.io-client";
 import { GetForumStatistics, GetUser } from '../../api/user'
 import { userContext } from '../../context/UserContext'
 import GlobalChat from './GlobalChat'
+import Clock from './Clock'
+import Utils from '../../assets/functiions/Utils'
 
 
 export default function Home() {
@@ -44,19 +46,12 @@ export default function Home() {
         <div className="header">
           {props.icon}
           <h4>{props.title}</h4>
-          {
-            props.live ? 
-              <div className="circle"></div>
-            : null
-          }
+          { props.live && <div className="circle"></div> }
         </div>
           <hr />
         <div className='Widget-body'>
-          {
-            props.children
-          }
+          { props.children }
         </div>
-
       </div>
     )
   }
@@ -75,7 +70,7 @@ export default function Home() {
     }, [onlineUsers]);
   
     return (
-      <SideWidget icon={<FaUsers />} title="Användare online" live={true}>
+      <SideWidget icon={<FaUsers />} title="Användare online" live={false}>
         <>
           <UsersOnline onlineUsers={onlineUsers} userOfEachCategory={userOfEachCategory} />
           <hr />
@@ -98,7 +93,7 @@ export default function Home() {
             return (
               <NavLink to={`members/user/${userOnline.userId}`}>
                 <Tooltip key={userOnline.userId} label={userOnline.userId}>
-                  <img src={userOnline.pfp || userDefault} className="onlineUsers-img" alt="" />
+                  <img src={userOnline.pfp ? Utils.FormatImageStr(userOnline.pfp.data.data) : userDefault} className="onlineUsers-img" alt="pfp" />
                 </Tooltip>
               </NavLink>
             );
@@ -110,7 +105,6 @@ export default function Home() {
   });
 
 
-
   return (
     <>
      <div className={hasLoadedInOnce ? 'home ': "home hasLoadedInOnce"}>
@@ -120,9 +114,10 @@ export default function Home() {
       </div>
       <div className="right">
         <OnlineUserWidget />
-        <SideWidget icon={<FaMailBulk />} title="Aktiva Grupper" />
-        <SideWidget icon={<FaChartBar />} title="Forum statistik">
-         
+        <SideWidget icon={<FaGlobeEurope />} title={Utils.FormatTimezoneString()} live={true}>
+          <Clock />
+        </SideWidget>
+        <SideWidget icon={<FaChartBar />} title="Statistik">
         </SideWidget>
       </div>
     </div>

@@ -44,6 +44,26 @@ Utils.FormatTimeDate = function (Timestamp) {
     return Formatted
 }
 
+Utils.FormatTimezoneString = function() {
+    // Get user timezone 
+    const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+    
+    // Get offsett from UTC time
+    const offset = new Date().getTimezoneOffset();
+    
+    // Abs offsett / 60 to get in hours
+    const hourOffset = Math.abs(offset) / 60;
+
+    // Calculate if GMT (GTM === UTC) is positive or negative
+    const sign = offset < 0 ? "+" : offset > 0 ? "-" : "";
+
+    // Format String
+    const timezoneString = `${timezone} (GMT ${sign}${hourOffset})`;
+
+    return timezoneString
+}
+
+
 Utils.FormatUserAge = function(dateOfBirth) {
     const ageExact = (Date.now() - new Date(dateOfBirth)) / (31557600000);
     // https://stackoverflow.com/questions/1435975/how-can-i-round-down-a-number-in-javascript
@@ -65,6 +85,38 @@ Utils.FomratMessageTimeDate = function(Timestamp, shortReturn) {
         return formatted_date + " " + `${hours}:${minutes}`;
     }
 }
+
+
+Utils.FormatImageStr = function(imgObj) {
+    let imageString = `data:image/png;base64,${btoa(new Uint8Array(imgObj).reduce(function (data, byte) {
+        return data + String.fromCharCode(byte);
+    }, ''))}`;
+
+    return imageString;
+}
+
+Utils.ConvertToBase64 = function(file) {
+    return new Promise((resolve, reject) => {
+        const fileSize = file.size;
+        const maxSize = 1 * 1024 * 1024;
+
+        if (fileSize > maxSize) {
+            reject(new Error("File is too large"));
+            alert("File too large");
+            return;
+        }
+
+        const fileReader = new FileReader();
+        fileReader.readAsDataURL(file);
+        fileReader.onload = () => {
+            resolve(fileReader.result);
+        };
+        fileReader.onerror = (error) => {
+            reject(error);
+        };
+    });  
+}
+
 
 
 // ta bort senare
