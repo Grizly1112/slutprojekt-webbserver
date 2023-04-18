@@ -87,7 +87,6 @@ export default function Clock() {
     <div className="toggle-clock-view">
       <FaCircle className={clockView === "1" ? 'disabled': null} onClick={() => setClockView('1')} />
       <FaCircle className={clockView === "2" ? 'disabled': null} onClick={() => setClockView('2')} />
-      <FaCircle className={clockView === "3" ? 'disabled': null} onClick={() => setClockView('3')} />
     </div>
 
     </div>

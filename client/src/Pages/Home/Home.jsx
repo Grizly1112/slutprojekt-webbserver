@@ -1,5 +1,5 @@
 import React, { memo, useContext, useEffect, useMemo, useRef, useState } from 'react'
-import { FaChartBar, FaChartLine, FaChartPie, FaCircleNotch, FaCriticalRole, FaGlobeEurope, FaHammer, FaHashtag, FaJsSquare, FaMailBulk, FaPaperPlane, FaRedhat, FaSearch, FaUsers } from 'react-icons/fa'
+import { FaChartBar, FaChartLine, FaChartPie, FaCircleNotch, FaCloud, FaCriticalRole, FaGlobeEurope, FaHammer, FaHashtag, FaJsSquare, FaMailBulk, FaPaperPlane, FaRedhat, FaSearch, FaSun, FaUsers } from 'react-icons/fa'
 import { NavLink } from 'react-router-dom'
 import './css/Home.css'
 import userDefault from '../../assets/avatarDefault.png'
@@ -10,7 +10,8 @@ import { userContext } from '../../context/UserContext'
 import GlobalChat from './GlobalChat'
 import Clock from './Clock'
 import Utils from '../../assets/functiions/Utils'
-
+import axios from 'axios'
+import { GetWeatherData } from '../../api/other'
 
 export default function Home() {
   const [userLoggedIn, setUserLoggedIn] = useState(false);
@@ -21,10 +22,9 @@ export default function Home() {
   
   const contextValue = useContext(userContext)
 
-
   useEffect(() => 
   {
-      socket.current = io("ws://localhost:3001");
+    socket.current = io("ws://localhost:3001");
       if(contextValue.user) {
       socket.current.emit("new-user-add", {username: contextValue.user.username, pfp: contextValue.user.pfp && contextValue.user.pfp.img ? contextValue.user.pfp.img : ""});
     }
@@ -104,6 +104,36 @@ export default function Home() {
     );
   });
 
+  const [forecast, setForecast] = useState()
+
+  useEffect(() => {
+    GetWeatherData().then(res => {
+      setForecast(res)
+      console.log(res)
+    })
+  },[])
+
+  // Maps the API's icons to the ones from https://erikflowers.github.io/weather-icons/
+  var weatherIconsMap = {
+    "01d": "wi-day-sunny",
+    "01n": "wi-night-clear",
+    "02d": "wi-day-cloudy",
+    "02n": "wi-night-cloudy",
+    "03d": "wi-cloud",
+    "03n": "wi-cloud",
+    "04d": "wi-cloudy",
+    "04n": "wi-cloudy",
+    "09d": "wi-showers",
+    "09n": "wi-showers",
+    "10d": "wi-day-hail",
+    "10n": "wi-night-hail",
+    "11d": "wi-thunderstorm",
+    "11n": "wi-thunderstorm",
+    "13d": "wi-snow",
+    "13n": "wi-snow",
+    "50d": "wi-fog",
+    "50n": "wi-fog"
+  };
 
   return (
     <>
@@ -117,6 +147,17 @@ export default function Home() {
         <SideWidget icon={<FaGlobeEurope />} title={Utils.FormatTimezoneString()} live={true}>
           <Clock />
         </SideWidget>
+        {
+          forecast &&
+          <SideWidget icon={null} title={`Väderleksrapport`} />
+          // <SideWidget icon={
+            // <img src={`https://openweathermap.org/img/wn/${forecast.list[0].weather[0].icon}.png`} />
+          // } title={`Väderleksrapport ${forecast ? forecast.city.name: null}`}>
+                
+          // </SideWidget>
+
+        }
+
         <SideWidget icon={<FaChartBar />} title="Statistik">
         </SideWidget>
       </div>

@@ -29,10 +29,12 @@ function Navbar(props) {
   const [user, setUser] = useState({});
   const [isLoading, setIsLoading] = useState(true);
   const [contextLoaded, setContextLoaded] = useState(false);
- 
+  const [theme, setTheme] = useState("");
+  
   useEffect(() => {
     setTimeout(() => setContextLoaded(true), 250);
 
+    setTheme(JSON.parse(localStorage.getItem('theme')).theme)
     if(contextValue.user) {
       setUser(contextValue.user)
       setIsLoading(false)
@@ -44,6 +46,10 @@ function Navbar(props) {
 
   },[contextValue])
 
+  useEffect(() => {
+    console.log("UJEHEJE")
+    document.documentElement.setAttribute('data-dark-mode', theme ? 'false' : 'true');
+  }, [theme])
 
   function NavbarEndLoggedIn() {
     function NavItem(props) {
@@ -56,8 +62,7 @@ function Navbar(props) {
     }
 
     function UserModal() {
-      const [theme, setTheme] = useState("");
-      console.log(theme)
+
       const [status, setStatus] = useState(true);
       const [notifactions, setNotifiactions] = useState(true);
       let navigate = useNavigate();
@@ -97,14 +102,12 @@ function Navbar(props) {
               </>
             }/>
             
-             <NavbarModalitem iconleft={ !theme ? <FaRegSun /> : <FaRegMoon />} label={!theme ? "Ljust": "Mörkt"}iconRight={
+             <NavbarModalitem iconleft={ theme ? <FaRegSun /> : <FaRegMoon />} label={theme ? "Ljust": "Mörkt"}iconRight={
               <>
               <label className="switch">
                 <input type="checkbox"defaultChecked={theme} onChange={()=> setTimeout(() => {
-                  setTheme(theme ? false : true)
-                  console.log(theme)
-                  localStorage.setItem('theme', JSON.stringify({theme: theme ? false : true}))
-                  document.documentElement.setAttribute('data-dark-mode', theme ? 'false' : 'true');
+                  setTheme(!theme)
+                  localStorage.setItem('theme', JSON.stringify({theme: theme}))
                 }, 200) }/>
                 <span className="slider round"></span>
               </label>
