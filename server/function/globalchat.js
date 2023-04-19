@@ -26,6 +26,7 @@ export const globalChatMessageUpload = async(req, res) => {
     }
 }
 
+
 export const globalChatMessageGet = async(req, res) => {
     try {
 

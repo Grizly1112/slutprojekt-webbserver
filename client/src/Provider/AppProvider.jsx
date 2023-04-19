@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 import { userContext } from '../context/UserContext';
 import { GetUser } from '../api/user';
 

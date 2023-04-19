@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
 
 
-:root{
+:root[data-dark-mode="false"]{
     --bg-d: #ffffff;
     --bg-d-accent: #F0F2F5;
     --bg-d-l: #F0F2F5;;

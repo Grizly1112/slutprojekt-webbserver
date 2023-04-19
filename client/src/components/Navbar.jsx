@@ -29,27 +29,30 @@ function Navbar(props) {
   const [user, setUser] = useState({});
   const [isLoading, setIsLoading] = useState(true);
   const [contextLoaded, setContextLoaded] = useState(false);
-  const [theme, setTheme] = useState("");
+  const [theme, setTheme] = useState(null);
+  
+  if(!localStorage.getItem('theme')) {
+    document.documentElement.setAttribute('data-dark-mode', 'false');
+  } else {
+    document.documentElement.setAttribute('data-dark-mode', JSON.parse(localStorage.getItem('theme')).theme);
+  }
   
   useEffect(() => {
     setTimeout(() => setContextLoaded(true), 250);
+    
+    if(!localStorage.getItem('theme')) {
+      setTheme(false)
+    } else {
+      setTheme(JSON.parse(localStorage.getItem('theme')).theme)
+    }
 
-    setTheme(JSON.parse(localStorage.getItem('theme')).theme)
     if(contextValue.user) {
       setUser(contextValue.user)
       setIsLoading(false)
       if(user.pfp) setUser({...user, userHasPfp: true})
-
-      console.log(user)
-
     } 
 
   },[contextValue])
-
-  useEffect(() => {
-    console.log("UJEHEJE")
-    document.documentElement.setAttribute('data-dark-mode', theme ? 'false' : 'true');
-  }, [theme])
 
   function NavbarEndLoggedIn() {
     function NavItem(props) {
@@ -102,12 +105,18 @@ function Navbar(props) {
               </>
             }/>
             
-             <NavbarModalitem iconleft={ theme ? <FaRegSun /> : <FaRegMoon />} label={theme ? "Ljust": "Mörkt"}iconRight={
+             <NavbarModalitem iconleft={ theme ? <FaRegMoon /> : <FaRegSun />} label={theme ? "Mörkt": "Ljust"}iconRight={
               <>
               <label className="switch">
                 <input type="checkbox"defaultChecked={theme} onChange={()=> setTimeout(() => {
-                  setTheme(!theme)
-                  localStorage.setItem('theme', JSON.stringify({theme: theme}))
+                 const isDarkMode = JSON.parse(localStorage.getItem('theme')).theme;
+                 const newTheme = !isDarkMode;
+               
+                 localStorage.setItem('theme', JSON.stringify({ theme: newTheme }));
+                 setTheme(newTheme);
+                 document.documentElement.setAttribute('data-dark-mode', newTheme);
+                 
+                   document.documentElement.removeAttribute('data-changing-theme');
                 }, 200) }/>
                 <span className="slider round"></span>
               </label>

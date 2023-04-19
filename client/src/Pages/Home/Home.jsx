@@ -1,5 +1,5 @@
 import React, { memo, useContext, useEffect, useMemo, useRef, useState } from 'react'
-import { FaChartBar, FaChartLine, FaChartPie, FaCircleNotch, FaCloud, FaCriticalRole, FaGlobeEurope, FaHammer, FaHashtag, FaJsSquare, FaMailBulk, FaPaperPlane, FaRedhat, FaSearch, FaSun, FaUsers } from 'react-icons/fa'
+import { FaChartBar, FaChartLine, FaChartPie, FaCircle, FaCircleNotch, FaCloud, FaCloudMoon, FaCloudRain, FaCloudShowersHeavy, FaCloudSun, FaCriticalRole, FaGlobeEurope, FaHammer, FaHashtag, FaJsSquare, FaMailBulk, FaMoon, FaPaperPlane, FaRedhat, FaRegSun, FaSearch, FaSnowflake, FaSun, FaTemperatureHigh, FaUsers } from 'react-icons/fa'
 import { NavLink } from 'react-router-dom'
 import './css/Home.css'
 import userDefault from '../../assets/avatarDefault.png'
@@ -109,31 +109,46 @@ export default function Home() {
   useEffect(() => {
     GetWeatherData().then(res => {
       setForecast(res)
-      console.log(res)
     })
   },[])
 
-  // Maps the API's icons to the ones from https://erikflowers.github.io/weather-icons/
+  // https://openweathermap.org/weather-conditions
+  // Return icon depending on weather condition
+  // Alla iconer finns inte 
   var weatherIconsMap = {
-    "01d": "wi-day-sunny",
-    "01n": "wi-night-clear",
-    "02d": "wi-day-cloudy",
-    "02n": "wi-night-cloudy",
-    "03d": "wi-cloud",
-    "03n": "wi-cloud",
-    "04d": "wi-cloudy",
-    "04n": "wi-cloudy",
-    "09d": "wi-showers",
-    "09n": "wi-showers",
-    "10d": "wi-day-hail",
-    "10n": "wi-night-hail",
-    "11d": "wi-thunderstorm",
-    "11n": "wi-thunderstorm",
-    "13d": "wi-snow",
-    "13n": "wi-snow",
-    "50d": "wi-fog",
-    "50n": "wi-fog"
+    "01d":  <FaSun style={{color: "rgb(255, 230, 32)"}} />,
+    "01n":  <FaMoon style={{color: "rgb(255, 230, 32)"}}/>,
+    "02d":  <FaCloudSun />,
+    "02n": <FaCloudMoon />,
+    "03d":<FaCloud />,
+    "03n":<FaCloud />,
+    "04d": <FaCloud />,
+    "04n": <FaCloud />,
+    "09d": <FaCloudShowersHeavy />,
+    "09n": <FaCloudShowersHeavy />,
+    "10d": <FaCloudRain />,
+    "10n": <FaCloudRain />,
+    // Thunder
+    "11d": <FaCloud />,
+    "11n": <FaCloud />,
+    "13d": <FaSnowflake />,
+    "13n":  <FaSnowflake />,
+    // Fog
+    "50d":  <FaCloud />,
+    "50n": <FaCloud />
   };
+
+  const TimeAndWeatherHeader = () => {
+    return(
+      <div className='forecast'>
+      {/* https://www.toptal.com/designers/htmlarrows/symbols/degree-celsius/: Degree icon using hex-code*/}
+      {forecast.name}
+      {/* <FaCircle className='forecast-circle'/> */}
+      {weatherIconsMap[forecast.weather[0].icon]}
+      {Utils.ConvertKelvinToCelsius(forecast.main.temp)}<span>&#xb0;C</span>
+      </div>
+    )
+  }
 
   return (
     <>
@@ -144,20 +159,23 @@ export default function Home() {
       </div>
       <div className="right">
         <OnlineUserWidget />
-        <SideWidget icon={<FaGlobeEurope />} title={Utils.FormatTimezoneString()} live={true}>
-          <Clock />
-        </SideWidget>
         {
           forecast &&
-          <SideWidget icon={null} title={`Väderleksrapport`} />
-          // <SideWidget icon={
-            // <img src={`https://openweathermap.org/img/wn/${forecast.list[0].weather[0].icon}.png`} />
-          // } title={`Väderleksrapport ${forecast ? forecast.city.name: null}`}>
-                
+          // <SideWidget icon={<FaTemperatureHigh />} title={`Väderleksrapport i ${forecast.name}`}>
+          //   <div className='forecast'>
+          //   {/* https://www.toptal.com/designers/htmlarrows/symbols/degree-celsius/: Degree icon using hex-code*/}
+          //   <h2>{weatherIconsMap[forecast.weather[0].icon]}</h2>
+          //   <h2>{Utils.ConvertKelvinToCelsius(forecast.main.temp)}<span>&#xb0;C</span></h2>
+          //   </div>
+
           // </SideWidget>
+          <SideWidget icon={<FaGlobeEurope />} title={<TimeAndWeatherHeader />} live={true}>
+          <Clock />
+        </SideWidget>
+
 
         }
-
+       
         <SideWidget icon={<FaChartBar />} title="Statistik">
         </SideWidget>
       </div>

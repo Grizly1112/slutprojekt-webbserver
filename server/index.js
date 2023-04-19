@@ -7,7 +7,7 @@ import UserModel from './Models/user.js';
 import bodyParser from 'body-parser';
 import dotenv from "dotenv"
 import { globalChatMessageGet, globalChatMessageUpload } from './function/globalchat.js';
-
+import compress from 'compression'
 
 /* Loading the environment variables from the .env file. */
 dotenv.config()
@@ -18,6 +18,7 @@ const app = express();
 /* Setting the port to 8000 if the environment variable PORT is not set. */
 const port = process.env.PORT || 8000
 
+app.use(compress())
 
 /* A middleware that allows the server to accept requests from different origins. */
 app.use(cors())
