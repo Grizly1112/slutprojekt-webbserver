@@ -84,102 +84,91 @@ export default function Home() {
       </SideWidget>
     );
   };
+  const UsersOnline = React.memo(({ onlineUsers, userOfEachCategory }) => {
+    const onlineUsersList = React.useMemo(() => {
+      return onlineUsers.filter(userOnline => userOnline.userId && userOnline.userId !== undefined)
+    }, [onlineUsers])
   
-  const UsersOnline = memo(({ onlineUsers, userOfEachCategory }) => {
+    const renderOnlineUser = React.useCallback((userOnline) => {
+      return (
+        <NavLink to={`members/user/${userOnline.userId}`}>
+          <Tooltip key={userOnline.userId} label={userOnline.userId}>
+            <img src={userOnline.pfp ? Utils.FormatImageStr(userOnline.pfp.data.data) : userDefault} className="onlineUsers-img" alt="pfp" />
+          </Tooltip>
+        </NavLink>
+      );
+    }, [])
+  
     return (
       <div className="usersOnline">
-        {onlineUsers.map((userOnline) => {
-          if (userOnline.userId && userOnline.userId !== undefined) {
-            return (
-              <NavLink to={`members/user/${userOnline.userId}`}>
-                <Tooltip key={userOnline.userId} label={userOnline.userId}>
-                  <img src={userOnline.pfp ? Utils.FormatImageStr(userOnline.pfp.data.data) : userDefault} className="onlineUsers-img" alt="pfp" />
-                </Tooltip>
-              </NavLink>
-            );
-          }
-        })}
+        {onlineUsersList.map(renderOnlineUser)}
         {userOfEachCategory.users > 4 && <h4>{userOfEachCategory.users - 4}+ andra</h4>}
       </div>
     );
   });
-
-  const [forecast, setForecast] = useState()
+  const [forecast, setForecast] = useState(null);
 
   useEffect(() => {
-    GetWeatherData().then(res => {
-      setForecast(res)
-    })
-  },[])
-
-  // https://openweathermap.org/weather-conditions
-  // Return icon depending on weather condition
-  // Alla iconer finns inte 
-  var weatherIconsMap = {
-    "01d":  <FaSun style={{color: "rgb(255, 230, 32)"}} />,
-    "01n":  <FaMoon style={{color: "rgb(255, 230, 32)"}}/>,
-    "02d":  <FaCloudSun />,
+   const fetchWeatherData = async () => {
+    const res = await GetWeatherData();
+    setForecast(res);
+     };
+    fetchWeatherData();
+  }, []);
+  
+  const weatherIconsMap = {
+    "01d": <FaSun style={{ color: "rgb(255, 230, 32)" }} />,
+    "01n": <FaMoon style={{ color: "rgb(255, 230, 32)" }} />,
+    "02d": <FaCloudSun />,
     "02n": <FaCloudMoon />,
-    "03d":<FaCloud />,
-    "03n":<FaCloud />,
+    "03d": <FaCloud />,
+    "03n": <FaCloud />,
     "04d": <FaCloud />,
     "04n": <FaCloud />,
     "09d": <FaCloudShowersHeavy />,
     "09n": <FaCloudShowersHeavy />,
     "10d": <FaCloudRain />,
     "10n": <FaCloudRain />,
-    // Thunder
-    "11d": <FaCloud />,
+    "11d": <FaCloud />, // Thunder
     "11n": <FaCloud />,
     "13d": <FaSnowflake />,
-    "13n":  <FaSnowflake />,
-    // Fog
-    "50d":  <FaCloud />,
-    "50n": <FaCloud />
+    "13n": <FaSnowflake />,
+    "50d": <FaCloud />, // Fog
+    "50n": <FaCloud />,
   };
-
+  
   const TimeAndWeatherHeader = () => {
-    return(
-      <div className='forecast'>
-      {/* https://www.toptal.com/designers/htmlarrows/symbols/degree-celsius/: Degree icon using hex-code*/}
-      {forecast.name}
-      {/* <FaCircle className='forecast-circle'/> */}
-      {weatherIconsMap[forecast.weather[0].icon]}
-      {Utils.ConvertKelvinToCelsius(forecast.main.temp)}<span>&#xb0;C</span>
+    if (!forecast) return null;
+    return (
+      <div className="forecast">
+        {forecast.name}
+        {weatherIconsMap[forecast.weather[0].icon]}
+        {Utils.ConvertKelvinToCelsius(forecast.main.temp)}
+        <span>°C</span>
       </div>
-    )
-  }
-
+    );
+  };
+  
   return (
-    <>
-     <div className={hasLoadedInOnce ? 'home ': "home hasLoadedInOnce"}>
+  <>
+    <div className={`home ${hasLoadedInOnce ? "" : "hasLoadedInOnce"}`}>
       <div className="left"></div>
       <div className="center">
-        <GlobalChat user={contextValue.user} />
+      <GlobalChat user={contextValue.user} />
       </div>
       <div className="right">
-        <OnlineUserWidget />
-        {
-          forecast &&
-          // <SideWidget icon={<FaTemperatureHigh />} title={`Väderleksrapport i ${forecast.name}`}>
-          //   <div className='forecast'>
-          //   {/* https://www.toptal.com/designers/htmlarrows/symbols/degree-celsius/: Degree icon using hex-code*/}
-          //   <h2>{weatherIconsMap[forecast.weather[0].icon]}</h2>
-          //   <h2>{Utils.ConvertKelvinToCelsius(forecast.main.temp)}<span>&#xb0;C</span></h2>
-          //   </div>
-
-          // </SideWidget>
-          <SideWidget icon={<FaGlobeEurope />} title={<TimeAndWeatherHeader />} live={true}>
-          <Clock />
+      <OnlineUserWidget />
+      {forecast && (
+        <SideWidget
+        icon={<FaGlobeEurope />}
+        title={<TimeAndWeatherHeader />}
+        live={true}
+        >
+        <Clock />
         </SideWidget>
-
-
-        }
-       
-        <SideWidget icon={<FaChartBar />} title="Statistik">
-        </SideWidget>
-      </div>
+      )}
+      <SideWidget icon={<FaChartBar />} title="Statistik" />
     </div>
-    </>
-  )
-}
+  </div>
+  </>
+  )};

@@ -1,20 +1,10 @@
-/* Importing modules. */
-import React, { lazy } from 'react'
-import ReactDOM from 'react-dom/client'
-import { BrowserRouter } from 'react-router-dom'
+import React, { lazy, Suspense } from 'react';
+import ReactDOM from 'react-dom';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import './index.css'
-import { Route, Routes } from "react-router-dom";
-
 // Proivders
 import AppProvider from './Provider/AppProvider';
 
-// Pages
-import Members from './Pages/Members/Members';
-import User from './Pages/Members/components/User'
-import TermsService from './Pages/TermsService/TermsService'
-
-
-// Components
 import Navbar from './components/Navbar';
 import Login from './components/Login';
 import Register from './components/Register';
@@ -23,52 +13,40 @@ import ProfilePost from './Pages/Members/components/ProfilePost';
 import AboutUser from './Pages/Members/components/AboutUser';
 import UserFriends from './Pages/Members/components/UserFriends';
 import Footer from './components/Footer';
+import { Loader } from './components/assets/Loader';
 
+const Home = lazy(() => import('./Pages/Home/Home'));
+const Members = lazy(() => import('./Pages/Members/Members'));
+const User = lazy(() => import('./Pages/Members/components/User'));
+const TermsService = lazy(() => import('./Pages/TermsService/TermsService'));
 
-// Pages
+const App = () => {
+  return (
+    <React.StrictMode>
+      <BrowserRouter>
+        <AppProvider>
+          <Navbar />
+          <Suspense fallback={<Loader />}>
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/register" element={<Register />} />
+              <Route path="/members" element={<Members />}>
+                <Route path="user/:id" element={<User />}>
+                  <Route path="" element={<ProfilePost />} />
+                  <Route path="friends" element={<UserFriends />} />
+                  <Route path="about" element={<AboutUser />} />
+                </Route>
+              </Route>
+              <Route path="/terms" element={<TermsService />} />
+              <Route path="*" element={<PageNotFound />} />
+            </Routes>
+          </Suspense>
+          <Footer />
+        </AppProvider>
+      </BrowserRouter>
+    </React.StrictMode>
+  );
+};
 
-// fixa Loading aniamtion annars fukcar saker och ting då va
-// const Home = lazy(() => import('./Pages/Home/Home'))
-// const Members = lazy(() => import('./Pages/Members/Members'))
-// const User = lazy(() => import('./Pages/Members/components/User'))
-// const TermsService = lazy(() => import('./Pages/TermsService/TermsService'))
-
-
-import Home from './Pages/Home/Home';
-
-/* Rendering the React app to the DOM. */
-ReactDOM.createRoot(document.getElementById('root')).render(
-  <React.StrictMode>
-    <BrowserRouter>
-    <AppProvider>
-      <Navbar />
-
-      {/* Routes */}
-      <Routes>
-          {/* Home */}
-          <Route path="/" element={<Home />} />
-
-          <Route path="/login" element={<Login />} />
-
-          <Route path="/register" element={<Register />} />
-
-          {/* Members nested Routing */}
-          <Route path="/members" element={<Members />}>
-            <Route path="user/:id" element={<User />}>
-              <Route path='' element={<ProfilePost />} />
-              <Route path='friends' element={<UserFriends />} />
-              <Route path='about' element={<AboutUser />} />
-            </Route>
-          </Route>
-          
-          {/* Terms of service */}
-          <Route path="/terms" element={<TermsService />}/>
-          
-          {/* 404 */}
-          <Route path="*" element={<PageNotFound/>} />
-      </Routes>
-      <Footer />
-    </AppProvider>
-    </BrowserRouter>
-  </React.StrictMode>,
-)
+ReactDOM.createRoot(document.getElementById('root')).render(<App />);

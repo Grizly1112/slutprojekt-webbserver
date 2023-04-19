@@ -28,20 +28,16 @@ export const globalChatMessageUpload = async(req, res) => {
 
 
 export const globalChatMessageGet = async(req, res) => {
+    console.log("jejejje")
     try {
-
-        const messageArray = await GlobalChatModel.find().populate('creator').populate('img');
-
-        // Loop through each message to get user info
-        await Promise.all(messageArray.map(async (msg, i) => {
-          const creatorId = msg.creator._id;
-          const creator = await UserModel.findById(creatorId).populate('pfp');
-          messageArray[i].creator = creator;
-        }));
-        
+        const messageArray = await GlobalChatModel.find().populate({
+          path: 'creator',
+          populate: { path: 'pfp' },
+        }).populate('img').lean();
+    
         return res.status(200).send({ messageArray });
-    } catch (err) {
+      } catch (err) {
         console.log(err);
-        return res.status(500).send({message: "Serverfel uppstod"})
-    }
+        return res.status(500).send({ message: 'Serverfel uppstod' });
+      }
 }

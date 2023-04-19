@@ -1,7 +1,6 @@
-import axios from "axios";
+import axiosInstance from './axiosInstance';
 
-const URL = "http://localhost:8000"
+export const SendGlobalChatMessage = async (messageData) => await axiosInstance.post(`${URL}/globalchat/send`, messageData);
 
-export const SendGlobalChatMessage = async (messageData) => await axios.post(`${URL}/globalchat/send`, messageData);
+export const GetGlobalChatMessages = async () => await axiosInstance.get("/globalchat/get");
 
-export const GetGlobalChatMessages = async () => await axios.get(`${URL}/globalchat/get`);

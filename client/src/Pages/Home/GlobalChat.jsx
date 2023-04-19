@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useRef, useState } from 'react'
+import React, { memo, useCallback, useContext, useEffect, useRef, useState } from 'react'
 import { FaHashtag, FaImage, FaTrash } from 'react-icons/fa';
 import { GetGlobalChatMessages, SendGlobalChatMessage } from '../../api/messages';
 import { userContext } from '../../context/UserContext';
@@ -15,16 +15,21 @@ export default function GlobalChat(props) {
   const [messageImgUpload, setMessageImgUpload] = useState("");
   const contextValue = useContext(userContext);
   const container = useRef(null)
+  const loadingMsgRef = useRef(true);
 
   useEffect(() => {
-    GetGlobalChatMessages().then((res) => {
-      setMessageArray(res.data.messageArray);
-      setLoading(false);
-    });
     if (contextValue.user && !userHasLoadedIn) {
       setUserHasLoadedIn(true);
     }
   }, [contextValue]);
+
+  useEffect(() => {
+      GetGlobalChatMessages().then((res) => {
+        setMessageArray(res.data.messageArray);
+        setLoading(false);
+        loadingMsgRef.current = false;
+      });
+  }, []);
 
 
   const Scroll = () => {
@@ -39,33 +44,36 @@ export default function GlobalChat(props) {
     }
     
     
-    
-    function handleChange(event) {
+    const handleChange = useCallback((event) => {
       setMessageText(event.target.value);
-    }
-    
-    const hanldeFileUpload = async (e) => {
+    }, []);
+  
+    const hanldeFileUpload = useCallback(async (e) => {
       const base64 = await Utils.ConvertToBase64(e.target.files[0]);
-      setMessageImgUpload(base64)
-    }
-    
-    const onFormSubmit = (e) => {
-      e.preventDefault();
-      SendGlobalChatMessage({
-        userId: contextValue.user._id,
-        messageText: messagetext,
-        img: messageImgUpload,
-      });
-    };
-    
-    const handleKeyPress = (e) => {
-      if (e.key === 'Enter' && !e.shiftKey) {
+      setMessageImgUpload(base64);
+    }, []);
+  
+    const onFormSubmit = useCallback(
+      (e) => {
         e.preventDefault();
-        document.getElementById('sendButton').click();
+        SendGlobalChatMessage({
+          userId: contextValue.user._id,
+          messageText: messagetext,
+          img: messageImgUpload,
+        });
+      },
+      [contextValue, messagetext, messageImgUpload]
+    );
+  
+    const handleKeyPress = useCallback((e) => {
+      if (e.key === "Enter" && !e.shiftKey) {
+        e.preventDefault();
+        sendButtonRef.current.click();
       }
-    }
+    }, []);
+  
 
-    const Message = (props) => {
+    const Message = memo((props) => {
     
       return (
         <div className={`Message ${props.same ? "" : "SameUserMessage"}`}
@@ -105,7 +113,7 @@ export default function GlobalChat(props) {
         </div>
     </div>
         );
-    };
+    });
 
     useEffect(() => {
       Scroll()
@@ -124,7 +132,7 @@ export default function GlobalChat(props) {
           {isLoading ? <Loader /> :
             messageArray.map((message, i) => {
               let sameUser = false;
-
+              console.log(message)
               const thisDate = new Date(message.timestamp);
               if(i > 0) {
 
@@ -146,11 +154,11 @@ export default function GlobalChat(props) {
                   key={message._id}
                   name={message.creator.username}
                   same={sameUser}
-                  pfp={message.creator.pfp ? Utils.FormatImageStr(message.creator.pfp.data.data) : <DefaultPFp />}
+                  pfp={message.creator.pfp ? ('data:image/png;base64,' +message.creator.pfp.data) : <DefaultPFp />}
                   text={message.text}
                   timestamp={message.timestamp}
                   id={message._id}
-                  img={message.img ? Utils.FormatImageStr(message.img.data.data): null}
+                  img={message.img ? ('data:image/png;base64,' +message.img.data): null}
                 />
               );
             })

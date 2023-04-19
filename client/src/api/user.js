@@ -1,14 +1,11 @@
-import axios from 'axios';
+import axiosInstance from './axiosInstance';
 
-const URL = "http://localhost:8000"
+export const RegisterUserServerPost = async (userData) => await axiosInstance.post(`/user/register`, userData)
 
-export const RegisterUserServerPost = async (userData) => await axios.post(`${URL}/user/register`, userData)
+export const LoginUserServerPost = async (userData) => await axiosInstance.post(`/user/login`, userData)
 
-export const LoginUserServerPost = async (userData) => await axios.post(`${URL}/user/login`, userData)
+export const GetUser = async (username) => await axiosInstance.get(`/user/getuser/${username}`)
 
-export const GetUser = async (username) => await axios.get(`${URL}/user/getuser/${username}`)
+export const SetUserLastSeen = async (username) => await axiosInstance.get(`/user/setuserlastseen/`, userData);
 
-export const SetUserLastSeen = async (username) => await axios.get(`${URL}/user/setuserlastseen/`, userData);
-
-
-export const GetForumStatistics = async () => await axios.get(`${URL}/forum/getstatistics`);
+export const GetForumStatistics = async () => await axiosInstance.get(`/forum/getstatistics`);

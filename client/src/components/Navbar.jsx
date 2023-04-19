@@ -1,24 +1,33 @@
 import './css/Navbar.css'
-import React, { useState, useEffect, useRef, useContext, Suspense, useCallback } from 'react';
-import { CSSTransition } from 'react-transition-group';
-import { FaUserCircle, FaChevronCircleRight, FaHandshake, FaUser, FaUserPlus, FaHandshakeSlash, FaRegBell, FaBellSlash, FaRegSun, FaRegMoon, FaCog, FaExternalLinkAlt, FaRegNewspaper, FaRegQuestionCircle, FaRunning, FaPlus, FaRegCommentDots, FaBell } from 'react-icons/fa';
+import React, { useState, useEffect, useRef, useContext, useCallback } from 'react';
+import { NavLink, Link, useNavigate } from 'react-router-dom';
 import Modal from './assets/Modal';
-import Utils from '../assets/functiions/Utils'
 import Tooltip from './assets/Tooltip';
-import Login from './Login';
-import Register from './Register';
-import logo from '../assets/logo.png';
-import { Link, NavLink, useNavigate } from 'react-router-dom';
+import Utils from '../assets/functiions/Utils';
 import { checkAuthLevel } from '../assets/functiions/Auth';
 import { userContext } from '../context/UserContext';
-
-// Test
-import UserPfpTest from '../assets/avatarDefault.png'
-import { GetUser } from '../api/user';
+import logo from '../assets/logo.png';
 import { Loader } from './assets/Loader';
-
-// Källkod: https://www.youtube.com/watch?v=IF6k0uZuypA&t=382s
-// Inspiration Gymansiearbete Valeria forum
+import {
+  FaUserCircle,
+  FaChevronCircleRight,
+  FaHandshake,
+  FaUser,
+  FaUserPlus,
+  FaHandshakeSlash,
+  FaRegBell,
+  FaBellSlash,
+  FaRegSun,
+  FaRegMoon,
+  FaCog,
+  FaExternalLinkAlt,
+  FaRegNewspaper,
+  FaRegQuestionCircle,
+  FaRunning,
+  FaPlus,
+  FaRegCommentDots,
+  FaBell,
+} from 'react-icons/fa';
 
 function Navbar(props) {
   const contextValue = useContext(userContext)
@@ -38,7 +47,7 @@ function Navbar(props) {
   }
   
   useEffect(() => {
-    setTimeout(() => setContextLoaded(true), 250);
+   setContextLoaded(true)
     
     if(!localStorage.getItem('theme')) {
       setTheme(false)
@@ -81,32 +90,24 @@ function Navbar(props) {
       return(
         <>
           <div className='navbarModal'>
-            {/* <NavLink className='navbarModalNavLink' to={`/user/${user.username}`} onClick={() => { setTimeout(forceUpdate(), 1)}}> */}
             <NavLink className='navbarModalNavLink' to={`/members/user/${user.username}`}>
               <NavbarModalitem iconleft={<FaUserCircle />} label={"Ditt konto"}iconRight={<FaChevronCircleRight />}/>
             </NavLink>
-              
-            
             <hr/>
             <NavbarModalitem iconleft={ status ? <FaHandshake /> : <FaHandshakeSlash />} label={status ? "Online": "Offline"}iconRight={
-              <>
               <label className="switch">
                 <input type="checkbox"defaultChecked={status} onChange={()=> setTimeout(() => {setStatus(!status)}, 200) }/>
                 <span className="slider round"></span>
               </label>
-              </>
             }/>
               <NavbarModalitem iconleft={ notifactions ? <FaRegBell /> : <FaBellSlash />} label={"Aviseringar"}iconRight={
-              <>
               <label className="switch">
                 <input type="checkbox"defaultChecked={notifactions} onChange={()=> setTimeout(() => {setNotifiactions(!notifactions)}, 200) }/>
                 <span className="slider round"></span>
               </label>
-              </>
             }/>
             
              <NavbarModalitem iconleft={ theme ? <FaRegMoon /> : <FaRegSun />} label={theme ? "Mörkt": "Ljust"}iconRight={
-              <>
               <label className="switch">
                 <input type="checkbox"defaultChecked={theme} onChange={()=> setTimeout(() => {
                  const isDarkMode = JSON.parse(localStorage.getItem('theme')).theme;
@@ -120,7 +121,6 @@ function Navbar(props) {
                 }, 200) }/>
                 <span className="slider round"></span>
               </label>
-              </>
             }/>
             <hr />
             <NavbarModalitem iconleft={<FaCog />} label={"Inställningar"} iconRight={<FaExternalLinkAlt />} />
@@ -141,13 +141,13 @@ function Navbar(props) {
       <>
         <NavItem>
           <Modal btnLabel={<FaPlus />} btnClass="icon-button" activeClass="active-navbar-button" tooltip="Skapa">
-            <div className='navbarModal'>Chat</div>
+            <div className='navbarModal'></div>
           </Modal>
         </NavItem>
 
         <NavItem>
           <Modal btnLabel={<FaRegCommentDots />} btnClass="icon-button" activeClass="active-navbar-button" tooltip="Direktmeddelanden">
-            <div className='navbarModal'>Chat</div>
+            <div className='navbarModal'></div>
           </Modal>
         </NavItem>
 
@@ -180,15 +180,11 @@ function Navbar(props) {
     if((window.location.href.indexOf("login") > -1) || (window.location.href.indexOf("register") > -1)) {
       const NavbarButton = (props) => {
         return(
-        <>
         <NavLink className='nav-button' to={props.link}>
             <div className='nav-button-icon'>
-            <p>
-              {props.icon} {props.label}
-              </p>
+              <p>{props.icon} {props.label}</p>
             </div>
         </NavLink>
-        </>
         )
       }
       return (
@@ -202,24 +198,18 @@ function Navbar(props) {
     } else {
       const NavbarButton = (props) => {
         return(
-          <>
-          {
             <button className='nav-button'>
-            <Modal btnLabel={<p>{props.icon} {props.label}</p>} btnClass="nav-button-icon">
-              {props.children}
-            </Modal>
+              <Modal btnLabel={<p>{props.icon} {props.label}</p>} btnClass="nav-button-icon">
+                {props.children}
+              </Modal>
           </button>
-          }
-        </>
         )
       }
       return (
-        <>
         <div className='notLoggedInNavButtons'>
           <NavbarButton icon={<FaUser />}  label="Logga in"><Login /></NavbarButton>
           <NavbarButton icon={<FaUserPlus />} label="Registera konto"><Register /></NavbarButton>
         </div>
-        </>
       )
     }   
   }
