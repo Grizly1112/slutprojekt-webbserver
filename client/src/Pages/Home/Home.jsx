@@ -1,16 +1,14 @@
 import React, { memo, useContext, useEffect, useMemo, useRef, useState } from 'react'
-import { FaChartBar, FaChartLine, FaChartPie, FaCircle, FaCircleNotch, FaCloud, FaCloudMoon, FaCloudRain, FaCloudShowersHeavy, FaCloudSun, FaCriticalRole, FaGlobeEurope, FaHammer, FaHashtag, FaJsSquare, FaMailBulk, FaMoon, FaPaperPlane, FaRedhat, FaRegSun, FaSearch, FaSnowflake, FaSun, FaTemperatureHigh, FaUsers } from 'react-icons/fa'
+import { FaChartBar, FaCloud, FaCloudMoon, FaCloudRain, FaCloudShowersHeavy, FaCloudSun, FaGlobeEurope, FaMoon, FaSearch, FaSnowflake, FaSun, FaUsers } from 'react-icons/fa'
 import { NavLink } from 'react-router-dom'
 import './css/Home.css'
 import userDefault from '../../assets/avatarDefault.png'
 import Tooltip from '../../components/assets/Tooltip'
 import { io } from "socket.io-client";
-import { GetForumStatistics, GetUser } from '../../api/user'
 import { userContext } from '../../context/UserContext'
 import GlobalChat from './GlobalChat'
 import Clock from './Clock'
 import Utils from '../../assets/functiions/Utils'
-import axios from 'axios'
 import { GetWeatherData } from '../../api/other'
 
 export default function Home() {
@@ -40,33 +38,30 @@ export default function Home() {
   }, [contextValue])
 
 
-  const SideWidget = (props) => {
+  const SideWidget = ({ icon, title, live, children }) => {
     return(
       <div className='sideWidget'>
-        <div className="header">
-          {props.icon}
-          <h4>{props.title}</h4>
-          { props.live && <div className="circle"></div> }
+        <div className='header'>
+          {icon}
+          <h4>{title}</h4>
+          {live && <div className='circle' />}
         </div>
-          <hr />
-        <div className='Widget-body'>
-          { props.children }
-        </div>
+        <hr />
+        <div className='Widget-body'>{children}</div>
       </div>
     )
   }
 
   const OnlineUserWidget = () => {
     const userOfEachCategory = useMemo(() => {
-      const count = { users: 0, guests: 0 };
-      onlineUsers.forEach((userOnline) => {
+      return onlineUsers.reduce((count, userOnline) => {
         if (!userOnline.userId) {
           count.guests++;
         } else if (userOnline.userId !== undefined) {
           count.users++;
         }
-      });
-      return count;
+        return count;
+      }, { users: 0, guests: 0 });
     }, [onlineUsers]);
   
     return (

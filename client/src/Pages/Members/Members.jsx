@@ -1,7 +1,6 @@
 import './css/Members.css'
-import { NavLink, Outlet, Link } from 'react-router-dom'
+import { Outlet } from 'react-router-dom'
 import MembersSideBar from './components/MembersSideBar'
-
 
 export default function Members() {
   return (

@@ -28,6 +28,8 @@ import {
   FaRegCommentDots,
   FaBell,
 } from 'react-icons/fa';
+import Login from './Login';
+import Register from './Register';
 
 function Navbar(props) {
   const contextValue = useContext(userContext)
@@ -39,37 +41,35 @@ function Navbar(props) {
   const [isLoading, setIsLoading] = useState(true);
   const [contextLoaded, setContextLoaded] = useState(false);
   const [theme, setTheme] = useState(null);
-  
-  if(!localStorage.getItem('theme')) {
-    document.documentElement.setAttribute('data-dark-mode', 'false');
-  } else {
-    document.documentElement.setAttribute('data-dark-mode', JSON.parse(localStorage.getItem('theme')).theme);
-  }
-  
+
   useEffect(() => {
-   setContextLoaded(true)
-    
-    if(!localStorage.getItem('theme')) {
-      setTheme(false)
+    setContextLoaded(true);
+
+    if (!localStorage.getItem('theme')) {
+      setTheme(false);
+      document.documentElement.setAttribute('data-dark-mode', 'false');
     } else {
-      setTheme(JSON.parse(localStorage.getItem('theme')).theme)
+      setTheme(JSON.parse(localStorage.getItem('theme')).theme);
+      document.documentElement.setAttribute('data-dark-mode', JSON.parse(localStorage.getItem('theme')).theme);
     }
 
-    if(contextValue.user) {
-      setUser(contextValue.user)
-      setIsLoading(false)
-      if(user.pfp) setUser({...user, userHasPfp: true})
-    } 
+    if (contextValue.user) {
+      setUser(contextValue.user);
+      setIsLoading(false);
 
-  },[contextValue])
+      if (user.pfp) {
+        setUser({...user, userHasPfp: true});
+      }
+    }
+  }, [contextValue]);
 
   function NavbarEndLoggedIn() {
-    function NavItem(props) {
+    function NavItem({ notifications, children }) {
       return (
         <li className="nav-item">
-          {props.notifications ? <span className='navbar-notification-count'>{Utils.FormatNotificationCount(notificationCount)}</span> : null}
-          {props.children}
-        </li>
+        {notifications && <span className='navbar-notification-count'>{Utils.FormatNotificationCount(notificationCount)}</span>}
+        {children}
+      </li>
       );
     }
 
@@ -79,11 +79,11 @@ function Navbar(props) {
       const [notifactions, setNotifiactions] = useState(true);
       let navigate = useNavigate();
    
-      const NavbarModalitem = useCallback((props) => (
-        <div className="navbarModal-item title" onClick={props.func ? props.func : null}>
-          <i className="navbarModal-item-icon-left">{props.iconleft}</i>
-          <h4 className="navbarModal-label">{props.label}</h4>
-          <i className="navbarModal-item-icon-right">{props.iconRight}</i>
+      const NavbarModalitem = useCallback(({func, iconleft, label, iconRight}) => (
+        <div className="navbarModal-item title" onClick={func}>
+          <i className="navbarModal-item-icon-left">{iconleft}</i>
+          <h4 className="navbarModal-label">{label}</h4>
+          <i className="navbarModal-item-icon-right">{iconRight}</i>
         </div>
       ), []);
 

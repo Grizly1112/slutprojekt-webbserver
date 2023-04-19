@@ -2,8 +2,8 @@ import React, { useState } from 'react'
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import './css/FormInput.css'
 
-// källa: för ...props https://legacy.reactjs.org/docs/jsx-in-depth.html#spread-attributes
 // Input patterns: https://www.w3schools.com/tags/tryit.asp?filename=tryhtml5_input_pattern
+
 export default function FormInput(props) {
     const [focused, setFocused] = useState(false);
     const { label, errorMessage, onChange, id, type, ...inputProps } = props;
@@ -29,7 +29,6 @@ export default function FormInput(props) {
     <div className='formInput'>
         <label>{label}</label>
         <div className='formInpt-input'>
-
         <input
           autoComplete="true"
           {...inputProps}
@@ -39,9 +38,7 @@ export default function FormInput(props) {
           onFocus={handleFocus}
           className={`formInpt-input ${focused ? "focused" : ""}`}
         />
-        {
-            type === "password" ? <TogglePasswordEye /> : null
-        }
+        { type === "password" && <TogglePasswordEye /> }
       <span className='errormessage'>{errorMessage}</span>
         </div>
     </div>

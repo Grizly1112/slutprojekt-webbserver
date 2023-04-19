@@ -70,22 +70,37 @@ export default function Clock() {
     );
   };
 
+  function renderClock(clockView) {
+    switch (clockView) {
+      case '1':
+        return <DigitalTime />;
+      case '2':
+        return <AnalogClock />;
+      default:
+        return null;
+    }
+  }
+  
+  function renderCircle(number) {
+    const isDisabled = clockView === number;
+    return (
+      <FaCircle
+        className={isDisabled ? 'disabled' : null}
+        onClick={() => setClockView(number)}
+      />
+    );
+  }
+  
   return (
     <div className='clock-container'>
       <div className="clock">
-        {
-          clockView === '1' && <AnalogClock />
-        }
-        {
-          clockView === '2' && <DigitalTime />
-        }
+        {renderClock(clockView)}
       </div>
-
-    <div className="toggle-clock-view">
-      <FaCircle className={clockView === "1" ? 'disabled': null} onClick={() => setClockView('1')} />
-      <FaCircle className={clockView === "2" ? 'disabled': null} onClick={() => setClockView('2')} />
-    </div>
-
+  
+      <div className="toggle-clock-view">
+        {renderCircle('1')}
+        {renderCircle('2')}
+      </div>
     </div>
   );
 }

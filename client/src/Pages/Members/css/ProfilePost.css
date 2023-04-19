@@ -1,12 +1,3 @@
-/* .ProfilePost {
-    height: 20rem;
-    width: calc(60vw - 2rem);
-    color: var(--text-color);
-    background-color: var(--bg-d-accent);
-    border-radius: 8px;
-    padding: 1rem;
-} */
-
 .ProfilePost {
     height: 30rem;
     width: calc(60vw - 2rem);
@@ -66,9 +57,4 @@
 .ProfilePost hr {
     background-color: var(--text-c);
     opacity: 0.1 !important;
-}
-
-
-.ProfilePost .postContainer {
-
 }

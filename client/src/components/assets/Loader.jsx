@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import './css/Loader.css'
 
-
 export function Loader() {
     return(
         <div className='spinner'>

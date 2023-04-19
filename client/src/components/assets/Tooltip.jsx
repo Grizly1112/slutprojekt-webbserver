@@ -1,13 +1,10 @@
-import React, { useEffect } from 'react'
 import './css/Tooltip.css'
 
-export default function Tooltip(props) {
+export default function Tooltip({ label, children }) {
     return(
         <div className='tooltip'>
-        {
-            props.label ? <span className="tooltiptext">{props.label}</span> : null
-        }
-         {props.children}
-    </div>
-        )
+            {label && <span className="tooltiptext">{label}</span>}
+            {children}
+        </div>
+    )
 }

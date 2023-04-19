@@ -28,7 +28,6 @@ io.on("connection", (socket) => {
 
 
   socket.on('getOnlineUSers', (name) => {
-    console.log("hehehehe")
     io.emit('get-users', activeUsers);
   })
 

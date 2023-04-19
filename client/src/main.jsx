@@ -1,10 +1,8 @@
 import React, { lazy, Suspense } from 'react';
-import ReactDOM from 'react-dom';
+import ReactDOM from 'react-dom/client';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import './index.css'
-// Proivders
 import AppProvider from './Provider/AppProvider';
-
 import Navbar from './components/Navbar';
 import Login from './components/Login';
 import Register from './components/Register';

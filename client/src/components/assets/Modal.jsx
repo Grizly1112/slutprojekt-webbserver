@@ -35,7 +35,7 @@ const Modal = ({ openState = false, tooltip, btnClass, activeClass, btnLabel, fu
     if (func) {
       setTimeout(() => {
         func();
-      }, 100);
+      }, 200);
     }
   };
 

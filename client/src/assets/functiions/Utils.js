@@ -102,7 +102,6 @@ Utils.ConvertKelvinToCelsius = function(temp) {
     return Math.round(temp -  273.15);
 }
 
-
 // ta bort senare
 Utils.Logout = function() {
     localStorage.removeItem('user')
