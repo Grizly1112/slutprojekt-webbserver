@@ -28,6 +28,7 @@ import {
 } from 'react-icons/fa';
 import Login from './Login';
 import Register from './Register';
+import UserPfpTest from '../assets/avatarDefault.png'
 
 function Navbar() {
   const contextValue = useContext(userContext)
@@ -54,10 +55,6 @@ function Navbar() {
     if (contextValue.user) {
       setUser(contextValue.user);
       setIsLoading(false);
-
-      if (user.pfp) {
-        setUser({...user, userHasPfp: true});
-      }
     }
   }, [contextValue]);
 
@@ -156,10 +153,10 @@ function Navbar() {
         </NavItem>
 
         {
-          (!isLoading && user.userHasPfp) ? 
+          (!isLoading) ? 
           <NavItem>
             <Modal btnLabel={<img src={
-              user.pfp ? ('data:image/png;base64,' + user.pfp.data): UserPfpTest
+              user.pfp && ('data:image/png;base64,' + user.pfp.data) || UserPfpTest
               } />} btnClass="icon-button" activeClass="active-navbar-button">
               <UserModal />
             </Modal>
@@ -168,6 +165,7 @@ function Navbar() {
           <NavItem>
             <Loader />
           </NavItem>
+
         }
       </>
     )
@@ -196,7 +194,7 @@ function Navbar() {
       const NavbarButton = (props) => {
         return(
             <button className='nav-button'>
-              <Modal btnLabel={<p>{props.icon} {props.label}</p>} btnClass="nav-button-icon">
+              <Modal btnLabel={<>{ props.icon}<p>{props.label}</p></>} btnClass="nav-button-icon">
                 {props.children}
               </Modal>
           </button>

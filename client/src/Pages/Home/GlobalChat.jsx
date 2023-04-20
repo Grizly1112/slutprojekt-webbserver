@@ -21,16 +21,28 @@ export default function GlobalChat(props) {
     if (contextValue.user && !userHasLoadedIn) {
       setUserHasLoadedIn(true);
     }
-  }, [contextValue]);
-
+  }, [contextValue, userHasLoadedIn]);
+  
   useEffect(() => {
-      GetGlobalChatMessages().then((res) => {
-        setMessageArray(res.data.messageArray);
-        setLoading(false);
-        loadingMsgRef.current = false;
-      });
-  }, []);
-
+    let isCancelled = false;
+    async function fetchChatMessages() {
+      try {
+        const res = await GetGlobalChatMessages();
+        if (!isCancelled) {
+          setMessageArray(res.data.messageArray);
+          setLoading(false);
+          loadingMsgRef.current = false;
+        }
+      } catch (error) {
+        // handle error
+      }
+    }
+  
+    fetchChatMessages();
+    return () => {
+      isCancelled = true;
+    };
+  }, [setMessageArray, setLoading, loadingMsgRef]);
 
   const Scroll = () => {
     
@@ -74,7 +86,6 @@ export default function GlobalChat(props) {
   
 
     const Message = memo((props) => {
-    
       return (
         <div className={`Message ${props.same ? "" : "SameUserMessage"}`}
           onMouseEnter={props.same ? null : () => {
@@ -98,22 +109,22 @@ export default function GlobalChat(props) {
         }
 
         <div className='ChatContent'>
-              {props.same && 
-                <div className='ChatHeader'>
-                  <Link className='HeaderUsername' to={`/members/user/${props.name}`}>
+                {props.same && (
+                  <div className='ChatHeader'>
+                    <Link className='HeaderUsername' to={`/members/user/${props.name}`}>
                       {props.name}
-                  </Link>
-                  <div className='HeaderDate'>{Utils.FomratMessageTimeDate(props.timestamp, false)}</div>
-                </div>
-              }
+                    </Link>
+                    <div className='HeaderDate'>{Utils.FomratMessageTimeDate(props.timestamp, false)}</div>
+                  </div>
+                )}
             <div className='MessageText'>
-                <p>{props.text}</p>
-                {props.img && <img className='textImg' src={props.img} />}
+              <p>{props.text}</p>
+              {props.img && <img className='textImg' src={props.img} />}
             </div>
         </div>
     </div>
-        );
-    });
+    );
+  });
 
     useEffect(() => {
       Scroll()

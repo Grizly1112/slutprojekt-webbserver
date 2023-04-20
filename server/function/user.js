@@ -6,6 +6,7 @@ import axios from 'axios'
 
 import UserModel from "../Models/user.js"
 import Image from "../Models/image.js"
+import VisitorModel from "../Models/countVisitors.js"
 
 
 dotenv.config()
@@ -157,4 +158,51 @@ export const uploadProfilePicture = async (req, res) => {
       console.log(err);
       return res.status(500).send({ message: "Serverfel uppstod" });
     }
-  };
+};
+
+
+export const updateVisitorCount = async (req, res) => {
+    const { uniqueUserVisiting } = req.body;
+  
+    try {
+      // Check if a visitor object already exists in the database
+      const visitor = await VisitorModel.findOne();
+  
+      if (visitor) {
+        // If a visitor object exists, update the count accordingly
+        if (uniqueUserVisiting) {
+          visitor.countRecurent++;
+        } else {
+            visitor.countUnique++;
+        }
+
+        await visitor.save();
+      } else {
+        // If no visitor object exists, create a new one with the appropriate count
+        const newVisitor = new VisitorModel({
+          countUnique: uniqueUserVisiting ? 1 : 0,
+          countRecurent: uniqueUserVisiting ? 0 : 1,
+        });
+        await newVisitor.save();
+      }
+  
+    } catch (err) {
+      console.error(err);
+      res.status(500).send('Server error');
+    }
+};
+
+export const getVisitingCount = async (req,res) => {
+    try {
+        const visitors = await VisitorModel.findOne().lean();
+
+        if(visitors) {
+            res.status(200).send({visitors: visitors});
+        }
+    } catch(err) {
+        console.error(err);
+      res.status(500).send('Server error');
+    }
+
+}
+  

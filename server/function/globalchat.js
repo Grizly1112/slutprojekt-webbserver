@@ -28,16 +28,15 @@ export const globalChatMessageUpload = async(req, res) => {
 
 
 export const globalChatMessageGet = async(req, res) => {
-    console.log("jejejje")
-    try {
-        const messageArray = await GlobalChatModel.find().populate({
-          path: 'creator',
-          populate: { path: 'pfp' },
-        }).populate('img').lean();
-    
-        return res.status(200).send({ messageArray });
-      } catch (err) {
-        console.log(err);
-        return res.status(500).send({ message: 'Serverfel uppstod' });
-      }
+  try {
+      const messageArray = await GlobalChatModel.find().populate({
+        path: 'creator',
+        populate: { path: 'pfp' },
+      }).populate('img').lean();
+  
+      return res.status(200).send({ messageArray });
+    } catch (err) {
+      console.log(err);
+      return res.status(500).send({ message: 'Serverfel uppstod' });
+    }
 }

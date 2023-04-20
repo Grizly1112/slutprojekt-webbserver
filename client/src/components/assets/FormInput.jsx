@@ -14,7 +14,7 @@ export default function FormInput(props) {
     };
 
     const handleBlur = () => {
-      setFocused(false);
+      setFocused(true);
     };
 
     const TogglePasswordEye = () => {
@@ -35,7 +35,8 @@ export default function FormInput(props) {
           type={type === "password" ? inputType : type}
           onChange={onChange}
           onBlur={handleBlur}
-          onFocus={handleFocus}
+          // onFocus={handleFocus}
+          focused={focused.toString()}
           className={`formInpt-input ${focused ? "focused" : ""}`}
         />
         { type === "password" && <TogglePasswordEye /> }

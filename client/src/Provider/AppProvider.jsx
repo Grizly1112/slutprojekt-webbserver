@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { userContext } from '../context/UserContext';
 import { GetUser } from '../api/user';
+import { UpdateVisitingCount } from '../api/other';
 
 class AppProvider extends Component {
   constructor(props) {
@@ -39,7 +40,17 @@ class AppProvider extends Component {
 
   // Lösning på att den endast körs en gång, körs när komponenten förstörs, i och med att hela applikationer är wrappad runt denna så kommer den bara köras när användaren lämnar sidan
   componentWillUnmount() {
-    console.log("New user")
+    var uniqueUserVisiting = null;
+
+    if(localStorage.getItem('visited')) {
+      console.log("Återkommande")
+      uniqueUserVisiting = true;
+    } else {
+      localStorage.setItem('visited', true)
+      console.log("Unik användare")
+      uniqueUserVisiting = false;
+    }
+    UpdateVisitingCount(uniqueUserVisiting)
   }
 
   logout() {

@@ -1,4 +1,4 @@
-import { getuser, login, register, uploadProfilePicture } from './function/user.js';
+import { getVisitingCount, getuser, login, register, updateVisitorCount, uploadProfilePicture } from './function/user.js';
 import express from 'express'
 import mongoose from 'mongoose'
 import cors from 'cors'
@@ -43,6 +43,8 @@ app.get("/user/getuser/:id", getuser);
 app.post("/user/updateprofilepicture", uploadProfilePicture)
 app.post("/globalchat/send", globalChatMessageUpload)
 app.get("/globalchat/get", globalChatMessageGet)
+app.post('/updatevisitorcount', updateVisitorCount)
+app.get('/getVisitingCount', getVisitingCount)
 
 /* Listening to the port 8000. */
 app.listen(8000, () => console.log("Servern lystnar på porten", (process.env.PORT || 8000)))

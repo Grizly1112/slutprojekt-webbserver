@@ -18,6 +18,7 @@ export default function Register() {
     confirmPassword: "",
     birthday: "",
   });
+
   const inputs = [
     {
       id: 1,
@@ -111,12 +112,8 @@ export default function Register() {
   const onChange = async (e) => {
     let value = e.target.value;
     let pattern = e.target.pattern;
-    console.log(pattern)
-  
     let valueMatch = value.match(pattern)? true: false
-    console.log(valueMatch)
     setValid({...valid, [e.target.name]: valueMatch})
-    console.log(valid)
     setValues({ ...values, [e.target.name]: e.target.value});
   };
 
@@ -129,7 +126,7 @@ export default function Register() {
           <FormInput
             key={input.id}
             {...input}
-            value={values[input.name]}
+            valid={[input.name]}
             onChange={onChange}
           />
         ))}

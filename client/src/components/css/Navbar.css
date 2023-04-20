@@ -160,18 +160,23 @@
   color: var(--text-color);
   border: none;
   outline: none;
-  box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.3);
+  box-shadow: 0px 1px 2px var(--boxshadow-l);
   cursor: pointer;
   display: inline-flex;
   --button-size: calc(var(--nav-size) * 0.7);
   height: var(--button-size); 
-  background-color: #484a4d;
-  padding: 0 .5rem;
+  background-color: var(--bg-d-accent);
+  padding: 0 1rem;
   border-radius: 8px;
   align-items: center;
-  gap: .4rem;
+  justify-content: center;
 }
 
+.nav-button .nav-button-icon svg {
+  color: var(--bg-m);
+  font-size: 1.2rem;
+  padding-right: .25rem;
+}
 
 
 .nav-button:hover {

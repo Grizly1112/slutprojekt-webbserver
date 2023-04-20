@@ -1,4 +1,4 @@
-import React, { memo, useContext, useEffect, useMemo, useRef, useState } from 'react'
+import React, { useContext, useEffect, useMemo, useRef, useState } from 'react'
 import { FaChartBar, FaCloud, FaCloudMoon, FaCloudRain, FaCloudShowersHeavy, FaCloudSun, FaGlobeEurope, FaMoon, FaSearch, FaSnowflake, FaSun, FaTemperatureHigh, FaUsers, FaWind } from 'react-icons/fa'
 import { NavLink } from 'react-router-dom'
 import './css/Home.css'
@@ -9,22 +9,26 @@ import { userContext } from '../../context/UserContext'
 import GlobalChat from './GlobalChat'
 import Clock from './Clock'
 import Utils from '../../assets/functiions/Utils'
-import { GetWeatherData } from '../../api/other'
+import { GetVisitingCount, GetWeatherData } from '../../api/other'
 
 export default function Home() {
-  const [userLoggedIn, setUserLoggedIn] = useState(false);
-  const [user, setUser] = useState([]);
   const [onlineUsers, setonlineUsers] = useState([]);
-  const socket = useRef(null);
-  const [hasLoadedInOnce,setHasLoadedInOnce] = useState(false)
+
+  const [forecast, setForecast] = useState(null);
+  const [visitors, setVisitors] = useState(null);
   
+  const socket = useRef(null);
   const contextValue = useContext(userContext)
+  // SRC (Socket IO): https://youtu.be/EKP-m6rbT1E
 
   useEffect(() => 
   {
     socket.current = io("ws://localhost:3001");
-      if(contextValue.user) {
-      socket.current.emit("new-user-add", {username: contextValue.user.username, pfp: contextValue.user.pfp && contextValue.user.pfp.img ? contextValue.user.pfp.img : ""});
+    if(contextValue.user) {
+      socket.current.emit("new-user-add", {
+        username: contextValue.user.username, 
+        pfp: contextValue.user.pfp ? contextValue.user.pfp : "",
+      });
     }
     else {
       socket.current.emit("new-user-add", (""));
@@ -32,6 +36,8 @@ export default function Home() {
     socket.current.on("get-users", (users) => {
       setonlineUsers(users);
     });
+    
+    // Cleanup function
     return () => {
       socket.current.disconnect();
     }
@@ -53,7 +59,10 @@ export default function Home() {
   }
 
   const OnlineUserWidget = () => {
+    // Function to update onlineUserCount;
+    // Note: by using memo the component only rerender when onlineUsers Update => better performance
     const userOfEachCategory = useMemo(() => {
+      // Note: reduce allows us to calculate both the users and guests values in a single loop by accumulating them in a single object
       return onlineUsers.reduce((count, userOnline) => {
         if (!userOnline.userId) {
           count.guests++;
@@ -79,16 +88,18 @@ export default function Home() {
       </SideWidget>
     );
   };
+
   const UsersOnline = React.memo(({ onlineUsers, userOfEachCategory }) => {
-    const onlineUsersList = React.useMemo(() => {
-      return onlineUsers.filter(userOnline => userOnline.userId && userOnline.userId !== undefined)
-    }, [onlineUsers])
-  
+    const onlineUsersList = React.useMemo(() =>
+      onlineUsers.filter(userOnline => Boolean(userOnline.userId)),
+      [onlineUsers]
+    );
     const renderOnlineUser = React.useCallback((userOnline) => {
+      console.log(userOnline)
       return (
         <NavLink to={`members/user/${userOnline.userId}`}>
           <Tooltip key={userOnline.userId} label={userOnline.userId}>
-            <img src={userOnline.pfp ? Utils.FormatImageStr(userOnline.pfp.data.data) : userDefault} className="onlineUsers-img" alt="pfp" />
+            <img src={userOnline.pfp ? ('data:image/png;base64,' + userOnline.pfp.data) : userDefault} className="onlineUsers-img" alt="pfp" />
           </Tooltip>
         </NavLink>
       );
@@ -101,16 +112,41 @@ export default function Home() {
       </div>
     );
   });
-  const [forecast, setForecast] = useState(null);
+
 
   useEffect(() => {
-   const fetchWeatherData = async () => {
-    const res = await GetWeatherData();
-    setForecast(res);
-     };
+    // cancellation token to prevent memory leaks and unwanted side effects 
+    // & also prevent from unnecessarily update state
+    let isCancelled = false;
+
+    // Fetch weatherData
+    const fetchWeatherData = async () => {
+      if(!isCancelled) {
+        const res = await GetWeatherData();
+        setForecast(res);
+      }
+    };
+    
+    // Fech VisitorCount 
+    const fetchVisitorCount = async () => {
+      if(!isCancelled) {
+        const res = await GetVisitingCount();
+        setVisitors(res.data.visitors);
+      }
+    };
+    
+    // Call both functions
     fetchWeatherData();
+    fetchVisitorCount();
+
+
+    /* This is a cleanup function that is returned from the `useEffect`*/
+    return() => {
+      isCancelled = true;
+    }
+
   }, []);
-  
+
   // Matching weatherApiIcons with out icon package
   // note: not all weather conditions habe their unique icon, not enought free icons
   const weatherIconsMap = {
@@ -126,11 +162,11 @@ export default function Home() {
     "09n": <FaCloudShowersHeavy />,
     "10d": <FaCloudRain />,
     "10n": <FaCloudRain />,
-    "11d": <FaCloud />, // Thunder
+    "11d": <FaCloud />, // Thunder, no icon yet
     "11n": <FaCloud />,
     "13d": <FaSnowflake />,
     "13n": <FaSnowflake />,
-    "50d": <FaCloud />, // Fog
+    "50d": <FaCloud />, // Fog, no icon yet
     "50n": <FaCloud />,
   };
   
@@ -138,40 +174,46 @@ export default function Home() {
   const TimeAndWeatherHeader = () => {
     // return false if weather api response is not defined
     if (!forecast) return null;
-    console.log(forecast)
     return (
       <div className="forecast">
         {forecast.name}
         <Tooltip label={<p><FaWind /> {forecast.wind.speed} m/s </p>}>
+          {/* Children => header title */}
           {weatherIconsMap[forecast.weather[0].icon]}
-          {Utils.ConvertKelvinToCelsius(forecast.main.temp)}
+          {Utils.ConvertKelvinToCelsius(forecast.main.temp)}°C
         </Tooltip>
-        <span>°C</span>
       </div>
     );
   };
   
   return (
-  <>
-    <div className={`home ${hasLoadedInOnce ? "" : "hasLoadedInOnce"}`}>
-      <div className="left"></div>
-      <div className="center">
-      <GlobalChat user={contextValue.user} />
+    <div className={`home`}>
+      <div className='left'></div>
+      <div className='center'>
+        <GlobalChat user={contextValue.user} />
       </div>
+
       {/* Homepage widgets */}
-      <div className="right">
-      <OnlineUserWidget />
-      {forecast && (
-        <SideWidget
-        icon={<FaGlobeEurope />}
-        title={<TimeAndWeatherHeader />}
-        live={false}
-        >
-        <Clock />
+      <div className='right'>
+        <OnlineUserWidget />
+        
+        {forecast && (
+          <SideWidget
+            icon={<FaGlobeEurope />}
+            title={<TimeAndWeatherHeader />}
+            live={false}>
+            <Clock />
+          </SideWidget>
+        )}
+        
+        <SideWidget icon={<FaChartBar />} title='Statistik'>
+          {visitors && (
+            <div className='statistic-contianer'>
+              <h5>Unika besökare: {visitors.countUnique}</h5>
+              <h5>Återkommande besökare: {visitors.countRecurent}</h5>
+            </div>
+          )}
         </SideWidget>
-      )}
-      <SideWidget icon={<FaChartBar />} title="Statistik" />
+      </div>
     </div>
-  </div>
-  </>
-  )};
+	);};

@@ -8,4 +8,8 @@ export const GetWeatherData = async () => {
     const url = `https://api.openweathermap.org/data/2.5/weather?q=${position.data.city}&appid=${api_key}`;        
     const forecastApi = await axiosInstance.get(url);
     return forecastApi.data;
-  };
+};
+
+export const UpdateVisitingCount = async (uniqueUserVisiting) => await axiosInstance.post('/updatevisitorcount', {uniqueUserVisiting: uniqueUserVisiting})
+
+export const GetVisitingCount = async () => await axiosInstance.get('/getVisitingCount')
