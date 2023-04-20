@@ -1,5 +1,5 @@
 import React, { memo, useContext, useEffect, useMemo, useRef, useState } from 'react'
-import { FaChartBar, FaCloud, FaCloudMoon, FaCloudRain, FaCloudShowersHeavy, FaCloudSun, FaGlobeEurope, FaMoon, FaSearch, FaSnowflake, FaSun, FaUsers } from 'react-icons/fa'
+import { FaChartBar, FaCloud, FaCloudMoon, FaCloudRain, FaCloudShowersHeavy, FaCloudSun, FaGlobeEurope, FaMoon, FaSearch, FaSnowflake, FaSun, FaTemperatureHigh, FaUsers, FaWind } from 'react-icons/fa'
 import { NavLink } from 'react-router-dom'
 import './css/Home.css'
 import userDefault from '../../assets/avatarDefault.png'
@@ -65,7 +65,7 @@ export default function Home() {
     }, [onlineUsers]);
   
     return (
-      <SideWidget icon={<FaUsers />} title="Användare online" live={false}>
+      <SideWidget icon={<FaUsers />} title="Realtids besökare" live={true}>
         <>
           <UsersOnline onlineUsers={onlineUsers} userOfEachCategory={userOfEachCategory} />
           <hr />
@@ -138,11 +138,14 @@ export default function Home() {
   const TimeAndWeatherHeader = () => {
     // return false if weather api response is not defined
     if (!forecast) return null;
+    console.log(forecast)
     return (
       <div className="forecast">
         {forecast.name}
-        {weatherIconsMap[forecast.weather[0].icon]}
-        {Utils.ConvertKelvinToCelsius(forecast.main.temp)}
+        <Tooltip label={<p><FaWind /> {forecast.wind.speed} m/s </p>}>
+          {weatherIconsMap[forecast.weather[0].icon]}
+          {Utils.ConvertKelvinToCelsius(forecast.main.temp)}
+        </Tooltip>
         <span>°C</span>
       </div>
     );
@@ -162,7 +165,7 @@ export default function Home() {
         <SideWidget
         icon={<FaGlobeEurope />}
         title={<TimeAndWeatherHeader />}
-        live={true}
+        live={false}
         >
         <Clock />
         </SideWidget>

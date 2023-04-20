@@ -89,7 +89,7 @@ export const getuser = async (req, res) => {
     const usernameByParam = req.params.id;
   
     try {
-      const userData = await UserModel.findOne({ username: new RegExp(`^${usernameByParam}`, 'i') }).populate('pfp');
+      const userData = await UserModel.findOne({ username: new RegExp(`^${usernameByParam}`, 'i') }).populate('pfp').lean();
       if (!userData) {
         return res.status(404).send({ message: "Användaren finns inte" });
       }

@@ -1,7 +1,6 @@
 .pageNotFound {
     width: 100vw;
     height: 100vh;
-
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -13,13 +12,11 @@
 .pageNotFound h1{
     color:var(--bg-m);
     font-size: 10rem;
-    
 }
 
 .pageNotFound h2{
-font-size: 2rem;
+    font-size: 2rem;
 }
-
 
 .pageNotFound .goBack {
     background-color: var(--bg-m);
@@ -29,10 +26,7 @@ font-size: 2rem;
     color:var(--bg-d);
     font-weight: 700;
     margin-top: 2vh;
-    
 }
-
-
 
 .pageNotFound .goBack:hover {
     background-color:var(--bg-l);

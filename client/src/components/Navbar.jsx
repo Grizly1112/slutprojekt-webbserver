@@ -1,10 +1,8 @@
 import './css/Navbar.css'
-import React, { useState, useEffect, useRef, useContext, useCallback } from 'react';
-import { NavLink, Link, useNavigate } from 'react-router-dom';
+import React, { useState, useEffect, useContext, useCallback } from 'react';
+import { NavLink } from 'react-router-dom';
 import Modal from './assets/Modal';
-import Tooltip from './assets/Tooltip';
 import Utils from '../assets/functiions/Utils';
-import { checkAuthLevel } from '../assets/functiions/Auth';
 import { userContext } from '../context/UserContext';
 import logo from '../assets/logo.png';
 import { Loader } from './assets/Loader';
@@ -31,7 +29,7 @@ import {
 import Login from './Login';
 import Register from './Register';
 
-function Navbar(props) {
+function Navbar() {
   const contextValue = useContext(userContext)
 
   const [notificationCount, SetNotificationCount] = useState(3);
@@ -77,7 +75,6 @@ function Navbar(props) {
 
       const [status, setStatus] = useState(true);
       const [notifactions, setNotifiactions] = useState(true);
-      let navigate = useNavigate();
    
       const NavbarModalitem = useCallback(({func, iconleft, label, iconRight}) => (
         <div className="navbarModal-item title" onClick={func}>
@@ -162,7 +159,7 @@ function Navbar(props) {
           (!isLoading && user.userHasPfp) ? 
           <NavItem>
             <Modal btnLabel={<img src={
-              user.pfp ? Utils.FormatImageStr(user.pfp.data.data) : UserPfpTest
+              user.pfp ? ('data:image/png;base64,' + user.pfp.data): UserPfpTest
               } />} btnClass="icon-button" activeClass="active-navbar-button">
               <UserModal />
             </Modal>
