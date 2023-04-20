@@ -37,6 +37,11 @@ class AppProvider extends Component {
     }
   }
 
+  // Lösning på att den endast körs en gång, körs när komponenten förstörs, i och med att hela applikationer är wrappad runt denna så kommer den bara köras när användaren lämnar sidan
+  componentWillUnmount() {
+    console.log("New user")
+  }
+
   logout() {
     this.setState({ user: {} });
     localStorage.removeItem('user');
@@ -48,7 +53,6 @@ class AppProvider extends Component {
       user: this.state.user,
       logout: this.logout,
     };
-
     return (
       <userContext.Provider value={value}>
         {this.state.loadingUser ? (

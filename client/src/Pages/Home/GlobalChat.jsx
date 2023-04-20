@@ -132,7 +132,6 @@ export default function GlobalChat(props) {
           {isLoading ? <Loader /> :
             messageArray.map((message, i) => {
               let sameUser = false;
-              console.log(message)
               const thisDate = new Date(message.timestamp);
               if(i > 0) {
 

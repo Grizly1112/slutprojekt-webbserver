@@ -111,6 +111,8 @@ export default function Home() {
     fetchWeatherData();
   }, []);
   
+  // Matching weatherApiIcons with out icon package
+  // note: not all weather conditions habe their unique icon, not enought free icons
   const weatherIconsMap = {
     "01d": <FaSun style={{ color: "rgb(255, 230, 32)" }} />,
     "01n": <FaMoon style={{ color: "rgb(255, 230, 32)" }} />,
@@ -132,7 +134,9 @@ export default function Home() {
     "50n": <FaCloud />,
   };
   
+  // Define the header of the clock widget 
   const TimeAndWeatherHeader = () => {
+    // return false if weather api response is not defined
     if (!forecast) return null;
     return (
       <div className="forecast">
@@ -151,6 +155,7 @@ export default function Home() {
       <div className="center">
       <GlobalChat user={contextValue.user} />
       </div>
+      {/* Homepage widgets */}
       <div className="right">
       <OnlineUserWidget />
       {forecast && (
