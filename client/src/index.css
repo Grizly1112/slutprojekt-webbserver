@@ -9,6 +9,7 @@
     --bg-m:  rgb(95, 133, 219);
     --bg-l: rgb(73, 73, 73);
     --text-c: #1c1e21;
+    --text-c-hover: #4c5158;
     --boxshadow-l: rgba(27, 38, 44 0.2) 0px 18px 50px -10px;
     --red-1: rgb(234, 84, 85);
 
@@ -31,7 +32,8 @@
     /* --bg-m: rgb(95, 133, 219);  */
     --bg-m:  rgb(95, 133, 219);
     --bg-l: rgb(144, 184, 248);
-    --text-c: #F5F5F7;
+    --text-c: #d6d6d8;
+    --text-c-hover: #bebec2;
     --boxshadow-l: rgba(27, 38, 44 0.2) 0px 18px 50px -10px;
     --red-1: rgb(234, 84, 85);
     --bg-accent: rgb(14, 14, 14);

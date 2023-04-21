@@ -2,6 +2,7 @@ import React from 'react'
 import './css/Footer.css'
 import { Link, useLocation } from 'react-router-dom';
 import { FaChevronRight } from 'react-icons/fa';
+import { NavLink } from 'react-router-dom';
 
 export default function Footer() {
     const Breadcrumbs = () => {
@@ -43,8 +44,49 @@ export default function Footer() {
     <div className='footer'>
       <div className="footer-content">
         <Breadcrumbs />
-
+        <div className="footer-box">
+          <div className="footer-links">
+            <h3>Användare</h3>
+            <NavLink className='footer-navlink' to={`/terms`}>
+              Terms of Service
+            </NavLink>
+            <NavLink className='footer-navlink' to={`/terms`}>
+              Terms of Service
+            </NavLink>
+            <NavLink className='footer-navlink' to={`/terms`}>
+              Terms of Service
+            </NavLink>
+          </div>
+          <div className="footer-links">
+            <h3>Info</h3>
+            <NavLink className='footer-navlink' to={`/terms`}>
+              Terms of Service
+            </NavLink>
+            <NavLink className='footer-navlink' to={`/terms`}>
+              Terms of Service
+            </NavLink>
+            <NavLink className='footer-navlink' to={`/terms`}>
+              Terms of Service
+            </NavLink>
+          </div>
+          <div className="footer-links">
+            <h3>Contact</h3>
+            <NavLink className='footer-navlink' to={`/terms`}>
+              Terms of Service
+            </NavLink>
+            <NavLink className='footer-navlink' to={`/terms`}>
+              Terms of Service
+            </NavLink>
+            <NavLink className='footer-navlink' to={`/terms`}>
+              Terms of Service
+            </NavLink>
+          </div>
+        </div>
+        
       </div>
+      <div className="footer-info">
+          <p>@2023 Mag Media</p>
+        </div>
     </div>
   )
 }
