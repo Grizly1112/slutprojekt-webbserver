@@ -23,16 +23,21 @@ export default function Home() {
 
   useEffect(() => 
   {
+    // Connect to socket - server
     socket.current = io("ws://localhost:3001");
     if(contextValue.user) {
+      // If user logged in add new user with userData
       socket.current.emit("new-user-add", {
         username: contextValue.user.username, 
         pfp: contextValue.user.pfp ? contextValue.user.pfp : "",
       });
     }
     else {
+      // Add as a guest => no userData
       socket.current.emit("new-user-add", (""));
     }
+
+    // Listener for when userlist updates on socket server
     socket.current.on("get-users", (users) => {
       setonlineUsers(users);
     });
@@ -64,13 +69,16 @@ export default function Home() {
     const userOfEachCategory = useMemo(() => {
       // Note: reduce allows us to calculate both the users and guests values in a single loop by accumulating them in a single object
       return onlineUsers.reduce((count, userOnline) => {
-        if (!userOnline.userId) {
+        if (userOnline.userId === "") {
           count.guests++;
-        } else if (userOnline.userId !== undefined) {
+        } else if (userOnline.userId.startsWith("guest-")) {
+          count.guests++;
+        } else {
           count.users++;
         }
         return count;
       }, { users: 0, guests: 0 });
+      
     }, [onlineUsers]);
   
     return (
@@ -90,10 +98,12 @@ export default function Home() {
   };
 
   const UsersOnline = React.memo(({ onlineUsers, userOfEachCategory }) => {
+
+    // Funktion to filter out guests from onlineUSerList
     const onlineUsersList = React.useMemo(() =>
-      onlineUsers.filter(userOnline => Boolean(userOnline.userId)),
-      [onlineUsers]
-    );
+    onlineUsers.filter(userOnline => !userOnline.userId.startsWith("guest-") && userOnline.userId !== ""),
+    [onlineUsers]
+     );
     const renderOnlineUser = React.useCallback((userOnline) => {
       console.log(userOnline)
       return (
@@ -104,11 +114,10 @@ export default function Home() {
         </NavLink>
       );
     }, [])
-  
     return (
       <div className="usersOnline">
         {onlineUsersList.map(renderOnlineUser)}
-        {userOfEachCategory.users > 4 && <h4>{userOfEachCategory.users - 4}+ andra</h4>}
+        {onlineUsersList.length > 0 && userOfEachCategory.users > 4 && <h4>{userOfEachCategory.users - 4}+ andra</h4>}
       </div>
     );
   });

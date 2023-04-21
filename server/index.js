@@ -43,6 +43,7 @@ app.get("/user/getuser/:id", getuser);
 app.post("/user/updateprofilepicture", uploadProfilePicture)
 app.post("/globalchat/send", globalChatMessageUpload)
 app.get("/globalchat/get", globalChatMessageGet)
+
 app.post('/updatevisitorcount', updateVisitorCount)
 app.get('/getVisitingCount', getVisitingCount)
 

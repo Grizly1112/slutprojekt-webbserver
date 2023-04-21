@@ -1,3 +1,5 @@
+/* This code is creating a socket.io server instance that listens on port 3001 and allows cross-origin
+resource sharing (CORS) from any origin. */
 
 const io = require("socket.io")(3001, {
     cors: {
@@ -6,26 +8,35 @@ const io = require("socket.io")(3001, {
   });
   
 
-  
-  let activeUsers = [];
+
+// Online users list
+var activeUsers = [];
   
 io.on("connection", (socket) => {
   // add new User
   socket.on("new-user-add", (userData) => {
-    // if user is not added previously
-    const {username, pfp} = userData;
-    if (!activeUsers.some((user) => user.userId === username)) {
-      activeUsers.push({ userId: username, pfp: pfp , socketId: socket.id });
-      console.log("New user connected,")
-      // console.log("New User Connected", activeUsers);
-
-      // send all active users to new user
-      io.emit("get-users", activeUsers);
+    const { username, pfp } = userData;
+    
+    let userId;
+    if (username) {
+      userId = username;
+    } else {
+      userId = `guest-${Math.floor(Math.random() * 1000)}`;
     }
-    // fix if already logeed in, and have multiple browser tbas open
+  
+    // check if user is not added previously
+    if (!activeUsers.some((user) => user.userId === userId)) {
+  
+      activeUsers.push({ userId: userId, pfp: pfp , socketId: socket.id });
+      console.log("New user connected,")
+  
+      // send all active users
+      io.emit("get-users", activeUsers);
+    } 
+  
+    // necessary to fix if already logeed in, and have multiple browser tbas open
     io.emit("get-users", activeUsers);
   })
-
 
   socket.on('getOnlineUSers', (name) => {
     io.emit('get-users', activeUsers);
