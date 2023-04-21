@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useMemo, useRef, useState } from 'react'
-import { FaChartBar, FaCloud, FaCloudMoon, FaCloudRain, FaCloudShowersHeavy, FaCloudSun, FaGlobeEurope, FaMoon, FaSearch, FaSnowflake, FaSun, FaTemperatureHigh, FaUsers, FaWind } from 'react-icons/fa'
+import { FaArrowCircleRight, FaChartBar, FaChevronCircleRight, FaChevronRight, FaCloud, FaCloudMoon, FaCloudRain, FaCloudShowersHeavy, FaCloudSun, FaCompass, FaExpandAlt, FaExpandArrowsAlt, FaGlobeEurope, FaMinusCircle, FaMoon, FaRegWindowClose, FaRegWindowMinimize, FaSearch, FaShare, FaShareAlt, FaShareAltSquare, FaSnowflake, FaSun, FaTemperatureHigh, FaUsers, FaWind } from 'react-icons/fa'
 import { NavLink } from 'react-router-dom'
 import './css/Home.css'
 import userDefault from '../../assets/avatarDefault.png'
@@ -7,6 +7,8 @@ import Tooltip from '../../components/assets/Tooltip'
 import { io } from "socket.io-client";
 import { userContext } from '../../context/UserContext'
 import GlobalChat from './GlobalChat'
+import logo from '../../assets/logo.png'
+import Modal from '../../components/assets/Modal'
 import Clock from './Clock'
 import Utils from '../../assets/functiions/Utils'
 import { GetVisitingCount, GetWeatherData } from '../../api/other'
@@ -104,7 +106,6 @@ export default function Home() {
     [onlineUsers]
      );
     const renderOnlineUser = React.useCallback((userOnline) => {
-      console.log(userOnline)
       return (
         <NavLink to={`members/user/${userOnline.userId}`}>
           <Tooltip key={userOnline.userId} label={userOnline.userId}>
@@ -155,6 +156,10 @@ export default function Home() {
 
   }, []);
 
+  const linkRef = useRef(null);
+  if (linkRef.current) {
+    navigator.clipboard.writeText(linkRef.current.innerText);
+  }
   // Matching weatherApiIcons with out icon package
   // note: not all weather conditions habe their unique icon, not enought free icons
   const weatherIconsMap = {
@@ -193,39 +198,76 @@ export default function Home() {
       </div>
     );
   };
+
+  function copyToClipboard() {
+    if (linkRef.current) {
+      navigator.clipboard.writeText(linkRef.current.innerText);
+      alert("Url Koperad")
+    }
+  }
   
   return (
     <div className={`home`}>
       <div className='left'></div>
       <div className='center'>
         {/* <GlobalChat user={contextValue.user} /> */}
-        {/* <img src={Logo} /> */}
-        {/* <img src={} /> */}
         
         <div className="welcome-container">
+          <img className='welcome-img' src={logo} />
+          <div className='welcome-text-container'>
+            <h2>{!contextValue.user ? "Välkommen till Mag Media": `Välkommen åter ${contextValue.user.username}`}</h2>
+            {
+              !contextValue.user  ?
+              <p>
+              Välkommen till Mag Media! Det här är en plattform där du kan chatta med människor från hela världen och dela dina tankar, idéer och erfarenheter. Vi är glada att du har valt att vara en del av vår community.
+              <br /><br/> Vi vill påminna dig om att åldersgränsen för att delta på Mag Media är 18 år. Detta beslutades för att säkerställa en trygg och säker miljö för alla våra användare. Vi värdesätter integritet och respekt för varandra, och vi tror att denna åldersgräns hjälper till att upprätthålla detta.
+              <br /> <br />Tack för att du har valt Mag Media som din nya chattdestination!
+              </p>
+              : 
+              <p>
+                Välkommen tillbaka till Mag Media!<br/> 
+                Som inloggad användare har du nu tillgång till alla våra funktioner och verktyg för att chatta och kommunicera med andra användare. Vi uppmuntrar dig att använda vår plattform på ett positivt sätt genom att dela dina idéer, erfarenheter och kunskap.
+                Tack för att du återvänder till Mag Media och vi ser fram emot att se vad du har att bidra med i vår community!
+              </p>
+            }
+          </div>
+          <hr />
+          <div className='button'>
+            <NavLink to={!contextValue.user ? "/register" : "/members</div>"}>{!contextValue.user ? "Skapa Konto" : <> <FaChevronCircleRight />Fortsätt</>}</NavLink>
+            <Modal modalClass="shareMagForum" activeClass="shareBtnActive" btnClass="welcome-share-button" buttonClose={true} btnLabel={<><FaShareAlt /> Dela</>}>
+              <div className='shareMagForum'>
+                <div className="share-header">
+                  <h2>Dela - Mag Media</h2>
+                </div>
+                  <hr />
+                  {/* ändra alla länkar.com till URL */}
+                  <div className='social-media-share'>
 
-          <h2>{!contextValue.user ? "Välkommen till Mag Media": `Välkommen åter ${contextValue.user.username}`}</h2>
-          {
-            !contextValue.user  ?
-            <p>
-            Välkommen till Mag Media! Det här är en plattform där du kan chatta med människor från hela världen och dela dina tankar, idéer och erfarenheter. Vi är glada att du har valt att vara en del av vår community.
-            <br /><br/> Vi vill påminna dig om att åldersgränsen för att delta på Mag Media är 18 år. Detta beslutades för att säkerställa en trygg och säker miljö för alla våra användare. Vi värdesätter integritet och respekt för varandra, och vi tror att denna åldersgräns hjälper till att upprätthålla detta.
-            <br /> <br />Tack för att du har valt Mag Media som din nya chattdestination!
-            </p>
-            : 
-            <p>
-              Välkommen tillbaka till Mag Media! Det är fantastiskt att se dig igen och vi hoppas att du har haft en positiv upplevelse här tidigare.
-              <br/><br/>
-              Vi vill påminna dig om att vår community är byggd på principerna om integritet, respekt och öppenhet. Genom att delta här på Mag Media, visar du att du är en del av en gemenskap som strävar efter att skapa en trygg och givande miljö för alla användare.
-              <br/><br/>
-              Som inloggad användare har du nu tillgång till alla våra funktioner och verktyg för att chatta och kommunicera med andra användare. Vi uppmuntrar dig att använda vår plattform på ett positivt sätt genom att dela dina idéer, erfarenheter och kunskap.
-              <br/><br/>
-              Tack för att du återvänder till Mag Media och vi ser fram emot att se vad du har att bidra med i vår community!
-            </p>
-          }
-          <button>
-            <NavLink to={!contextValue.user ? "/register" : "/members</div>"}>{!contextValue.user ? "Skapa Konto" : "Börja chatta"}</NavLink>
-          </button>
+                  {/* https://stackoverflow.com/questions/6208363/sharing-a-url-with-a-query-string-on-twitter */}
+                  <Tooltip label={"Dela på Facebook"}>
+                  <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fmagmedia.se" target="_blank" rel="noopener">
+                      <img class="YOUR_FB_CSS_STYLING_CLASS" src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Facebook_Logo_%282019%29.png/1024px-Facebook_Logo_%282019%29.png" width="34px" height="34px" alt="Share on Facebook" />
+                  </a>
+                  </Tooltip>
+                  <Tooltip label={"Dela på Twitter"}>
+                  <a href="http://www.twitter.com/share?url=http://www.google.com/" target="_blank" rel="noopener">
+                    <img class="YOUR_FB_CSS_STYLING_CLASS" src="https://png.pngtree.com/png-vector/20221018/ourmid/pngtree-twitter-social-media-round-icon-png-image_6315985.png" width="34px" height="34px" alt="Share on Facebook" />
+                  </a>
+                  </Tooltip>
+                  <Tooltip label={"Dela på Reddit"}>
+                    <a href='http://www.reddit.com/submit?url=https://stackoverflow.com/questions/24823114/post-to-reddit-via-url&title=Post%20to%20Reddit%20via%20URL'>
+                      <img class="YOUR_FB_CSS_STYLING_CLASS" src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/07/Reddit_icon.svg/800px-Reddit_icon.svg.png" width="34px" height="34px" alt="Share on Facebook" />
+                    </a>
+                  </Tooltip>
+                  </div>
+
+                  <div className="url">
+                    <div className="link"  ref={linkRef}>{window.location.href}</div>
+                    <button onClick={(copyToClipboard)}>kopiera</button>
+                </div>
+              </div>
+            </Modal>
+          </div>
         </div>
 
 
