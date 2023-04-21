@@ -34,13 +34,11 @@ io.on("connection", (socket) => {
       io.emit("get-users", activeUsers);
     } 
   
-    // necessary to fix if already logeed in, and have multiple browser tbas open
+    // // necessary to fix if already logeed in, and have multiple browser tbas open
     io.emit("get-users", activeUsers);
   })
 
-  socket.on('getOnlineUSers', (name) => {
-    io.emit('get-users', activeUsers);
-  })
+
 
   socket.on("disconnect", () => {
     // remove user from active users
