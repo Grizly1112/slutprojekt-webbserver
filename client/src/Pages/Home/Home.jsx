@@ -10,7 +10,6 @@ import GlobalChat from './GlobalChat'
 import Clock from './Clock'
 import Utils from '../../assets/functiions/Utils'
 import { GetVisitingCount, GetWeatherData } from '../../api/other'
-
 export default function Home() {
   const [onlineUsers, setonlineUsers] = useState([]);
 
@@ -199,7 +198,37 @@ export default function Home() {
     <div className={`home`}>
       <div className='left'></div>
       <div className='center'>
-        <GlobalChat user={contextValue.user} />
+        {/* <GlobalChat user={contextValue.user} /> */}
+        {/* <img src={Logo} /> */}
+        <img src={logo} />
+        
+        <div className="welcome-container">
+
+          <h2>{!contextValue.user ? "Välkommen till Mag Media": `Välkommen åter ${contextValue.user.username}`}</h2>
+          {
+            !contextValue.user  ?
+            <p>
+            Välkommen till Mag Media! Det här är en plattform där du kan chatta med människor från hela världen och dela dina tankar, idéer och erfarenheter. Vi är glada att du har valt att vara en del av vår community.
+            <br /><br/> Vi vill påminna dig om att åldersgränsen för att delta på Mag Media är 18 år. Detta beslutades för att säkerställa en trygg och säker miljö för alla våra användare. Vi värdesätter integritet och respekt för varandra, och vi tror att denna åldersgräns hjälper till att upprätthålla detta.
+            <br /> <br />Tack för att du har valt Mag Media som din nya chattdestination!
+            </p>
+            : 
+            <p>
+              Välkommen tillbaka till Mag Media! Det är fantastiskt att se dig igen och vi hoppas att du har haft en positiv upplevelse här tidigare.
+              <br/><br/>
+              Vi vill påminna dig om att vår community är byggd på principerna om integritet, respekt och öppenhet. Genom att delta här på Mag Media, visar du att du är en del av en gemenskap som strävar efter att skapa en trygg och givande miljö för alla användare.
+              <br/><br/>
+              Som inloggad användare har du nu tillgång till alla våra funktioner och verktyg för att chatta och kommunicera med andra användare. Vi uppmuntrar dig att använda vår plattform på ett positivt sätt genom att dela dina idéer, erfarenheter och kunskap.
+              <br/><br/>
+              Tack för att du återvänder till Mag Media och vi ser fram emot att se vad du har att bidra med i vår community!
+            </p>
+          }
+          <button>
+            <NavLink to={!contextValue.user ? "/register" : "/members</div>"}>{!contextValue.user ? "Skapa Konto" : "Börja chatta"}</NavLink>
+          </button>
+        </div>
+
+
       </div>
 
       {/* Homepage widgets */}
