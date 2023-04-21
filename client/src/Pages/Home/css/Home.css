@@ -565,3 +565,170 @@ gap: 1rem;
 .statistic-contianer {
   width: 100%;
 }
+
+
+/* Welcome page */
+.welcome-container {
+  height: fit-content;
+  max-width: calc(100% - 2rem);
+  border-radius: 8px;
+  background-color: var(--bg-d);
+  box-shadow: var(--box-shadow1-l);
+  border: 1px solid var(--border-color);
+  padding: 1rem;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+}
+
+.welcome-container .welcome-img {
+  width: 80%;
+  background-color: var(--bg-d-accent);
+  border-radius: 8px;
+  padding: 1rem;
+  box-shadow: 0px 1px 2px var(--box-shadow1-l);
+  border: 1px solid var(--border-color);
+}
+
+.welcome-container .welcome-text-container {
+  width: calc(80% + 1.5rem);
+}
+.welcome-container hr {
+  width: 80%;
+  background-color: var(--text-c);
+  opacity: 0.1 !important;
+  margin-bottom: -1rem;
+}
+
+.welcome-container .button {
+  width: 80%;
+  display: flex;
+  gap: 1rem;
+}
+.welcome-container .button svg {
+  color: var(--bg-m);
+}
+
+.welcome-container .button a,
+.welcome-share-button {
+  padding: .65rem .75rem;
+  cursor: pointer;
+  background-color: var(--bg-d-accent);
+  border-radius: 8px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: .5rem;
+  border: none;
+  outline: none;
+}
+
+.shareMagForum {
+    all: initial;
+    width: 35rem;
+    height: 15rem;
+    left: 35%;
+    top: 25%;
+    position: fixed;
+    z-index: 9 !important;
+    background-color: var(--bg-d-accent);
+    border-radius: 4px;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow: hidden;
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 20px 30px;
+    animation: dropdown .3s ease-in-out;
+    color: var(--text-color);
+}
+
+
+.shareMagForum .share-header {
+  display: inline-flex;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+  position: relative;
+}
+
+.shareMagForum hr {
+  width: 100%;
+  margin-bottom: 2rem;
+}
+
+.shareMagForum .url {
+  width: 50%;
+  background-color: var(--bg-d);
+  padding: 1rem 1.5rem;
+  color: var(--text-color);
+  border-radius: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  box-shadow: 0px 1px 2px var(--box-shadow1-l) ;
+}
+.shareMagForum .url .link {
+  color: var(--bg-m);
+  border: 1px solid var(--border-color);
+  outline: none
+}
+
+.shareMagForum .url button {
+  padding: .5rem 1rem;
+  background-color: var(--bg-m);
+  border: none;
+  border-radius: 8px;
+  color: #ffffff;
+  cursor: pointer;
+}
+
+.shareMagForum .url button:hover{
+  filter: brightness(1.2);
+}
+
+.shareBtnActive, .shareBtnActive svg {
+  background-color: var(--bg-m);
+  color: #fff !important;
+}
+
+.social-media-share {
+  display: inline-flex;
+  gap: 1rem;
+  height: 5rem;
+}
+
+
+
+
+
+/* Modal */
+.modal .modal-close {
+  position: absolute;
+  top: 1rem;
+  z-index: 99999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  right: 1.5rem;
+  box-shadow: 0px 1px 2px var(--box-shadow1-l);
+  font-size: 2rem;
+  cursor: pointer;
+}
+
+
+.modal .modal-close h6 {
+  font-size: .875rem;
+}
+.modal .modal-close:hover{
+  filter:brightness(1.2);
+}
+
+

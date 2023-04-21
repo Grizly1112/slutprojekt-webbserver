@@ -1,8 +1,9 @@
 // Källa: https://codesandbox.io/s/friendly-hofstadter-qtrtn?file=/src/index.js
 import React, { useEffect, useRef, useState } from "react";
 import Tooltip from "./Tooltip";
+import { FaMinusCircle } from "react-icons/fa";
 
-const Modal = ({ openState = false, tooltip, btnClass, activeClass, btnLabel, func, children }) => {
+const Modal = ({ openState = false, tooltip, btnClass, modalClass, activeClass, btnLabel, func, buttonClose, children }) => {
   const [showModal, setShowModal] = useState(openState);
   const modalRef = useRef(null);
 
@@ -46,7 +47,21 @@ const Modal = ({ openState = false, tooltip, btnClass, activeClass, btnLabel, fu
           {btnLabel}
         </span>
       </Tooltip>
-      {showModal && children}
+      {showModal && (
+        buttonClose ? 
+        (
+          <div className={"modal " + modalClass}>
+            <div className='modal-close' onClick={() => setShowModal(false)}>
+              <FaMinusCircle />
+              <h6>ESC</h6>
+            </div>
+            {children}
+          </div>
+        )
+        :
+          children
+        )
+      }
     </div>
   );
 };
