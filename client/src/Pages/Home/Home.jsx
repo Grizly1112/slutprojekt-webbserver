@@ -200,7 +200,7 @@ export default function Home() {
       <div className='center'>
         {/* <GlobalChat user={contextValue.user} /> */}
         {/* <img src={Logo} /> */}
-        <img src={logo} />
+        {/* <img src={} /> */}
         
         <div className="welcome-container">
 
