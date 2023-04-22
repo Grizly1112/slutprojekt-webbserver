@@ -18,7 +18,7 @@ import Modal from '../../../components/assets/Modal';
 export default function User() {
     const [params, setparams] = useState(useParams());
     const socket = useRef(null);
-
+    
     const [noUserFound, setNoUserFound] = useState(false);
     const [serverError, setServerError] = useState(false)
     const [user, setUser] = useState(false);

@@ -12,6 +12,7 @@ import AboutUser from './Pages/Members/components/AboutUser';
 import UserFriends from './Pages/Members/components/UserFriends';
 import Footer from './components/Footer';
 import { Loader } from './components/assets/Loader';
+import Admin from './Pages/Admin/Admin';
 
 const Home = lazy(() => import('./Pages/Home/Home'));
 const Members = lazy(() => import('./Pages/Members/Members'));
@@ -37,6 +38,7 @@ const App = () => {
                 </Route>
               </Route>
               <Route path="/terms" element={<TermsService />} />
+              <Route path="/admin" element={<Admin />} />
               <Route path="*" element={<PageNotFound />} />
             </Routes>
           </Suspense>
