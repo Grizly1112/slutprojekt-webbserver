@@ -13,7 +13,7 @@
     padding-top: 3rem;
     width: 100vw;
     height: 30rem;
-    background-color: var(--bg);
+    background-color: var(--bg-d);
     display: flex;
     
     justify-content: center;
@@ -33,7 +33,9 @@
     border-radius: 8px;
     width: 100%;
     height: 90%;
-    background: url("https://source.unsplash.com/9wg5jCEPBsw");
+    background-image: url('https://media.istockphoto.com/id/1288385045/photo/snowcapped-k2-peak.jpg?s=612x612&w=0&k=20&c=sfA4jU8kXKZZqQiy0pHlQ4CeDR0DxCxXhtuTDEW81oo=');
+    background-color: var(--bg-d-l);
+    /* background: url("https://source.unsplash.com/9wg5jCEPBsw"); */
     background-repeat: no-repeat;
     background-size: 100% 100%; 
     background-position: center;
@@ -76,7 +78,7 @@
     cursor: pointer;
     width: 100%;
     aspect-ratio: 1/1;
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.343);
+    box-shadow: 0 1px 2px var(--box-shadow1-l);
     border-radius: 50%;
     border-radius: 50%;
     z-index: 0;
@@ -97,8 +99,7 @@
     position: relative;
     border-radius: 4px;
     padding: .5rem 1rem;
-    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
-    background-color: rgba(36, 37, 38, 0.696);
+    background-color: var(--bg-d-l);
     color: var(--text-color);
     letter-spacing: 1px;
     font-family: system-ui;
@@ -125,7 +126,6 @@
     position: absolute;
     right: 1rem;
     color: var(--bg-m);
-    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
 }
 .userContainer .userProfileHeader .userProfileHeaderContainer .banner .userDetailsContainer .username svg {
     cursor: pointer;
@@ -134,9 +134,8 @@
 
 .userContainer .userProfileHeader .userProfileHeaderContainer .banner .userDetails {
     border-radius: 4px;
-    background-color: rgba(36, 37, 38, 0.696);
+    background-color: var(--bg-d-l);
     padding: .5rem 1rem;
-    color: var(--text-color);
     display: flex;
     justify-content: center;
     gap: .5rem;

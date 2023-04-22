@@ -1,7 +1,7 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import './css/Footer.css'
 import { Link, useLocation } from 'react-router-dom';
-import { FaChevronRight } from 'react-icons/fa';
+import { FaChevronRight, FaMoon, FaSun } from 'react-icons/fa';
 import { NavLink } from 'react-router-dom';
 import {
   FaRegSun,
@@ -11,6 +11,18 @@ import logo from '../assets/logo.png';
 
 
 export default function Footer() {
+  const [theme, setTheme] = useState(false);
+
+  useEffect(() => {
+    if (!localStorage.getItem('theme')) {
+      setTheme(false);
+    } else {
+      setTheme(JSON.parse(localStorage.getItem('theme')).theme);
+    }
+
+  },[])
+
+
     const Breadcrumbs = () => {
         const location = useLocation();
       
@@ -22,8 +34,8 @@ export default function Footer() {
           currentLink =+ `${crumb}`
           return(
               <div className='crumb' key={crumb}>
-                  <FaChevronRight />
                   <Link to={currentLink}> {crumb }  </Link>
+                  <FaChevronRight />
               </div>
           )
           })
@@ -31,20 +43,31 @@ export default function Footer() {
           return(
               <div className='breadcrumbs'>
                   {
-                      crumbs.length > 0 ? 
                       <>
                         <div className='crumb'>
                         <Link className='footer-home' to={"/"}> Mag Forum </Link>
+                        <FaChevronRight />
                     </div>
                       {crumbs}
-                      <hr />
                       </>
-                      : null
                   }
               </div>
           )
-      }
+    }
 
+
+    const changeTheme = () => {
+      let newTheme = false;
+
+      if(theme === true) {
+        newTheme = false;
+      } else {
+        newTheme = true;
+      }
+      document.documentElement.setAttribute('data-dark-mode', newTheme);
+      localStorage.setItem("theme", JSON.stringify({theme: newTheme}))
+      setTheme(newTheme)
+    }
 
     
 
@@ -55,7 +78,7 @@ export default function Footer() {
         <hr />
         <div className="footer-box">
           <div className="footer-links">
-            <h3>Användare</h3>
+            <h3>Mag Media</h3>
             <NavLink className='footer-navlink' to={`/terms`}>
               Terms of Service
             </NavLink>
@@ -67,7 +90,7 @@ export default function Footer() {
             </NavLink>
           </div>
           <div className="footer-links">
-            <h3>Info</h3>
+            <h3>Länkar</h3>
             <NavLink className='footer-navlink' to={`/terms`}>
               Terms of Service
             </NavLink>
@@ -79,7 +102,7 @@ export default function Footer() {
             </NavLink>
           </div>
           <div className="footer-links">
-            <h3>Contact</h3>
+            <h3>Övrigt</h3>
             <NavLink className='footer-navlink' to={`/terms`}>
               Terms of Service
             </NavLink>
@@ -93,20 +116,21 @@ export default function Footer() {
         </div>
         
       </div>
-      <hr />
       <div className="footer-info">
-        <div className="footer-logo">
+        <NavLink to={"/"} className="footer-logo">
           <img className="logo" src={logo} alt="" />
-          <p>@2023 Mag Media</p>
-        </div>
+        </NavLink>
         <div className="footer-themes">
           <div className="footer-switch">
-            <div className="footer-theme" id='light'>Light</div>
+            <div className={theme ? "footer-theme" :"footer-theme activeFooterLink"} id='dark' onClick={changeTheme}><FaSun/> Ljust</div>
             <div className="footer-space"></div>
-            <div className="footer-theme" id='dark'>Dark</div>
+            <div className={theme ? "footer-theme activeFooterLink": "footer-theme"} id='light' onClick={changeTheme}><FaMoon />Mörkt</div>
           </div>
         </div>
-            
+      </div>
+      <div className="footer-copyright">
+        <hr/>
+        <p>Copyright © 2023 Mag Media. All rights reserved.</p>
       </div>
     </div>
   )

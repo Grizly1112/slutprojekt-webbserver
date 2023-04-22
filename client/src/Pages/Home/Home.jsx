@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useMemo, useRef, useState } from 'react'
-import { FaArrowCircleRight, FaChartBar, FaChevronCircleRight, FaChevronRight, FaCloud, FaCloudMoon, FaCloudRain, FaCloudShowersHeavy, FaCloudSun, FaCompass, FaExpandAlt, FaExpandArrowsAlt, FaGlobeEurope, FaMinusCircle, FaMoon, FaRegWindowClose, FaRegWindowMinimize, FaSearch, FaShare, FaShareAlt, FaShareAltSquare, FaSnowflake, FaSun, FaTemperatureHigh, FaUsers, FaWind } from 'react-icons/fa'
+import { FaArrowCircleRight, FaChartBar, FaChevronCircleRight, FaChevronRight, FaCloud, FaCloudMoon, FaCloudRain, FaCloudShowersHeavy, FaCloudSun, FaComments, FaCompass, FaExpandAlt, FaExpandArrowsAlt, FaGlobeEurope, FaMinusCircle, FaMoon, FaRegWindowClose, FaRegWindowMinimize, FaSearch, FaShare, FaShareAlt, FaShareAltSquare, FaSnowflake, FaSun, FaTemperatureHigh, FaUsers, FaWind } from 'react-icons/fa'
 import { NavLink } from 'react-router-dom'
 import './css/Home.css'
 import userDefault from '../../assets/avatarDefault.png'
@@ -215,7 +215,18 @@ export default function Home() {
         <div className="welcome-container">
           <img className='welcome-img' src={logo} />
           <div className='welcome-text-container'>
-            <h2>{!contextValue.user ? "Välkommen till Mag Media": `Välkommen åter ${contextValue.user.username}`}</h2>
+              {contextValue.user ? 
+               <h2>
+                Välkommen åter 
+                <p>
+                  {contextValue.user.username}
+                </p>
+              </h2>
+              :
+              <h2>
+                 Välkommen till Mag Media
+              </h2>
+              }
             {
               !contextValue.user  ?
               <p>
@@ -225,7 +236,6 @@ export default function Home() {
               </p>
               : 
               <p>
-                Välkommen tillbaka till Mag Media!<br/> 
                 Som inloggad användare har du nu tillgång till alla våra funktioner och verktyg för att chatta och kommunicera med andra användare. Vi uppmuntrar dig att använda vår plattform på ett positivt sätt genom att dela dina idéer, erfarenheter och kunskap.
                 Tack för att du återvänder till Mag Media och vi ser fram emot att se vad du har att bidra med i vår community!
               </p>
@@ -233,8 +243,8 @@ export default function Home() {
           </div>
           <hr />
           <div className='button'>
-            <NavLink to={!contextValue.user ? "/register" : "/members</div>"}>{!contextValue.user ? "Skapa Konto" : <> <FaChevronCircleRight />Fortsätt</>}</NavLink>
-            <Modal modalClass="shareMagForum" activeClass="shareBtnActive" btnClass="welcome-share-button" buttonClose={true} btnLabel={<><FaShareAlt /> Dela</>}>
+            <NavLink to={!contextValue.user ? "/register" : "/members</div>"}>{!contextValue.user ? "Skapa Konto" : <> <FaComments />Börja Chatta</>}</NavLink>
+            <Modal modalClass="shareMagForum" activeClass="shareBtnActive" btnClass="welcome-share-button" buttonClose={true} btnLabel={<><FaShareAlt /> Dela Mag Media</>}>
               <div className='shareMagForum'>
                 <div className="share-header">
                   <h2>Dela - Mag Media</h2>

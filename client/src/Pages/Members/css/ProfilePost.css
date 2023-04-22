@@ -3,7 +3,7 @@
     width: calc(60vw - 2rem);
     padding: 1rem;
     border-radius: 8px;
-    background-color: var(--bg-d-accent);
+    background-color: var(--bg-d);
     margin-top: 2rem;
 }
 

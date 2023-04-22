@@ -100,7 +100,7 @@ export const getuser = async (req, res) => {
       console.error(error);
       return res.status(500).send({ message: "Serverfel uppstod" });
     }
-  };
+};
 
 
 export const uploadProfilePicture = async (req, res) => {

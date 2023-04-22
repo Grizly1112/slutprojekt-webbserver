@@ -157,12 +157,8 @@ export default function User() {
                         <div className="banner">
                             <div className='urserInformation'>
                                 <div class="profile-pic">
-                                    {
-                                        user.pfp ? 
-                                        <img src={userProfileHasChanged ? postImage.base64 : user.pfp.img || "#"} id="output" width="200" />
-                                        :
-                                        <img src={userProfileEditPfp ? postImage.base64 : defaultAvatar}></img>
-                                    }
+                                <img src={user.pfp && ('data:image/png;base64,' + user.pfp.data) || defaultAvatar} />
+                                    
                                 </div>
 
                                 <div className='userDetailsContainer'>
@@ -180,9 +176,6 @@ export default function User() {
                                         <h2>
                                         {Utils.FormatUserAge(user.dateOfBirth)} år
                                         </h2>
-                                        <Tooltip label="Tidigare använarnamn">
-                                            <FaQuestionCircle />
-                                        </Tooltip>
                                     </div>
                                     <div className="userDetails">
                                         <h4><p>Från:</p>{user.country} - {user.region}</h4>
