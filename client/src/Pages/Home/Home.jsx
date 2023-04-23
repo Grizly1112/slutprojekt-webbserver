@@ -219,7 +219,18 @@ export default function Home() {
       },
       img: "https://media.discordapp.net/attachments/782931346603114496/1096011579830571038/image.png?width=1202&height=676"
       
-    }
+    },
+    {
+      id: 1,
+      title: "Nya konto funktioner",
+      text: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas expedita modi, esse vitae incidunt minus veritatis reprehenderit explicabo sint. Incidunt dolor aliquid laboriosam minima, ullam facere fugit quod debitis adipisci?",
+      creator: {
+        username: "Grizly",
+        pfp: "https://media.discordapp.net/attachments/782931346603114496/1096401873222774824/Tj3MU.png"
+      },
+      img: "https://media.discordapp.net/attachments/782931346603114496/1096011579830571038/image.png?width=1202&height=676"
+      
+    },
   ]
   
   const NewsPreview =  (props) => {
@@ -256,7 +267,34 @@ export default function Home() {
         
         <div className="welcome-container">
           <img className='welcome-img' src={logo} />
-          <hr/>
+          <div className='welcome-text-container'>
+              {contextValue.user ? 
+               <h3>
+                Välkommen åter 
+                <p>
+                  {contextValue.user.username}
+                </p>
+              </h3>
+              :
+              <h2>
+                 Välkommen till Mag Media
+              </h2>
+              }
+            {/* {
+              !contextValue.user  ?
+              <p>
+              Välkommen till Mag Media! Det här är en plattform där du kan chatta med människor från hela världen och dela dina tankar, idéer och erfarenheter. Vi är glada att du har valt att vara en del av vår community.
+              <br /><br/> Vi vill påminna dig om att åldersgränsen för att delta på Mag Media är 18 år. Detta beslutades för att säkerställa en trygg och säker miljö för alla våra användare. Vi värdesätter integritet och respekt för varandra, och vi tror att denna åldersgräns hjälper till att upprätthålla detta.
+              <br /> <br />Tack för att du har valt Mag Media som din nya chattdestination!
+              </p>
+              : 
+              <p>
+                Som inloggad användare har du nu tillgång till alla våra funktioner och verktyg för att chatta och kommunicera med andra användare. Vi uppmuntrar dig att använda vår plattform på ett positivt sätt genom att dela dina idéer, erfarenheter och kunskap.
+                Tack för att du återvänder till Mag Media och vi ser fram emot att se vad du har att bidra med i vår community!
+              </p>
+            } */}
+          </div>
+          <hr />
           <div className="updates">
             <div className="update-title">
               <h5>Senaste Nyheterna</h5>
@@ -272,34 +310,6 @@ export default function Home() {
               }
             </div>
 
-          </div>
-          <hr/>
-          <div className='welcome-text-container'>
-              {contextValue.user ? 
-               <h3>
-                Välkommen åter 
-                <p>
-                  {contextValue.user.username}
-                </p>
-              </h3>
-              :
-              <h2>
-                 Välkommen till Mag Media
-              </h2>
-              }
-            {
-              !contextValue.user  ?
-              <p>
-              Välkommen till Mag Media! Det här är en plattform där du kan chatta med människor från hela världen och dela dina tankar, idéer och erfarenheter. Vi är glada att du har valt att vara en del av vår community.
-              <br /><br/> Vi vill påminna dig om att åldersgränsen för att delta på Mag Media är 18 år. Detta beslutades för att säkerställa en trygg och säker miljö för alla våra användare. Vi värdesätter integritet och respekt för varandra, och vi tror att denna åldersgräns hjälper till att upprätthålla detta.
-              <br /> <br />Tack för att du har valt Mag Media som din nya chattdestination!
-              </p>
-              : 
-              <p>
-                Som inloggad användare har du nu tillgång till alla våra funktioner och verktyg för att chatta och kommunicera med andra användare. Vi uppmuntrar dig att använda vår plattform på ett positivt sätt genom att dela dina idéer, erfarenheter och kunskap.
-                Tack för att du återvänder till Mag Media och vi ser fram emot att se vad du har att bidra med i vår community!
-              </p>
-            }
           </div>
           <hr/>
           <div className='button'>
