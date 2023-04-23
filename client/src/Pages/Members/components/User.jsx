@@ -30,7 +30,7 @@ export default function User() {
     const [onlineUsers, setonlineUsers] = useState([]);
     const [hasLoadedInOnce,setHasLoadedInOnce] = useState(false)
     
-    document.title = `Mag Forum | ${user.username}`
+    document.title = `Mag Media | ${user.username}`
         const contextValue = useContext(userContext);
 
         useEffect(() => {

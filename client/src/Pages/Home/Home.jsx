@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useMemo, useRef, useState } from 'react'
-import { FaArrowCircleRight, FaChartBar, FaChevronCircleRight, FaChevronRight, FaCloud, FaCloudMoon, FaCloudRain, FaCloudShowersHeavy, FaCloudSun, FaComments, FaCompass, FaExpandAlt, FaExpandArrowsAlt, FaGlobeEurope, FaMinusCircle, FaMoon, FaRegWindowClose, FaRegWindowMinimize, FaSearch, FaShare, FaShareAlt, FaShareAltSquare, FaSnowflake, FaSun, FaTemperatureHigh, FaUsers, FaWind } from 'react-icons/fa'
+import { FaArrowCircleRight, FaChartBar, FaChevronCircleRight, FaChevronRight, FaCloud, FaCloudMoon, FaCloudRain, FaCloudShowersHeavy, FaCloudSun, FaComments, FaCompass, FaExpandAlt, FaExpandArrowsAlt, FaGlobeEurope, FaImage, FaInfoCircle, FaMapMarkedAlt, FaMinusCircle, FaMoon, FaRegFlag, FaRegWindowClose, FaRegWindowMinimize, FaSearch, FaShare, FaShareAlt, FaShareAltSquare, FaSnowflake, FaSun, FaTemperatureHigh, FaThumbsUp, FaUsers, FaWind } from 'react-icons/fa'
 import { NavLink } from 'react-router-dom'
 import './css/Home.css'
 import userDefault from '../../assets/avatarDefault.png'
@@ -13,6 +13,8 @@ import Clock from './Clock'
 import Utils from '../../assets/functiions/Utils'
 import { GetVisitingCount, GetWeatherData } from '../../api/other'
 export default function Home() {
+  document.title ="Mag Forum | Startskärm"
+
   const [onlineUsers, setonlineUsers] = useState([]);
 
   const [forecast, setForecast] = useState(null);
@@ -205,7 +207,47 @@ export default function Home() {
       alert("Url Koperad")
     }
   }
+
+  const statusMsgArray = [
+    {
+      id: 1,
+      title: "Nya konto funktioner",
+      text: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas expedita modi, esse vitae incidunt minus veritatis reprehenderit explicabo sint. Incidunt dolor aliquid laboriosam minima, ullam facere fugit quod debitis adipisci?",
+      creator: {
+        username: "Grizly",
+        pfp: "https://media.discordapp.net/attachments/782931346603114496/1096401873222774824/Tj3MU.png"
+      },
+      img: "https://media.discordapp.net/attachments/782931346603114496/1096011579830571038/image.png?width=1202&height=676"
+      
+    }
+  ]
   
+  const NewsPreview =  (props) => {
+    return(
+      <div className="news-preview">
+        <div className="creator">
+          <img src={props.creator.pfp} alt="pfp" />
+          <h5>{props.creator.username}</h5>
+        </div>
+        <div className='news-content'>
+          <div className="news-content-text">
+            <h4 className="news-content-title">{props.title}</h4>
+            <h5 className="news-content-tetx">{props.text}</h5>
+          </div>
+          <div className="news-preview-statistic">
+            <FaRegFlag />
+            <FaShareAlt />
+            {/* <FaThumbsUp /> */}
+            {
+              props.img && 
+              <FaImage />
+            }
+          </div>
+        </div>
+      </div>
+    )
+  }
+
   return (
     <div className={`home`}>
       <div className='left'></div>
@@ -214,14 +256,32 @@ export default function Home() {
         
         <div className="welcome-container">
           <img className='welcome-img' src={logo} />
+          <hr/>
+          <div className="updates">
+            <div className="update-title">
+              <h5>Senaste Nyheterna</h5>
+              <NavLink to="/" className={"showAllUpdates"}><h5>Visa alla</h5></NavLink>
+            </div>
+            <div className="news-list">
+              {
+                statusMsgArray.map(newsMsg => {
+                  return(
+                    <NewsPreview title={newsMsg.title} text={newsMsg.text} creator={newsMsg.creator} img={!!newsMsg.img} />
+                    )
+                  })
+              }
+            </div>
+
+          </div>
+          <hr/>
           <div className='welcome-text-container'>
               {contextValue.user ? 
-               <h2>
+               <h3>
                 Välkommen åter 
                 <p>
                   {contextValue.user.username}
                 </p>
-              </h2>
+              </h3>
               :
               <h2>
                  Välkommen till Mag Media
@@ -241,7 +301,7 @@ export default function Home() {
               </p>
             }
           </div>
-          <hr />
+          <hr/>
           <div className='button'>
             <NavLink to={!contextValue.user ? "/register" : "/members</div>"}>{!contextValue.user ? "Skapa Konto" : <> <FaComments />Börja Chatta</>}</NavLink>
             <Modal modalClass="shareMagForum" activeClass="shareBtnActive" btnClass="welcome-share-button" buttonClose={true} btnLabel={<><FaShareAlt /> Dela Mag Media</>}>
@@ -279,8 +339,6 @@ export default function Home() {
             </Modal>
           </div>
         </div>
-
-
       </div>
 
       {/* Homepage widgets */}
@@ -299,11 +357,24 @@ export default function Home() {
         <SideWidget icon={<FaChartBar />} title='Statistik'>
           {statistics && (
             <div className='statistic-contianer'>
-              <h5>Medlemmar: {statistics.userCount}</h5>
-              <h5>Meddelanden: {statistics.chattCount}</h5>
-              <h5>Senaste medlemmen: {statistics.newestUser}</h5>
-              <h5>Unika besök: {statistics.visitors.countUnique}</h5>
-              <h5>Återkommande besök: {statistics.visitors.countRecurent}</h5>
+              <div className='statistic-box'>
+                <h5 className='title'>Medlemmar</h5>
+                <h4>{statistics.userCount}</h4>
+              </div>
+              <div className='statistic-box'>
+                <h5 className='title'>Senaste medlemmen</h5>
+                <NavLink className="newest-user" to={`members/user/${statistics.newestUser}`}>
+                <h4>{statistics.newestUser}</h4>
+                </NavLink>
+              </div>
+              <div className='statistic-box'>
+                <h5 className='title'>Återkommande besök</h5>
+                <h4>{statistics.visitors.countRecurent}</h4>
+              </div>
+              <div className='statistic-box'>
+                <h5 className='title'>Unika besök</h5>
+                <h4>{statistics.visitors.countUnique}</h4>
+              </div>
             </div>
           )}
         </SideWidget>

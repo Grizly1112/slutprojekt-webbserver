@@ -34,27 +34,32 @@ export default function ProfilePost(props) {
         // }
       };
 
-  return (
+      return (
+        <>
+        <div className='ProfilePost'>
+        </div>
+      <h1>Profilsida</h1>
+            
+        {/* {
     <div className='ProfilePost'>
-        {
             userwhovisit ?
         <>
         <form action="" onSubmit={handleSubmit}>
             <Tooltip label={`${userwhovisit.username}`}>
                 <NavLink to={`/members/user/${userwhovisit.username}`}>
-                    <img src={userwhovisit.pfp ? userwhovisit.pfp.img : userDefault} className="onlineUsers-img" alt="" />
+                <img src={userwhovisit.pfp ? userwhovisit.pfp.img : userDefault} className="onlineUsers-img" alt="" />
                 </NavLink>
-            </Tooltip>
-            <input type="text" name="message" placeholder='Skriv något om Grizly'/>
-            <button type='submit'>Skicka <FaRegPaperPlane /></button>
-        </form>
-        <hr />
-        </>
-        : null
-        }
-        <div className='postContainer'>
-
-        </div>
-    </div>
+                </Tooltip>
+                <input type="text" name="message" placeholder='Skriv något om Grizly'/>
+                <button type='submit'>Skicka <FaRegPaperPlane /></button>
+                </form>
+                <hr />
+                </>
+                : null
+                
+                </div>
+                </div>
+            */}
+            </>
   )
 }

@@ -2,11 +2,11 @@
     overflow-y: scroll;
     width: 100vw;
     height: auto;
+    min-height: 85vh;
     overflow-x: hidden;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
     margin-top: var(--nav-size);
 }
 .userContainer .userProfile {
@@ -234,3 +234,34 @@
       justify-content: start;
      }
     
+.noUserFound {
+    width: 25%;
+    display: flex;
+    gap: 1.5rem;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.noUserFound .icon {
+    color:var(--bg-m);
+    font-size: 10rem;
+    background-color: var(--bg-d);
+    border-radius: 999px;
+    padding: 1rem;
+}
+.noUserFound h4 {
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    gap: .2em;
+    width: 100%;
+}
+
+.noUserFound .noUserFoundSearchedName {
+    color: var(--bg-m);
+}
+
+.noUserFound .goBack {
+    text-decoration: underline;
+}
