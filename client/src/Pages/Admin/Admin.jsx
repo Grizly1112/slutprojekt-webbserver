@@ -1,5 +1,6 @@
 import React from 'react'
 import './css/Admin.css'
+import {useRef} from 'react';
 
 export default function Admin() {
     const EditTOS = () => {
@@ -7,7 +8,7 @@ export default function Admin() {
             {
                 id: 1, 
                 title: "Agreements", 
-                text: 'We operate the website Mag Forum, as well as any other related products and services that refer or link to these legal terms (the Legal Terms) (collectively, the "Services). <br/> You can contact us by email at or by mail to These Legal Terms constitute a legally binding agreement made between you, whether personally or on behalf of an entity you, and concerning your access to and use of the Services. You agree that by accessing the Services, you have read, understood, and agreed to be bound by all of these Legal Terms. IF YOU DO NOT AGREE WITH ALL OF THESE LEGAL TERMS, THEN YOU ARE EXPRESSLY PROHIBITED FROM USING THE SERVICES AND YOU MUST DISCONTINUE USE IMMEDIATELY. We will provide you with prior notice of any scheduled changes to the Services you are using. The modified Legal Terms will become effective upon posting or notifying you by as stated in the email message. By continuing to use the Services after the effective date of any changes, you agree to be bound by the modified terms. The Services are intended for users who are at least 13 years of age. All users who are minors in the jurisdiction in which they reside (generally under the age of 18) must have the permission of, and be directly supervised by, their parent or guardian to use the Services. If you are a minor, you must have your parent or guardian read and agree to these Legal Terms prior to you using the Services. We recommend that you print a copy of these Legal Terms for your records.'
+                text: 'We operate the website Mag Forum, as well as any other related products and services that refer or link to these legal terms (the Legal Terms) (collectively, the "Services). You can contact us by email at or by mail to These Legal Terms constitute a legally binding agreement made between you, whether personally or on behalf of an entity you, and concerning your access to and use of the Services. You agree that by accessing the Services, you have read, understood, and agreed to be bound by all of these Legal Terms. IF YOU DO NOT AGREE WITH ALL OF THESE LEGAL TERMS, THEN YOU ARE EXPRESSLY PROHIBITED FROM USING THE SERVICES AND YOU MUST DISCONTINUE USE IMMEDIATELY. We will provide you with prior notice of any scheduled changes to the Services you are using. The modified Legal Terms will become effective upon posting or notifying you by as stated in the email message. By continuing to use the Services after the effective date of any changes, you agree to be bound by the modified terms. The Services are intended for users who are at least 13 years of age. All users who are minors in the jurisdiction in which they reside (generally under the age of 18) must have the permission of, and be directly supervised by, their parent or guardian to use the Services. If you are a minor, you must have your parent or guardian read and agree to these Legal Terms prior to you using the Services. We recommend that you print a copy of these Legal Terms for your records.'
             },
             {
                 id: 2,
@@ -57,11 +58,26 @@ export default function Admin() {
 
         
 
+        
+        function handleSubmit(e) {
+            // Prevent the browser from reloading the page
+            e.preventDefault();
+        
+            // Read the form data
+            const form = e.target;
+            const formData = new FormData(form);
+        
+            // Or you can work with it as a plain object:
+            const formJson = Object.fromEntries(formData.entries());
+            console.log(formJson);
+          }
+
         return(
             <ul className='edit-tos'>
                 {
                     text.map((section, i) => {
                         return(
+                            <form method='post' onSubmit={handleSubmit}> 
                             <li className='tos-section' key={section.id}>
                                 <p>Terms of Service sektion (id {section.id})</p>
                                 <hr />
@@ -70,6 +86,7 @@ export default function Admin() {
                                         <h2>
                                             Titel: 
                                         </h2>
+                                        <textarea name="postTitle" className='section-edit-title' defaultValue={section.title}/>
                                         <p type="text" id={`section-text-${section.id}`}>
                                             {section.title}                                                                         
                                         </p>
@@ -79,10 +96,13 @@ export default function Admin() {
                                 </div>
                                 <hr/>
                                 <div className='section-edit'>
-                                    <h2>Text: {section.text}</h2>
+                                    <textarea name="postContent" className='section-edit-input' defaultValue={section.text}/>
                                     <button>Ändra</button>
-                                </div>                            
+                                </div>  
+                                <button type='submit'>Submit</button>                         
                             </li>
+                            
+                            </form>
                         )
 
                     }) 
@@ -103,3 +123,5 @@ export default function Admin() {
     </div>
   )
 }
+
+// <h2>Text: {section.text}</h2>

@@ -175,4 +175,5 @@
 
 .footer .footer-copyright p {
     font-size: .875rem;
+    color: var(--text-c);
 }
