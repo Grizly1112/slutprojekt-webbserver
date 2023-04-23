@@ -45,3 +45,18 @@
 .admin .edit-tos .tos-section .section-edit button {
     height: fit-content;
 }
+
+.admin .edit-tos .tos-section .section-edit .section-edit-input {
+    height: 30vh;
+    width: 100%;
+    padding: 1vh;
+    background-color: var(--bg-d-l);
+    color: var(--text-c);
+}
+
+.admin .edit-tos .tos-section .section-edit .section-edit-title {
+    width: 100%;
+    padding: 1vh;
+    background-color: var(--bg-d-l);
+    color: var(--text-c);
+}
