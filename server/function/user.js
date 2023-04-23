@@ -7,6 +7,8 @@ import axios from 'axios'
 import UserModel from "../Models/user.js"
 import Image from "../Models/image.js"
 import VisitorModel from "../Models/countVisitors.js"
+import mongoose from "mongoose"
+// import { mongoose } from "../index.js"
 
 
 dotenv.config()
@@ -192,16 +194,35 @@ export const updateVisitorCount = async (req, res) => {
     }
 };
 
-export const getVisitingCount = async (req,res) => {
-    try {
-        const visitors = await VisitorModel.findOne().lean();
 
-        if(visitors) {
-            res.status(200).send({visitors: visitors});
-        }
-    } catch(err) {
-        console.error(err);
-      res.status(500).send('Server error');
-    }
-}
-  
+
+export const getVisitingCount = async (req, res) => {
+  try {
+    const db = mongoose.connection;
+
+    // Use Promise.all to execute the database queries in parallel
+    const [usersCount, chattCount, newestUser] = await Promise.all([
+      // Use the aggregation framework to get the count of documents in each collection
+
+      // userCount
+      db.collection('users').aggregate([{ $count: 'count' }]).toArray(),
+      
+      // chattCount
+      db.collection('globalchats').aggregate([{ $count: 'count' }]).toArray(),
+      // Use an index to quickly retrieve the latest document
+      
+      // newestUser
+      db.collection('users').findOne({}, { projection: { _id: 0, username: 1 }, sort: { dateJoined: -1 }, limit: 1 }),
+    ]);
+
+    res.status(200).send({
+      visitors: await VisitorModel.findOne().lean(),
+      userCount: usersCount[0].count,
+      chattCount: chattCount[0].count,
+      newestUser: newestUser ? newestUser.username : null, // Handle the case where there are no users in the collection
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('Server error');
+  }
+};

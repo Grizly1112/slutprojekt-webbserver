@@ -3,10 +3,8 @@ import { FaBars, FaCircle, FaEdit, FaExclamationTriangle, FaFileImage, FaImage, 
 import { NavLink, Outlet, useLocation, useParams} from 'react-router-dom'
 import { GetUser } from '../../../api/user';
 import ServerError from '../../../components/ServerError';
-import Tooltip from '../../../components/assets/Tooltip';
 import '../css/User.css'
 import Utils from '../../../assets/functiions/Utils';
-import { checkAuthLevel } from '../../../assets/functiions/Auth';
 import axios from 'axios';
 
 import defaultAvatar from '../../../assets/avatarDefault.png'
@@ -33,7 +31,6 @@ export default function User() {
     const [hasLoadedInOnce,setHasLoadedInOnce] = useState(false)
     
     document.title = `Mag Forum | ${user.username}`
-
         const contextValue = useContext(userContext);
 
         useEffect(() => {
@@ -84,10 +81,6 @@ export default function User() {
             }
         },[contextValue, params.id]) 
     
-
-
-
-    
     
     const handleSubmit = async(e) => {
         e.preventDefault();
@@ -111,7 +104,6 @@ export default function User() {
     }
 
 
-
     const hanldeFileUpload = async (e) => {
         const file = e.target.files[0];
         const base64 = await convertToBase64(file);
@@ -128,7 +120,6 @@ export default function User() {
             </div>
         )
     }
-
     
     const NavbarModalitem = (props) => {
         return(
@@ -167,10 +158,8 @@ export default function User() {
                                             {user.username} 
                                         </h2>
                                         {
-                                            user.staff? 
+                                            user.staff &&
                                             <div className='staffBadge'>Moderator</div> 
-                                            : 
-                                            null
                                         }
                                         <FaCircle className='circleDot' />
                                         <h2>
@@ -214,11 +203,10 @@ export default function User() {
                         </NavLink>
                    </ul>
                 </div>
-
             </div>
-        <div className="userContent">
-            <Outlet user={user} />
-        </div>
+            <div className="userContent">
+                <Outlet user={user} />
+            </div>
         </>
         )
     }

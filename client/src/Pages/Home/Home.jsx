@@ -16,7 +16,7 @@ export default function Home() {
   const [onlineUsers, setonlineUsers] = useState([]);
 
   const [forecast, setForecast] = useState(null);
-  const [visitors, setVisitors] = useState(null);
+  const [statistics, setStatistics] = useState(null);
   
   const socket = useRef(null);
   const contextValue = useContext(userContext)
@@ -140,7 +140,7 @@ export default function Home() {
     const fetchVisitorCount = async () => {
       if(!isCancelled) {
         const res = await GetVisitingCount();
-        setVisitors(res.data.visitors);
+        setStatistics(res.data);
       }
     };
     
@@ -297,10 +297,13 @@ export default function Home() {
         )}
         
         <SideWidget icon={<FaChartBar />} title='Statistik'>
-          {visitors && (
+          {statistics && (
             <div className='statistic-contianer'>
-              <h5>Unika besökare: {visitors.countUnique}</h5>
-              <h5>Återkommande besökare: {visitors.countRecurent}</h5>
+              <h5>Medlemmar: {statistics.userCount}</h5>
+              <h5>Meddelanden: {statistics.chattCount}</h5>
+              <h5>Senaste medlemmen: {statistics.newestUser}</h5>
+              <h5>Unika besök: {statistics.visitors.countUnique}</h5>
+              <h5>Återkommande besök: {statistics.visitors.countRecurent}</h5>
             </div>
           )}
         </SideWidget>

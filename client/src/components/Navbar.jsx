@@ -58,6 +58,17 @@ function Navbar() {
     }
   }, [contextValue]);
 
+  const toggleTheme = useCallback(() => {
+    console.log("ejejej")
+      const isDarkMode = JSON.parse(localStorage.getItem('theme')).theme;
+      const newTheme = !isDarkMode;
+
+      localStorage.setItem('theme', JSON.stringify({ theme: newTheme }));
+      setTheme(newTheme);
+      document.documentElement.setAttribute('data-dark-mode', newTheme);
+
+  }, []);
+
   function NavbarEndLoggedIn() {
     function NavItem({ notifications, children }) {
       return (
@@ -103,16 +114,7 @@ function Navbar() {
             
              <NavbarModalitem iconleft={ theme ? <FaRegMoon /> : <FaRegSun />} label={theme ? "Mörkt": "Ljust"}iconRight={
               <label className="switch">
-                <input type="checkbox"defaultChecked={theme} onChange={()=> setTimeout(() => {
-                 const isDarkMode = JSON.parse(localStorage.getItem('theme')).theme;
-                 const newTheme = !isDarkMode;
-               
-                 localStorage.setItem('theme', JSON.stringify({ theme: newTheme }));
-                 setTheme(newTheme);
-                 document.documentElement.setAttribute('data-dark-mode', newTheme);
-                 
-                   document.documentElement.removeAttribute('data-changing-theme');
-                }, 200) }/>
+                <input type="checkbox"defaultChecked={theme} onChange={()=> setTimeout(() => {toggleTheme()}, 200) }/>
                 <span className="slider round"></span>
               </label>
             }/>
@@ -183,12 +185,10 @@ function Navbar() {
         )
       }
       return (
-      <>
         <div className='notLoggedInNavButtons'>
           <NavbarButton icon={<FaUser />} link={"/login"} label="Logga in"><Login /></NavbarButton>
           <NavbarButton icon={<FaUserPlus />} link={"/register"} label="Registera konto"><Register /></NavbarButton>
         </div>
-      </>
       )
     } else {
       const NavbarButton = (props) => {

@@ -32,9 +32,11 @@ const dbUrl = process.env.DB_CONNECTION_STR;
 const dbOptions = { useNewUrlParser: true, useUnifiedTopology: true };
 
 mongoose.connect(dbUrl, dbOptions)
-  .then(() => console.log("MongoDB Databas är uppkopplad"))
+  .then(() => console.log("MongoDB Database is connected"))
   .catch(error => console.error(`Failed to connect to MongoDB: ${error.message}`));
 
+/* Export the database connection */
+export { mongoose };
 
 /* Server Routes. */
 app.post("/user/register", register);

@@ -1,83 +1,82 @@
+/** @format */
+
 .members {
-    width: 100vw;
-    overflow: hidden;
-    display: flex;
-    flex-direction: row;
-    margin-top: var(--nav-size);
+	width: 100vw;
+	overflow: hidden;
+	display: flex;
+	flex-direction: row;
+	margin-top: var(--nav-size);
 }
 
 .memebers-container {
-  /* Sidebar widht */
-  max-height: calc(100vh -4rem);
-  overflow: hidden;
-  width: 100%;
-  height: auto;
-  display: flex;
-  justify-content: center;
+	/* Sidebar widht */
+	max-height: calc(100vh -4rem);
+	overflow: hidden;
+	width: 100%;
+	height: auto;
+	display: flex;
+	justify-content: center;
 }
 
-
 .members .memberssideBar {
-    position: fixed;
-    height: 4rem;
-    width: 100%;
-    background-color: var(--bg-d-accent);
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    box-shadow: rgba(72, 72, 72, 0.607) 0px 20px 30px;
-    color: var(--text-color);
-    z-index: 99;
-  }
+	position: fixed;
+	height: 4rem;
+	width: 100%;
+	background-color: var(--bg-d-accent);
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: space-between;
+	box-shadow: rgba(72, 72, 72, 0.607) 0px 20px 30px;
+	color: var(--text-color);
+	z-index: 99;
+}
 
 .members .memberssideBar h2 {
-  padding-left: 1.5rem;
+	padding-left: 1.5rem;
 }
 
 .members .memberssideBar ul {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
+	display: flex;
+	align-items: center;
+	gap: 1rem;
 }
 
 .members .memberssideBar ul .navbarModalNavLink {
-  height: 3rem;
+	height: 3rem;
 }
 
 .members .memberssideBar ul .navbarModal-item {
-   border-radius: 8px;
-    display: flex;
-    height: 100%;
-    align-items: center;
-    padding: 0rem 1rem;
-    color: lightgray;
-    cursor: pointer;
-    justify-content: space-between;
-    gap: 1rem;
-} 
+	border-radius: 8px;
+	display: flex;
+	height: 100%;
+	align-items: center;
+	padding: 0rem 1rem;
+	color: lightgray;
+	cursor: pointer;
+	justify-content: space-between;
+	gap: 1rem;
+}
 
-.memberssideBar a.active .navbarModal-item > *{
-  color: var(--bg-m) !important;
+.memberssideBar a.active .navbarModal-item > * {
+	color: var(--bg-m) !important;
 }
 .memberssideBar a.active .navbarModal-item:hover {
-  background-color: transparent;
+	background-color: transparent;
 }
 
 .memberssideBar .navHouse > *:hover {
-  background-color: transparent !important;
+	background-color: transparent !important;
 }
 
-.memberssideBar .navbarModal-item:hover{
-    background-color: var(--bg-accent);
+.memberssideBar .navbarModal-item:hover {
+	background-color: var(--bg-accent);
 }
 
-.memberssideBar .navbarModal-item .navbarModal-item-icon-left
-  {
-    height: 100%;
-    display: flex;
-    align-items: center;
-    font-size: 1.8rem;
-    justify-content: start;
-   }
-  
+.memberssideBar .navbarModal-item .navbarModal-item-icon-left {
+	height: 100%;
+	display: flex;
+	align-items: center;
+	font-size: 1.8rem;
+	justify-content: start;
+}

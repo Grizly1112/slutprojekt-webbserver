@@ -1,244 +1,246 @@
+/** @format */
+
 .clock-container {
-    width: 100%;
-    height: 12.5rem;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-between;
+	width: 100%;
+	height: 12.5rem;
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: space-between;
 }
 
 .clock-container .clock {
-    width: 100%;
-    height: 100%;
+	width: 100%;
+	height: 100%;
 }
 
 /* toggle clock menu */
 .toggle-clock-view {
-    height: 1.5rem;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: .5rem;
-    font-size: 1.1rem;
-    color: var(--bg-d-accent);
-    cursor: pointer;
+	height: 1.5rem;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	gap: 0.5rem;
+	font-size: 1.1rem;
+	color: var(--bg-d-accent);
+	cursor: pointer;
 }
 .toggle-clock-view svg {
-   border-radius: 50%;
+	border-radius: 50%;
 }
 .toggle-clock-view .disabled {
-   color: var(--bg-m)
-
+	color: var(--bg-m);
 }
-
-
 
 /* First clock */
 /* Källa: https://dev.to/code_mystery/simple-analog-clock-using-html-css-javascript-2c6a */
-.clock-1{
-    width: 30%;
-    aspect-ratio: 1/1;
-    background-color: var(--bg-d);
-    position: relative;
-    padding: 1rem;
-    background: var(--bg-d-accent);
-    box-shadow: var(--clock-shadow);
-    border-radius: 50%;
-    margin: 1rem auto;
+.clock-1 {
+	width: 30%;
+	aspect-ratio: 1/1;
+	background-color: var(--bg-d);
+	position: relative;
+	padding: 1rem;
+	background: var(--bg-d-accent);
+	box-shadow: var(--clock-shadow);
+	border-radius: 50%;
+	margin: 1rem auto;
 }
 
 .outer-clock-face {
-    position: relative;
-    background: var(--bg-d-accent);
-    overflow: hidden;
-    width: 100%;
-    height: 100%;
-    border-radius: 100%;
-  }
-  
-  .outer-clock-face::after {
-    -webkit-transform: rotate(90deg);
-    -moz-transform: rotate(90deg);
-    transform: rotate(90deg)
-  }
-  
-  .outer-clock-face::after,
-  .outer-clock-face::before,
-  .outer-clock-face .marking{
-    content: '';
-    position: absolute;
-    width: 5px;
-    height: 100%;
-    background: var(--bg-m);
-    z-index: 0;
-    left: 49%;
-    border-radius: 1vh;
-  }
+	position: relative;
+	background: var(--bg-d-accent);
+	overflow: hidden;
+	width: 100%;
+	height: 100%;
+	border-radius: 100%;
+}
 
-  .outer-clock-face .marking {
-    background: #bdbdcb;
-    width: 3px;
-    border-radius: 1vh;
-  }
-  
-  .outer-clock-face .marking.marking-one {
-    -webkit-transform: rotate(30deg);
-    -moz-transform: rotate(30deg);
-    transform: rotate(30deg)
-  }
-  
-  .outer-clock-face .marking.marking-two {
-    -webkit-transform: rotate(60deg);
-    -moz-transform: rotate(60deg);
-    transform: rotate(60deg)
-  }
-  
-  .outer-clock-face .marking.marking-three {
-    -webkit-transform: rotate(120deg);
-    -moz-transform: rotate(120deg);
-    transform: rotate(120deg)
-  }
-  
-  .outer-clock-face .marking.marking-four {
-    -webkit-transform: rotate(150deg);
-    -moz-transform: rotate(150deg);
-    transform: rotate(150deg)
-  }
+.outer-clock-face::after {
+	-webkit-transform: rotate(90deg);
+	-moz-transform: rotate(90deg);
+	transform: rotate(90deg);
+}
 
-  .inner-clock-face {
-    position: absolute;
-    top: 10%;
-    left: 10%;
-    width: 80%;
-    height: 80%;
-    background: var(--bg-d-accent);
-    -webkit-border-radius: 100%;
-    -moz-border-radius: 100%;
-    border-radius: 100%;
-    z-index: 1;
-  }
-  
-  .inner-clock-face::before {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 16px;
-    height: 16px;
-    border-radius: 18px;
-    margin-left: -9px;
-    margin-top: -6px;
-    background: #4d4b63;
-    z-index: 11;
-  }
+.outer-clock-face::after,
+.outer-clock-face::before,
+.outer-clock-face .marking {
+	content: "";
+	position: absolute;
+	width: 5px;
+	height: 100%;
+	background: var(--bg-m);
+	z-index: 0;
+	left: 49%;
+	border-radius: 1vh;
+}
 
-  .hand {
-    width: 50%;
-    right: 50%;
-    height: 6px;
-    background: var(--bg-m);
-    position: absolute;
-    top: 50%;
-    border-radius: 6px;
-    transform-origin: 100%;
-    transform: rotate(90deg);
-    transition-timing-function: cubic-bezier(0.1, 2.7, 0.58, 1);
-  }
-  
-  .hand.hour-hand {
-    width: 30%;
-    z-index: 3;
-  }
-  
-  .hand.min-hand {
-    height: 3px;
-    z-index: 4;
-    width: 40%;
-    border-radius: 1vh;
-  }
-  
-  .hand.second-hand {
-    background: var(--red-1);
-    width: 45%;
-    height: 2px;
-    z-index: 5;
+.outer-clock-face .marking {
+	background: #bdbdcb;
+	width: 3px;
+	border-radius: 1vh;
+}
+
+.outer-clock-face .marking.marking-one {
+	-webkit-transform: rotate(30deg);
+	-moz-transform: rotate(30deg);
+	transform: rotate(30deg);
+}
+
+.outer-clock-face .marking.marking-two {
+	-webkit-transform: rotate(60deg);
+	-moz-transform: rotate(60deg);
+	transform: rotate(60deg);
+}
+
+.outer-clock-face .marking.marking-three {
+	-webkit-transform: rotate(120deg);
+	-moz-transform: rotate(120deg);
+	transform: rotate(120deg);
+}
+
+.outer-clock-face .marking.marking-four {
+	-webkit-transform: rotate(150deg);
+	-moz-transform: rotate(150deg);
+	transform: rotate(150deg);
+}
+
+.inner-clock-face {
+	position: absolute;
+	top: 10%;
+	left: 10%;
+	width: 80%;
+	height: 80%;
+	background: var(--bg-d-accent);
+	-webkit-border-radius: 100%;
+	-moz-border-radius: 100%;
+	border-radius: 100%;
+	z-index: 1;
+}
+
+.inner-clock-face::before {
+	content: "";
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	width: 16px;
+	height: 16px;
+	border-radius: 18px;
+	margin-left: -9px;
+	margin-top: -6px;
+	background: #4d4b63;
+	z-index: 11;
+}
+
+.hand {
+	width: 50%;
+	right: 50%;
+	height: 6px;
+	background: var(--bg-m);
+	position: absolute;
+	top: 50%;
+	border-radius: 6px;
+	transform-origin: 100%;
+	transform: rotate(90deg);
+	transition-timing-function: cubic-bezier(0.1, 2.7, 0.58, 1);
+}
+
+.hand.hour-hand {
+	width: 30%;
+	z-index: 3;
+}
+
+.hand.min-hand {
+	height: 3px;
+	z-index: 4;
+	width: 40%;
+	border-radius: 1vh;
+}
+
+.hand.second-hand {
+	background: var(--red-1);
+	width: 45%;
+	height: 2px;
+	z-index: 5;
 }
 
 /* Clock 2 */
 /* Reflecting text: https://codepen.io/KryptoniteDove/pen/QwRpjX */
 
 .clock-2 {
-    font-family: "Helvetica Neue", "Arial";
-    height: 100%;
-    width: 100%;
-    display: flex;
-    gap: 2rem;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    
+	font-family: "Helvetica Neue", "Arial";
+	height: 100%;
+	width: 100%;
+	display: flex;
+	gap: 2rem;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
 }
-.clock-2 .digitalTime { 
-    display: inline-block;
-    width: 57.5%;
-    margin-top: -8rem;
-    height: 2rem;
-    font-size: 3em;
-  font-weight: 100;
-  text-transform: uppercase;
-  letter-spacing: 3px;  
- 
-  
+.clock-2 .digitalTime {
+	display: inline-block;
+	width: 57.5%;
+	margin-top: -8rem;
+	height: 2rem;
+	font-size: 3em;
+	font-weight: 100;
+	text-transform: uppercase;
+	letter-spacing: 3px;
 }
 
 .clock-2 h3 {
-    background-color: #565656;
-    color: transparent;
-    text-shadow: 2px 2px 3px rgba(255,255,255,0.5);
-    -webkit-background-clip: text;
-    -moz-background-clip: text;
-        background-clip: text;
+	background-color: #565656;
+	color: transparent;
+	text-shadow: 2px 2px 3px rgba(255, 255, 255, 0.5);
+	-webkit-background-clip: text;
+	-moz-background-clip: text;
+	background-clip: text;
 }
 
 /* digitalTime CSS */
 
-.digitalTime, .digitalTime:before, .digitalTime span {
-    display: block;
-    margin: 0;
-    padding: 0;
-
+.digitalTime,
+.digitalTime:before,
+.digitalTime span {
+	display: block;
+	margin: 0;
+	padding: 0;
 }
-  
-  .digitalTime, .digitalTime:before, .digitalTime:after {
-    position: relative;
-    text-shadow: 2px 2px 3px rgba(255,255,255,0.5);
-    color: #565656;
-  }
-  
-  
-  .digitalTime::before {
-    content: attr(data-time);
-    top: 110px;
-    transform: scale(1, -1);
-    backface-visibility: visible; 
-    z-index: 1;
-    opacity: .3;
 
--webkit-background-clip: text;
-    -moz-background-clip: text;
-        background-clip: text;
-  }
-  
-  .digitalTime:after {
-    content: '';
-    display: block;
-    background-color: transparent;
-    color: var(--text-color);
-    top: -10px;
-    left: 0;
-    width: 100%;
-    height: 60px; 
-    background-image: linear-gradient(to top, rgba(255,255,255, .4) 0%, rgba(255, 255, 255, .8) 50%);
-    z-index: 2;
-  }
+.digitalTime,
+.digitalTime:before,
+.digitalTime:after {
+	position: relative;
+	text-shadow: 2px 2px 3px rgba(255, 255, 255, 0.5);
+	color: #565656;
+}
+
+.digitalTime::before {
+	content: attr(data-time);
+	top: 110px;
+	transform: scale(1, -1);
+	backface-visibility: visible;
+	z-index: 1;
+	opacity: 0.3;
+
+	-webkit-background-clip: text;
+	-moz-background-clip: text;
+	background-clip: text;
+}
+
+.digitalTime:after {
+	content: "";
+	display: block;
+	background-color: transparent;
+	color: var(--text-color);
+	top: -10px;
+	left: 0;
+	width: 100%;
+	height: 60px;
+	background-image: linear-gradient(
+		to top,
+		rgba(255, 255, 255, 0.4) 0%,
+		rgba(255, 255, 255, 0.8) 50%
+	);
+	z-index: 2;
+}
