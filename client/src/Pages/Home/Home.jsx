@@ -257,13 +257,13 @@ export default function Home() {
       //   </div>
       // </div>
       <div className="news-preivew">
-        <div className="creator-pfp">
-          <img src={props.creator.pfp} />
-        </div>
         
         <div className="news-preview-container">
         
             <div className="news-creator-title">
+        <div className="creator-pfp">
+          <img src={props.creator.pfp} />
+        </div>
               <h4 className='news-creator-username'>Grizly</h4>
               <div className="staffBadge">Moderator</div> 
               <h5 className='news-creator-timestand'>12/4/2023 15:09</h5>
@@ -272,7 +272,7 @@ export default function Home() {
 
             <div className="news-preview-containe-text">
             <hr />
-              <h2 className="news-preview-title">{props.title}</h2>
+              <h3 className="news-preview-title">{props.title}</h3>
               <p className="news-preview-text">{props.text}</p>
             <hr className='lasthr'/>
         </div>
@@ -282,8 +282,9 @@ export default function Home() {
                 <button><FaEye /> 109</button>
                 <button><FaComments /> 9</button>
                 <button><FaThumbsUp /> 29</button>
+                <button><FaShareAlt /> </button>
               </div>
-              <h5>
+              <h5 className='news-preview-readmore'>
                 <NavLink to="/">Läs mer</NavLink>
               </h5>
             </div>
@@ -314,24 +315,11 @@ export default function Home() {
                  Välkommen till Mag Media
               </h2>
               }
-            {/* {
-              !contextValue.user  ?
-              <p>
-              Välkommen till Mag Media! Det här är en plattform där du kan chatta med människor från hela världen och dela dina tankar, idéer och erfarenheter. Vi är glada att du har valt att vara en del av vår community.
-              <br /><br/> Vi vill påminna dig om att åldersgränsen för att delta på Mag Media är 18 år. Detta beslutades för att säkerställa en trygg och säker miljö för alla våra användare. Vi värdesätter integritet och respekt för varandra, och vi tror att denna åldersgräns hjälper till att upprätthålla detta.
-              <br /> <br />Tack för att du har valt Mag Media som din nya chattdestination!
-              </p>
-              : 
-              <p>
-                Som inloggad användare har du nu tillgång till alla våra funktioner och verktyg för att chatta och kommunicera med andra användare. Vi uppmuntrar dig att använda vår plattform på ett positivt sätt genom att dela dina idéer, erfarenheter och kunskap.
-                Tack för att du återvänder till Mag Media och vi ser fram emot att se vad du har att bidra med i vår community!
-              </p>
-            } */}
           </div>
           <hr />
           <div className="updates">
             <div className="update-title">
-              <h5>Senaste Nyheterna</h5>
+              <h5>Senaste Nyheterna:</h5>
               <NavLink to="/" className={"showAllUpdates"}><h5>Visa alla</h5></NavLink>
             </div>
             <div className="news-list">

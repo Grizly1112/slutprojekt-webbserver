@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useRef, useState } from 'react'
 import { FaBars, FaCircle, FaEdit, FaExclamationTriangle, FaFileImage, FaImage, FaInbox, FaInfo, FaInfoCircle, FaMailBulk, FaOpencart, FaQuestionCircle, FaRecycle, FaScrewdriver, FaServer, FaSpinner, FaUpload, FaUserCog, FaUserEdit, FaUserFriends, FaUserPlus, FaUserSlash } from 'react-icons/fa';
-import { NavLink, Outlet, useLocation, useParams} from 'react-router-dom'
+import { NavLink, Outlet, useParams} from 'react-router-dom'
 import { GetUser } from '../../../api/user';
 import ServerError from '../../../components/ServerError';
 import '../css/User.css'
@@ -21,14 +21,11 @@ export default function User() {
     const [serverError, setServerError] = useState(false)
     const [user, setUser] = useState(false);
     const [ownerWhoVisit, setOwnerWhoVisit] = useState(false);
-    const [activeTab, setActiveTab] = useState("profileMsg");
     const [isLoading, setIsLoading] = useState(true);
     const [postImage, setPostImage] = useState({base64: ""})
 
     const [userProfileHasChanged, setUserProfileHasChanged] = useState(false);
     const [userProfileEditPfp, setuUerProfileEditPfp] = useState(false);
-    const [onlineUsers, setonlineUsers] = useState([]);
-    const [hasLoadedInOnce,setHasLoadedInOnce] = useState(false)
     
     document.title = `Mag Media | ${user.username}`
         const contextValue = useContext(userContext);
@@ -48,7 +45,6 @@ export default function User() {
                         socket.current.emit("new-user-add", (""));
                     }
                     socket.current.on("get-users", (users) => {
-                        setonlineUsers(users);
                         var userOnline = false;
     
                         users.map((onlineUser) => {
@@ -60,7 +56,6 @@ export default function User() {
                     });
                 
                 setIsLoading(false)
-                setTimeout(() => setHasLoadedInOnce(true), 1500)
             }).catch((err) => {
                 try {
     
@@ -103,7 +98,6 @@ export default function User() {
         }
     }
 
-
     const hanldeFileUpload = async (e) => {
         const file = e.target.files[0];
         const base64 = await convertToBase64(file);
@@ -133,82 +127,131 @@ export default function User() {
 
     const UserProfile = () => {
         const UserAbout = () => {
-            return(<div>Om mig</div>)
+            return(<div>Om mig
+                
+            </div>)
         }
 
         const UserFriends = () => {
             return(<div>Vänlista</div>)
         }
 
-        return(
-            <>
-            <div className={hasLoadedInOnce ? 'userProfile ': "userProfile hasLoadedInOnce"}>
-                <div className="userProfileHeader">
-                    <div className="userProfileHeaderContainer">
-                        <div className="banner">
-                            <div className='urserInformation'>
-                                <div class="profile-pic">
-                                <img src={user.pfp && ('data:image/png;base64,' + user.pfp.data) || defaultAvatar} />
-                                    
-                                </div>
+        return (
+					<>
+						<div className={"userProfile"}>
+							<div className='userProfileHeader'>
+								<div className='userProfileHeaderContainer'>
+									<div className='banner'>
+										<div className='urserInformation'>
+											<div class='profile-pic'>
+												<img
+													src={
+														(user.pfp &&
+															"data:image/png;base64," + user.pfp.data) ||
+														defaultAvatar
+													}
+												/>
+                                                <div className={
+                                                  user.userOnline ?  "onlinestatus online":
+                                                  "onlinestatus offline"
+                                                }>
+                                                </div>
+											</div>
 
-                                <div className='userDetailsContainer'>
-                                    <div className='username'>
-                                        <h2>
-                                            {user.username} 
-                                        </h2>
-                                        {
-                                            user.staff &&
-                                            <div className='staffBadge'>Moderator</div> 
-                                        }
-                                        <FaCircle className='circleDot' />
-                                        <h2>
-                                        {Utils.FormatUserAge(user.dateOfBirth)} år
-                                        </h2>
-                                    </div>
-                                    <div className="userDetails">
-                                        <h4><p>Från:</p>{user.country} - {user.region}</h4>
-                                        <h4><p>Gick med:</p>{Utils.FormatTimeDate(user.dateJoined)}</h4>
-                                        <h4><p>Status:</p>{user.userOnline ? `Online`: "Offline"}</h4>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <div className="handleUserButtonsContianer">
-                                {
-                                    ownerWhoVisit? 
-                                    <div className="buttonEditUserProfile">
-                                        <Modal btnLabel={<p><FaUserEdit /> Redigera profil</p>}>
-                                            <div className='editUserModal'>Mag</div>
+											<div className='userDetailsContainer'>
+												<div className='username'>
+													<h2>{user.username}</h2>
+													{user.staff && (
+														<div className='staffBadge'>Moderator</div>
+													)}
+												</div>
+												<div className='userDetails'>
+                                                     {/* <div className='userDetails-box'>
+														<h5>Status</h5>
+														<h4>
+                                                            {user.userOnline ? `Online`: "Offline"}
+                                                        </h4>
+													</div> */}
+                                                    <div className='userDetails-box'>
+														<h5>Vänner</h5>
+														<h4>
+                                                           2
+                                                        </h4>
+													</div>
+                                                    
+													<div className='userDetails-box'>
+														<h5>Gick med</h5>
+														<h4>
+                                                            {Utils.FormatTimeDate(user.dateJoined)}
+                                                        </h4>
+													</div>
+                                                    <div className='userDetails-box'>
+														<h5>Från</h5>
+                                                        <h4>
+														    {user.country} - {user.region}
+                                                        </h4>
+													</div>
+                                                   
+												</div>
+											</div>
+										</div>
 
-                                        </Modal>
-                                    </div>
-                                    :
-                                    <div className="buttonEditUserProfile report">
-                                        <FaExclamationTriangle /> 
-                                </div>
-                                }
-                            </div>
-                        </div>
-                    </div>
-                   <ul>
-                        <NavLink className={"navbarModalNavLink"} to={`/members/user/${user.username}`} end>
-                            <NavbarModalitem iconleft={<FaMailBulk />} label={"Profil inlägg"}iconRight={null}/>
-                        </NavLink>
-                        <NavLink className={"navbarModalNavLink"} to={`/members/user/${user.username}/friends`}>
-                            <NavbarModalitem iconleft={<FaUserFriends />} label={"Vänner"}iconRight={null}/>
-                        </NavLink>
-                        <NavLink className={"navbarModalNavLink"} to={`/members/user/${user.username}/about`}>
-                            <NavbarModalitem iconleft={<FaInfoCircle />} label={`Om ${user.username}`}iconRight={null}/>
-                        </NavLink>
-                   </ul>
-                </div>
-            </div>
-            <div className="userContent">
-                <Outlet user={user} />
-            </div>
-        </>
-        )
+										<div className='handleUserButtonsContianer'>
+											{ownerWhoVisit ? (
+												<div className='buttonEditUserProfile'>
+													<Modal
+														btnLabel={
+															" Redigera profil"
+															
+														}>
+														<div className='editUserModal'>Mag</div>
+													</Modal>
+												</div>
+											) : (
+												<div className='buttonEditUserProfile report'>
+													<FaExclamationTriangle />
+												</div>
+											)}
+										</div>
+									</div>
+								</div>
+								<ul>
+									<NavLink
+										className={"navbarModalNavLink"}
+										to={`/members/user/${user.username}`}
+										end>
+										<NavbarModalitem
+											iconleft={<FaMailBulk />}
+											label={"Profil inlägg"}
+											iconRight={null}
+										/>
+									</NavLink>
+									<NavLink
+										className={"navbarModalNavLink"}
+										to={`/members/user/${user.username}/friends`}>
+										<NavbarModalitem
+											iconleft={<FaUserFriends />}
+											label={"Vänner"}
+											iconRight={null}
+										/>
+									</NavLink>
+									<NavLink
+										className={"navbarModalNavLink"}
+										to={`/members/user/${user.username}/about`}>
+										<NavbarModalitem
+											iconleft={<FaInfoCircle />}
+											label={`Om ${user.username}`}
+											iconRight={null}
+										/>
+									</NavLink>
+								</ul>
+							</div>
+						</div>
+						<div className='userContent'>
+							<Outlet user={user} />
+						</div>
+					</>
+				);
     }
     {/* <div className='userProfile-header'>
         <div className='userProfile-pfp-div'>
@@ -285,14 +328,6 @@ export default function User() {
             <hr />
        </div>
        
-       <div className="content">
-        {
-            activeTab === "about" ? <UserAbout /> : null
-        }
-        {
-            activeTab === "friends" ? <UserFriends /> : null
-        }
-       </div>
     </div> */}
 
   return (

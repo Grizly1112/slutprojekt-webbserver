@@ -22,12 +22,13 @@
 	position: fixed;
 	height: 4rem;
 	width: 100%;
-	background-color: var(--bg-d-accent);
+	background-color: var(--bg-d);
 	display: flex;
 	flex-direction: row;
 	align-items: center;
 	justify-content: space-between;
-	box-shadow: rgba(72, 72, 72, 0.607) 0px 20px 30px;
+    box-shadow: var(--box-shadow1-l);
+	border-bottom: 1px solid var(--border-color);
 	color: var(--text-color);
 	z-index: 99;
 }

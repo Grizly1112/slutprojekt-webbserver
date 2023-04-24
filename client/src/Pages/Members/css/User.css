@@ -1,5 +1,4 @@
 .userContainer {
-    overflow-y: scroll;
     width: 100vw;
     height: auto;
     min-height: 85vh;
@@ -10,58 +9,54 @@
     margin-top: var(--nav-size);
 }
 .userContainer .userProfile {
-    padding-top: 3rem;
+    padding-top: 2.5rem;
     width: 100vw;
-    height: 30rem;
-    background-color: var(--bg-d);
+    height: 15rem;
+    /* background-color: var(--bg-d); */
     display: flex;
     
     justify-content: center;
+    /* border: 1px solid var(--border-color); */
+    /* box-shadow: var(--box-shadow1-l); */
 }
 
 .userContainer .userProfileHeader {
     border-radius: 8px;
     width: 60vw;
-    /* background-color: red; */
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-end;
 }
 
 
 .userContainer .userProfileHeader .userProfileHeaderContainer {
     border-radius: 8px;
-    width: 100%;
-    height: 90%;
-    background-image: url('https://media.istockphoto.com/id/1288385045/photo/snowcapped-k2-peak.jpg?s=612x612&w=0&k=20&c=sfA4jU8kXKZZqQiy0pHlQ4CeDR0DxCxXhtuTDEW81oo=');
-    background-color: var(--bg-d-l);
-    /* background: url("https://source.unsplash.com/9wg5jCEPBsw"); */
-    background-repeat: no-repeat;
-    background-size: 100% 100%; 
-    background-position: center;
-    image-rendering: pixelated;
+    width: calc(100% - 1rem);
+    border: 1px solid var(--border-color);
+    background-color: var(--bg-d);
+    box-shadow: var(--box-shadow1-l);
+    height: 10rem;
+    padding: .5rem;
 }
 
 .userContainer .userProfileHeader .userProfileHeaderContainer .banner {
     position: relative;
     height: 100%;
     width: 100%;
-    display: flex;
-    align-items: flex-end;
-    justify-content: center;
+    align-items: center;
 }
 
 .userContainer .userProfileHeader .userProfileHeaderContainer .banner .urserInformation {
-    height: 50%;
+    height: 100%;
     width: 95%;
-    gap: 1rem;
+    gap: 2rem;
     display: flex;
+    align-items: center;
 }
 
 .userContainer .userProfileHeader .userProfileHeaderContainer .banner .urserInformation .profile-pic {
     /* width: 22.5%; */
     height: 90%;
-    margin-top: 1%;
     position: relative;
     aspect-ratio: 1/1;
     /* background-color: red; */
@@ -73,16 +68,28 @@
     position: relative;
     transition: all 0.3s ease;
     border-radius: 50%;
+    box-shadow: var(--box-shadow1-l);
+    border: .1rem solid var(--border-color);
 }
 .userContainer .userProfileHeader .userProfileHeaderContainer .banner .urserInformation .profile-pic img {
-    cursor: pointer;
     width: 100%;
     aspect-ratio: 1/1;
-    box-shadow: 0 1px 2px var(--box-shadow1-l);
     border-radius: 50%;
     border-radius: 50%;
     z-index: 0;
+}
+.userContainer .userProfileHeader .userProfileHeaderContainer .banner .urserInformation .profile-pic .onlinestatus {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 4px solid var(--bg-d);
+    right: 1.3rem;
+    bottom: -.3rem;
+}
 
+.online {
+    background:linear-gradient(to left, #5cb85c,#63cb63);
 }
 
 .userContainer .userProfileHeader .userProfileHeaderContainer .banner .userDetailsContainer {
@@ -98,8 +105,6 @@
 .userContainer .userProfileHeader .userProfileHeaderContainer .banner .userDetailsContainer .username{
     position: relative;
     border-radius: 4px;
-    padding: .5rem 1rem;
-    background-color: var(--bg-d-l);
     color: var(--text-color);
     letter-spacing: 1px;
     font-family: system-ui;
@@ -109,12 +114,12 @@
 }
 
 .staffBadge {
-    background-color: #EA5455;
-    padding: 0em .3rem;
-    border: 1px solid var(--border-color);
+    background-color: var(--bg-m);
+    padding: 0em 0.3rem;
     text-shadow: none;
+    color: #ffffff;
     border-radius: 8px;
-    font-size: .875rem;
+    font-size: .75rem;
 }
 
 .userContainer .userProfileHeader .userProfileHeaderContainer .banner .userDetailsContainer .username .circleDot {
@@ -133,55 +138,41 @@
 }
 
 .userContainer .userProfileHeader .userProfileHeaderContainer .banner .userDetails {
-    border-radius: 4px;
-    background-color: var(--bg-d-l);
-    padding: .5rem 1rem;
     display: flex;
-    justify-content: center;
-    gap: .5rem;
-    height: 70%;
-    flex-direction: column;
+    gap: 2rem;
 }
-.userContainer .userProfileHeader .userProfileHeaderContainer .banner .userDetails  h4 {
+.userContainer .userProfileHeader .userProfileHeaderContainer .banner .userDetails .userDetails-box {
     display: flex;
-    align-items: center;
-    gap: .5rem;
+    flex-direction: column;
     color: var(--text-color);
     white-space: nowrap;
 }
-.userContainer .userProfileHeader .userProfileHeaderContainer .banner .userDetails  h4 .circle {
-    color: gray;
-    font-size: .5rem;
-}
 
-.userContainer .userProfileHeader .userProfileHeaderContainer .banner .userDetails  h4 p {
-    color: #ccc;
+.userContainer .userProfileHeader .userProfileHeaderContainer .banner .userDetails .userDetails-box h5 {
+    color: var(--bg-m);
     white-space: nowrap;
 } 
 
 .userContainer .userProfileHeader .userProfileHeaderContainer .banner .handleUserButtonsContianer {
     position: absolute;
-    width: calc(100% - 5%);
+    width: 100%;
     height: 5%;
-    top: 0;
+    top: 1.75rem;
+    right: 1rem;
     border-radius: 4px;
     display: flex;
     gap: .5rem;
     justify-content: flex-end;
     align-items: center;
-    padding: 1.5rem 0;
 }
 
 .userContainer .userProfileHeader .userProfileHeaderContainer .banner .handleUserButtonsContianer .buttonEditUserProfile {
-   display: flex;
-   gap: .5rem;
-   align-items: center;
-   justify-content: center;
-   padding: .5rem 1rem;
-   background-color: var(--bg-m);
-   color: var(--text-color);
-   border-radius: 8px;
-    box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.343);
+    background-color: var(--bg-m);
+    padding: .2em 0.3rem;
+    text-shadow: none;
+    color: #ffffff;
+    border-radius: 8px;
+    font-size: .85rem;
     cursor: pointer;
 }
 
@@ -192,10 +183,15 @@
 
 
 .userContainer .userProfile ul {
-    padding: 1rem 0 2rem 0;
+    padding: .5rem;
     display: flex;
     align-items: center;
     gap: 1rem;
+    background-color: var(--bg-d);
+    border: 1px solid var(--border-color);
+    box-shadow: var(--box-shadow1-l);
+    border-radius: 8px;
+    margin-top: .5rem;
 }
   
 .userContainer .userProfile ul .navbarModalNavLink {
