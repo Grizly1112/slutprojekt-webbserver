@@ -202,9 +202,11 @@ export default function User() {
 													<Modal
 														btnLabel={
 															" Redigera profil"
-															
 														}>
-														<div className='editUserModal'>Mag</div>
+														<div className='editUserModal'>
+                                                        mag
+                                                            
+                                                        </div>
 													</Modal>
 												</div>
 											) : (
