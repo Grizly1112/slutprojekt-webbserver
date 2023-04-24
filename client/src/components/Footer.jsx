@@ -116,7 +116,7 @@ export default function Footer() {
       </div>
       <div className="footer-copyright">
         <hr/>
-        <p>Copyright © 2023 Mag Media. All rights reserved.</p>
+        <p>Copyright © 2023 Mag Media. Alla rättigheter förbehålls.</p>
       </div>
     </div>
   )

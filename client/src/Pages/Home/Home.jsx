@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useMemo, useRef, useState } from 'react'
-import { FaArrowCircleRight, FaChartBar, FaChevronCircleRight, FaChevronRight, FaCloud, FaCloudMoon, FaCloudRain, FaCloudShowersHeavy, FaCloudSun, FaComments, FaCompass, FaExpandAlt, FaExpandArrowsAlt, FaGlobeEurope, FaImage, FaInfoCircle, FaMapMarkedAlt, FaMinusCircle, FaMoon, FaRegFlag, FaRegWindowClose, FaRegWindowMinimize, FaSearch, FaShare, FaShareAlt, FaShareAltSquare, FaSnowflake, FaSun, FaTemperatureHigh, FaThumbsUp, FaUsers, FaWind } from 'react-icons/fa'
+import { FaArrowCircleRight, FaChartBar, FaChevronCircleRight, FaChevronRight, FaCloud, FaCloudMoon, FaCloudRain, FaCloudShowersHeavy, FaCloudSun, FaCommentAlt, FaComments, FaCompass, FaExpandAlt, FaExpandArrowsAlt, FaEye, FaGlobeEurope, FaImage, FaInfoCircle, FaMapMarkedAlt, FaMinusCircle, FaMoon, FaRegFlag, FaRegNewspaper, FaRegWindowClose, FaRegWindowMinimize, FaSearch, FaShare, FaShareAlt, FaShareAltSquare, FaSnowflake, FaSun, FaTemperatureHigh, FaThumbsUp, FaThumbtack, FaUsers, FaWind } from 'react-icons/fa'
 import { NavLink } from 'react-router-dom'
 import './css/Home.css'
 import userDefault from '../../assets/avatarDefault.png'
@@ -235,26 +235,60 @@ export default function Home() {
   
   const NewsPreview =  (props) => {
     return(
-      <div className="news-preview">
-        <div className="creator">
-          <img src={props.creator.pfp} alt="pfp" />
-          <h5>{props.creator.username}</h5>
+      // <div className="news-preview">
+      //   <div className="creator">
+      //     <img src={props.creator.pfp} alt="pfp" />
+      //     <h5>{props.creator.username}</h5>
+      //   </div>
+      //   <div className='news-content'>
+      //     <div className="news-content-text">
+      //       <h4 className="news-content-title">{props.title}</h4>
+      //       <h5 className="news-content-tetx">{props.text}</h5>
+      //     </div>
+      //     <div className="news-preview-statistic">
+      //       <FaRegFlag />
+      //       <FaShareAlt />
+      //       {/* <FaThumbsUp /> */}
+      //       {
+      //         props.img && 
+      //         <FaImage />
+      //       }
+      //     </div>
+      //   </div>
+      // </div>
+      <div className="news-preivew">
+        <div className="creator-pfp">
+          <img src={props.creator.pfp} />
         </div>
-        <div className='news-content'>
-          <div className="news-content-text">
-            <h4 className="news-content-title">{props.title}</h4>
-            <h5 className="news-content-tetx">{props.text}</h5>
-          </div>
-          <div className="news-preview-statistic">
-            <FaRegFlag />
-            <FaShareAlt />
-            {/* <FaThumbsUp /> */}
-            {
-              props.img && 
-              <FaImage />
-            }
-          </div>
+        
+        <div className="news-preview-container">
+        
+            <div className="news-creator-title">
+              <h4 className='news-creator-username'>Grizly</h4>
+              <div className="staffBadge">Moderator</div> 
+              <h5 className='news-creator-timestand'>12/4/2023 15:09</h5>
+              <FaThumbtack />
+            </div>
+
+            <div className="news-preview-containe-text">
+            <hr />
+              <h2 className="news-preview-title">{props.title}</h2>
+              <p className="news-preview-text">{props.text}</p>
+            <hr className='lasthr'/>
         </div>
+
+        <div className="news-preview-icons"> 
+              <div className='news-preview-statistics'>
+                <button><FaEye /> 109</button>
+                <button><FaComments /> 9</button>
+                <button><FaThumbsUp /> 29</button>
+              </div>
+              <h5>
+                <NavLink to="/">Läs mer</NavLink>
+              </h5>
+            </div>
+        </div>
+
       </div>
     )
   }
