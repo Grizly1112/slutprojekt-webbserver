@@ -38,6 +38,18 @@ io.on("connection", (socket) => {
     io.emit("get-users", activeUsers);
   })
 
+  socket.on('send-notification', ({ text, to, href}) => {
+    // Return object of user
+    const userToIsActive = activeUsers.find(user => user.userId === to);
+
+      io.emit("recive-notifaction", {
+        text: text,
+				href: href,
+				to: to,
+      });
+  });
+
+
 
 
   socket.on("disconnect", () => {
@@ -50,14 +62,4 @@ io.on("connection", (socket) => {
     io.emit("get-users", activeUsers);
   });
 
-  // send message to a specific user
-  socket.on("send-message", (data) => {
-    const { receiverId } = data;
-    const user = activeUsers.find((user) => user.userId === receiverId);
-    console.log("Sending from socket to :", receiverId)
-    console.log("Data: ", data)
-    if (user) {
-      io.to(user.socketId).emit("recieve-message", data);
-    }
-  });
 });

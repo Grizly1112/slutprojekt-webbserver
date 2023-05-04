@@ -120,3 +120,101 @@
 	background-color: var(--text-c);
 	opacity: 0.1 !important;
 }
+
+.profilePosts {
+	display: flex;
+	flex-direction: column;
+	gap: .5rem;
+}
+
+
+/* Test messages */
+.Message {
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-start;
+	width: 90%;
+	padding-top: 2rem;
+}
+
+ .Message .ChatContent .ChatHeader {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	gap: 0.75rem;
+	height: 1rem;
+	font-size: 1rem;
+	color: var(--text-c);
+	opacity: 0.9;
+}
+
+ .Message .ChatContent .ChatHeader .HeaderUsername:hover {
+	text-decoration: underline;
+	cursor: pointer;
+}
+
+ .Message .ChatContent .ChatHeader .HeaderDate {
+	color: var(--text-c);
+	opacity: 0.7;
+	display: flex;
+	align-items: center;
+	font-size: 0.8rem;
+	font-weight: 400;
+	white-space: nowrap;
+}
+
+ .Message .ChatPfp {
+	display: flex;
+	align-items: flex-start;
+	width: 2.5rem;
+	min-width: 2.5rem;
+	margin-right: 1rem;
+}
+
+ .Message .ChatPfp img {
+	aspect-ratio: 1/1;
+	width: 100%;
+	border: 1px solid var(--border-color);
+	box-shadow: 0px 1px 2px var(--box-shadow1-l);
+	border-radius: 50%;
+	cursor: pointer;
+	user-select: none;
+}
+
+ .Message .MessageText,
+.SameUserMessage .MessageText {
+	display: flex;
+	flex-direction: column;
+	height: fit-content;
+	max-width: 100%;
+	overflow: hidden;
+	width: fit-content;
+	justify-content: flex-start;
+	overflow: hidden;
+	color: var(--text-c);
+}
+
+.Message .textImg {
+	max-width: 40%;
+	max-height: 700px;
+	border-radius: 8px;
+	box-shadow: 0px 1px 2px var(--box-shadow1-l);
+	border: 1px solid var(--border-color);
+}
+
+ .SameUserMessage {
+	padding: 0;
+}
+
+ .SameUserMessage .ChatPfp {
+	aspect-ratio: none;
+	height: auto !important;
+	color: var(--text-c);
+	opacity: 0.7;
+	font-size: 0.8rem;
+	font-weight: 400;
+	white-space: nowrap;
+	display: flex;
+	align-items: center;
+	visibility: hidden;
+}

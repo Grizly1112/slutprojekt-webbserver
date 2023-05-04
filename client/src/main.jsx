@@ -6,18 +6,18 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import './index.css';
 import AppProvider from './Provider/AppProvider';
 import Navbar from './components/Navbar';
-import Login from './components/Login';
-import Register from './components/Register';
-import PageNotFound from './components/404';
-import ProfilePost from './Pages/Members/components/ProfilePost';
-import AboutUser from './Pages/Members/components/AboutUser';
-import UserFriends from './Pages/Members/components/UserFriends';
+const Register = lazy(() => import('./components/Register'));
+const PageNotFound = lazy(() => import('./components/404'));
+const ProfilePost = lazy(() => import('./Pages/Members/components/ProfilePost'));
+const AboutUser = lazy(() => import('./Pages/Members/components/AboutUser'));
 import Footer from './components/Footer';
 import { Loader } from './components/assets/Loader';
-import Admin from './Pages/Admin/Admin';
-import GlobalChat from './Pages/Home/GlobalChat';
 
 // Lazy-loaded components / pages
+const Login = lazy(() => import('./components/Login'));
+const GlobalChat = lazy(() => import('./Pages/Home/GlobalChat'));
+const UserFriends = lazy(() => import('./Pages/Members/components/UserFriends'));
+const Admin = lazy(() => import('./Pages/Admin/Admin'));
 const Home = lazy(() => import('./Pages/Home/Home'));
 const Members = lazy(() => import('./Pages/Members/Members'));
 const User = lazy(() => import('./Pages/Members/components/User'));

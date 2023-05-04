@@ -1,5 +1,5 @@
 import './css/Navbar.css'
-import React, { useState, useEffect, useContext, useCallback } from 'react';
+import React, { useState, useEffect, useContext, useCallback, useRef } from 'react';
 import { NavLink } from 'react-router-dom';
 import Modal from './assets/Modal';
 import Utils from '../assets/functiions/Utils';
@@ -31,18 +31,30 @@ import Register from './Register';
 import UserPfpTest from '../assets/avatarDefault.png'
 import LiveIcon from './assets/LiveIcon';
 
+import { io } from "socket.io-client";
+
 function Navbar() {
   const contextValue = useContext(userContext)
 
-  const [notificationCount, SetNotificationCount] = useState(3);
+  const [notificationCount, SetNotificationCount] = useState(0);
   const resetNotifications = () => SetNotificationCount(0);
 
   const [user, setUser] = useState({});
   const [isLoading, setIsLoading] = useState(true);
   const [contextLoaded, setContextLoaded] = useState(false);
   const [theme, setTheme] = useState(null);
+  const socket = useRef(null);
 
+  
   useEffect(() => {
+  //   socket.current = io("ws://localhost:3001");
+  //  socket.current.on('recive-notifaction', (message) => {
+  //       if(message.to === user.username) 
+  //       {
+  //        console.log(message)
+  //       }
+  //     })
+    
     setContextLoaded(true);
   
     const themeFromLocalStorage = JSON.parse(localStorage.getItem('theme'));
@@ -56,14 +68,18 @@ function Navbar() {
       setUser(user);
       setIsLoading(false);
     }
-  }, [contextValue]);
 
-  const toggleTheme = useCallback(() => {
+    // Test
+   
+  }, [contextValue]);
+  
+    const toggleTheme = useCallback(() => {
     const newTheme = !theme;
     localStorage.setItem('theme', JSON.stringify({ theme: newTheme }));
     setTheme(newTheme);
     document.documentElement.setAttribute('data-dark-mode', newTheme);
   }, [theme]);
+
   
 
   function NavbarEndLoggedIn() {

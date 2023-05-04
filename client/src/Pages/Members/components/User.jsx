@@ -1,8 +1,8 @@
-import React, { useContext, useEffect, useRef, useState } from 'react'
+import React, { lazy, useContext, useEffect, useRef, useState } from 'react'
 import { FaBars, FaCircle, FaEdit, FaExclamationTriangle, FaFileImage, FaImage, FaInbox, FaInfo, FaInfoCircle, FaMailBulk, FaOpencart, FaQuestionCircle, FaRecycle, FaScrewdriver, FaServer, FaSpinner, FaUpload, FaUserCog, FaUserEdit, FaUserFriends, FaUserPlus, FaUserSlash } from 'react-icons/fa';
 import { NavLink, Outlet, useParams} from 'react-router-dom'
 import { GetUser } from '../../../api/user';
-import ServerError from '../../../components/ServerError';
+const ServerError = lazy(() => import( '../../../components/ServerError'));
 import '../css/User.css'
 import Utils from '../../../assets/functiions/Utils';
 import axios from 'axios';
@@ -186,7 +186,7 @@ export default function User() {
                                     {ownerWhoVisit ? (
                                         <div className='buttonEditUserProfile'>
                                             <Modal
-                                                openState={true}
+                                                openState={false}
                                                 modalClass='editUserModal'
                                                 btnLabel={" Redigera profil"}
                                                 buttonClose={true}

@@ -110,6 +110,7 @@ export default function Home() {
     [onlineUsers]
      );
     const renderOnlineUser = React.useCallback((userOnline) => {
+      console.log(userOnline)
       return (
         <NavLink to={`members/user/${userOnline.userId}`}>
           <Tooltip key={userOnline.userId} label={userOnline.userId}>
@@ -279,13 +280,13 @@ export default function Home() {
               <NavLink to="/" className={"showAllUpdates"}><h5>Visa alla</h5></NavLink>
             </div>
             <div className="news-list">
-              {
+              {/* {
                 statusMsgArray.map(newsMsg => {
                   return(
                     <NewsPreview title={newsMsg.title} text={newsMsg.text} creator={newsMsg.creator} img={!!newsMsg.img} />
                     )
                   })
-              }
+              } */}
             </div>
 
           </div>

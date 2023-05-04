@@ -229,10 +229,10 @@ a {
   position: fixed;
   top: 58px;
   width: 300px;
-  height: 39vh;
+  height: auto;
   transform: translateX(-260px);
   z-index: 99999 !important;
-  background-color: var(--bg-d-accent);
+  background-color: var(--bg-d);
   border-radius: 4px;
   padding-bottom: 10px;
   padding-top: 10px;
@@ -240,8 +240,9 @@ a {
   flex-direction: column;
   align-items: center;
   overflow: hidden;
-  box-shadow: var(--boxshadow-l);
+  box-shadow: var(--box-shadow1-l);
   animation: dropdown 0.3s ease-in-out;
+  border: 1px solid var(--border-color);
 }
 
 @keyframes dropdown {

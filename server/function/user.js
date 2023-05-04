@@ -8,6 +8,7 @@ import UserModel from "../Models/user.js"
 import Image from "../Models/image.js"
 import VisitorModel from "../Models/countVisitors.js"
 import mongoose from "mongoose"
+import ProfilePostMessageModel from "../Models/ProfilePostMessage.js"
 // import { mongoose } from "../index.js"
 
 
@@ -16,9 +17,7 @@ dotenv.config()
 
 export const register = async (req, res) => {
     const user = req.body;
-  
-    // https://mongoosejs.com/docs/promises.html
-    // Add that you cant have guest as a profile picture
+
     try {
         const hashedPassword = await bcrypt.hash(user.password, 12);
 
@@ -33,10 +32,11 @@ export const register = async (req, res) => {
         const userHasAgeRequired = (((Date.now() - new Date(user.birthday)) / (31557600000)) > 18);
         if(!userHasAgeRequired) return res.status(400).json({message: "Du måste vara 18+ för att gå med!"})
 
-        // Create user in mongoDb
+        // Ip to get user location
         const userIp = await axios.get('https://ipapi.co/json/');
         user.ip = userIp.data.ip
 
+        // Translate to swedish Country name (type: region ) but it means country
         const regionNamesInSwedish = new Intl.DisplayNames(['sv'], { type: 'region' });
         
         user.country = regionNamesInSwedish.of(userIp.data.country_code);
@@ -226,3 +226,48 @@ export const getVisitingCount = async (req, res) => {
     res.status(500).send('Server error');
   }
 };
+
+
+
+export const uploadProfilePostMessage = async(req, res) => {
+  const message = req.body;
+  const receiverUsername = req.params.id;
+
+  const receiver = await UserModel.findOne({ username: new RegExp(`^${receiverUsername}`, 'i') })
+  
+  
+
+  try {
+    // Reciver userData
+
+
+    await ProfilePostMessageModel.create({
+      text: message.text,
+      receiver: receiver._id,
+      creator: message.creator
+    })
+  } catch(err)
+  {
+    console.log(err);
+    res.status(500).send('Server error');
+  }
+}
+
+export const getProfilePostMessage = async(req, res) => {
+  const receiverUsername = req.params.id;
+
+  try {
+    const receiver = await UserModel.findOne({ username: new RegExp(`^${receiverUsername}`, 'i') }).lean();
+    const allMessages = await ProfilePostMessageModel.find({ receiver: receiver._id }).populate({
+      path: 'creator',
+      populate: { path: 'pfp' },
+    }).populate('img').lean();;
+  
+    res.status(200).send({messages: allMessages})
+
+  } catch(err)
+  {
+    console.log(err);
+    res.status(500).send('Server error');
+  }
+}

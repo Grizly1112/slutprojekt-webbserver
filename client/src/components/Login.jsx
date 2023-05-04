@@ -34,11 +34,17 @@ export default function Login() {
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
+    // Prevent Refresh
     e.preventDefault();
+
     try {
+      // Try to fetch userData 
       const { data } = await LoginUserServerPost(values);
+
+      // Create Session
       await Auth(data);
 
+      // Navigate to homepage if not logged in via modal
       if (window.location.href.indexOf('login')) {
         navigate('/');
       }

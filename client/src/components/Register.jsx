@@ -48,9 +48,9 @@ export default function Register() {
       type: "password",
       placeholder: "Lösenord",
       errorMessage:
-        "Lösenorden måste vara 8-20 karaktärer, och måste innehålla minst 1 bokstav, ett nummer och en speciell karaktär (!?# etctera)",
+        "Lösenorden måste vara 8-20 karaktärer",
       label: "Lösenord",
-      pattern: `^[A-Za-z0-9]{8,16}$`,
+      pattern: `^{8,20}$`,
       required: true,
     },
     {
@@ -90,24 +90,27 @@ export default function Register() {
   
   
   const handleSubmit = async (e) => {
-    e.preventDefault();
-   
-    try{
-      const {data} = await RegisterUserServerPost(values);
-      await Auth(data);
+		e.preventDefault();
 
-      if(window.location.href.indexOf("register")) {
-        navigate("/")
-       }
-      
-   window.location.reload();
+		try {
+			// Verify data via server
+			const { data } = await RegisterUserServerPost(values);
 
-    } catch(err) {
-      console.log(err)
-      setErrorMsg(err.response.data.message)
-    }
+			// Create session
+			Auth(data);
 
-  };
+			// If not registered via modal navigate to homepage
+			if (window.location.href.indexOf("register")) {
+				navigate("/");
+			}
+
+			//  relaod page
+			window.location.reload();
+		} catch (err) {
+			console.log(err);
+			setErrorMsg(err.response.data.message);
+		}
+	};
 
   const onChange = async (e) => {
     let value = e.target.value;
