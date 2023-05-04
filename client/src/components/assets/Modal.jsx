@@ -1,4 +1,3 @@
-// Källa: https://codesandbox.io/s/friendly-hofstadter-qtrtn?file=/src/index.js
 import React, { useEffect, useRef, useState } from "react";
 import Tooltip from "./Tooltip";
 import { FaMinusCircle } from "react-icons/fa";
@@ -27,7 +26,10 @@ const Modal = ({ openState = false, tooltip, btnClass, modalClass, activeClass, 
 
   const handleOutsideClick = (event) => {
     if (!modalRef.current.contains(event.target)) {
-      setShowModal(false);
+      // Do nothing if the modal is already closed
+      if (showModal) {
+        setShowModal(false);
+      }
     }
   };
 
@@ -59,12 +61,13 @@ const Modal = ({ openState = false, tooltip, btnClass, modalClass, activeClass, 
           </div>
         )
         :
-          children
+          <div className={"modal " + modalClass}>
+            {children}
+          </div>
         )
       }
     </div>
   );
 };
-
 
 export default Modal;

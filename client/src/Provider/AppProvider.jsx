@@ -38,16 +38,13 @@ class AppProvider extends Component {
     }
   }
 
-  // Lösning på att den endast körs en gång, körs när komponenten förstörs, i och med att hela applikationer är wrappad runt denna så kommer den bara köras när användaren lämnar sidan
   componentWillUnmount() {
     var uniqueUserVisiting = null;
 
-    if(localStorage.getItem('visited')) {
-      console.log("Återkommande")
+    if (localStorage.getItem('visited')) {
       uniqueUserVisiting = true;
     } else {
       localStorage.setItem('visited', true)
-      console.log("Unik användare")
       uniqueUserVisiting = false;
     }
     UpdateVisitingCount(uniqueUserVisiting)
@@ -69,7 +66,7 @@ class AppProvider extends Component {
         {this.state.loadingUser ? (
           <p>Loading...</p>
         ) : (
-            this.props.children
+          this.props.children
         )}
       </userContext.Provider>
     );

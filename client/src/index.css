@@ -1,6 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
 
-
 :root[data-dark-mode="false"]{
     --bg-d: #ffffff;
     --bg-d-accent: #F0F2F5;
@@ -19,7 +18,6 @@
     --border-color: rgb(231, 231, 231);
 
     --box-shadow1-l: 0 1px 2px rgba(0, 0, 0, 0.198);
-
 
     --clock-shadow: inset 4px 4px 10px rgba(213, 213, 213, 0.355), inset -4px -4px 10px rgba(213, 213, 213, 0.248), 0 0 20px rgba(211, 211, 211, 0.355);
 }
@@ -45,7 +43,6 @@
 
 }
 
-
 * {
     margin: 0;
     padding: 0;
@@ -65,14 +62,4 @@ body {
     background-image: url(https://js.intercomcdn.com/images/background-1.1829ebd9.png);
     background-size: 417px 417px;
     background-repeat: repeat;
-
-}
-
-@keyframes fadeInAnimation {
-    0% {
-        opacity: 0;
-    }
-    100% {
-        opacity: 1;
-    }
 }

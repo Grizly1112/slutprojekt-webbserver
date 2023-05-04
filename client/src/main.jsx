@@ -1,7 +1,9 @@
 import React, { lazy, Suspense } from 'react';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import './index.css'
+
+// Components
+import './index.css';
 import AppProvider from './Provider/AppProvider';
 import Navbar from './components/Navbar';
 import Login from './components/Login';
@@ -15,6 +17,7 @@ import { Loader } from './components/assets/Loader';
 import Admin from './Pages/Admin/Admin';
 import GlobalChat from './Pages/Home/GlobalChat';
 
+// Lazy-loaded components / pages
 const Home = lazy(() => import('./Pages/Home/Home'));
 const Members = lazy(() => import('./Pages/Members/Members'));
 const User = lazy(() => import('./Pages/Members/components/User'));

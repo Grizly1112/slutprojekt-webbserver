@@ -29,6 +29,7 @@ import {
 import Login from './Login';
 import Register from './Register';
 import UserPfpTest from '../assets/avatarDefault.png'
+import LiveIcon from './assets/LiveIcon';
 
 function Navbar() {
   const contextValue = useContext(userContext)
@@ -43,31 +44,27 @@ function Navbar() {
 
   useEffect(() => {
     setContextLoaded(true);
-
-    if (!localStorage.getItem('theme')) {
-      setTheme(false);
-      document.documentElement.setAttribute('data-dark-mode', 'false');
-    } else {
-      setTheme(JSON.parse(localStorage.getItem('theme')).theme);
-      document.documentElement.setAttribute('data-dark-mode', JSON.parse(localStorage.getItem('theme')).theme);
-    }
-
-    if (contextValue.user) {
-      setUser(contextValue.user);
+  
+    const themeFromLocalStorage = JSON.parse(localStorage.getItem('theme'));
+    const isDarkModeEnabled = themeFromLocalStorage?.theme || false;
+    
+    setTheme(isDarkModeEnabled);
+    document.documentElement.setAttribute('data-dark-mode', isDarkModeEnabled);
+  
+    const { user } = contextValue;
+    if (user) {
+      setUser(user);
       setIsLoading(false);
     }
   }, [contextValue]);
 
   const toggleTheme = useCallback(() => {
-    console.log("ejejej")
-      const isDarkMode = JSON.parse(localStorage.getItem('theme')).theme;
-      const newTheme = !isDarkMode;
-
-      localStorage.setItem('theme', JSON.stringify({ theme: newTheme }));
-      setTheme(newTheme);
-      document.documentElement.setAttribute('data-dark-mode', newTheme);
-
-  }, []);
+    const newTheme = !theme;
+    localStorage.setItem('theme', JSON.stringify({ theme: newTheme }));
+    setTheme(newTheme);
+    document.documentElement.setAttribute('data-dark-mode', newTheme);
+  }, [theme]);
+  
 
   function NavbarEndLoggedIn() {
     function NavItem({ notifications, children }) {
@@ -79,10 +76,10 @@ function Navbar() {
       );
     }
 
+    const [status, setStatus] = useState(true);
+    const [notifactions, setNotifiactions] = useState(true);
     function UserModal() {
 
-      const [status, setStatus] = useState(true);
-      const [notifactions, setNotifiactions] = useState(true);
    
       const NavbarModalitem = useCallback(({func, iconleft, label, iconRight}) => (
         <div className="navbarModal-item title" onClick={func}>
@@ -157,9 +154,15 @@ function Navbar() {
         {
           (!isLoading) ? 
           <NavItem>
-            <Modal btnLabel={<img src={
-              user.pfp && ('data:image/png;base64,' + user.pfp.data) || UserPfpTest
-              } />} btnClass="icon-button" activeClass="active-navbar-button">
+            <Modal btnLabel={
+            <>
+              <img src={
+                user.pfp && ('data:image/png;base64,' + user.pfp.data) || UserPfpTest
+                } />
+                <LiveIcon color={status ? "rgb(48, 209, 88)": "gray"} width={12} height={12} live={true} />
+              </>
+              }
+              btnClass="icon-button" activeClass="active-navbar-button">
               <UserModal />
             </Modal>
           </NavItem>
@@ -174,58 +177,52 @@ function Navbar() {
   }
 
   function NavbarEndNotLoggedIn() {
-    if((window.location.href.indexOf("login") > -1) || (window.location.href.indexOf("register") > -1)) {
-      const NavbarButton = (props) => {
-        return(
-        <NavLink className='nav-button' to={props.link}>
-            <div className='nav-button-icon'>
-              <p>{props.icon} {props.label}</p>
-            </div>
-        </NavLink>
-        )
-      }
+    const NavbarButton = (props) => {
+      return (
+        <button className='nav-button'>
+          <Modal btnLabel={<>{props.icon}<p>{props.label}</p></>} btnClass="nav-button-icon">
+            {props.children}
+          </Modal>
+        </button>
+      )
+    }
+  
+    if (window.location.href.indexOf("login") > -1 || window.location.href.indexOf("register") > -1) {
       return (
         <div className='notLoggedInNavButtons'>
-          <NavbarButton icon={<FaUser />} link={"/login"} label="Logga in"><Login /></NavbarButton>
-          <NavbarButton icon={<FaUserPlus />} link={"/register"} label="Registera konto"><Register /></NavbarButton>
+          <NavbarButton icon={<FaUser />} link={"/login"} label="Logga in">
+            <Login />
+          </NavbarButton>
+          <NavbarButton icon={<FaUserPlus />} link={"/register"} label="Registera konto">
+            <Register />
+          </NavbarButton>
         </div>
       )
     } else {
-      const NavbarButton = (props) => {
-        return(
-            <button className='nav-button'>
-              <Modal btnLabel={<>{ props.icon}<p>{props.label}</p></>} btnClass="nav-button-icon">
-                {props.children}
-              </Modal>
-          </button>
-        )
-      }
       return (
         <div className='notLoggedInNavButtons'>
-          <NavbarButton icon={<FaUser />}  label="Logga in"><Login /></NavbarButton>
-          <NavbarButton icon={<FaUserPlus />} label="Registera konto"><Register /></NavbarButton>
+          <NavbarButton icon={<FaUser />} label="Logga in">
+            <Login />
+          </NavbarButton>
+          <NavbarButton icon={<FaUserPlus />} label="Registera konto">
+            <Register />
+          </NavbarButton>
         </div>
       )
-    }   
+    }
   }
-
-  function NavbarLinks() {
-    return(
-      <ul className='navbar-links'>
-        <NavLink to="/"> Startskärm</NavLink>
-        <NavLink to="/groups">Grupper</NavLink>
-        <NavLink to="/members">Medlemmar</NavLink>
-        <NavLink to="/tickets">Tickets</NavLink>
-      </ul>
-    )
-  }
-
-  return contextLoaded && (
+  
+  return (
     <nav className="navbar">
       <NavLink to="/">
         <img className="logo" src={logo} alt="" />
       </NavLink>
-      <NavbarLinks />
+      <ul className="navbar-links">
+        <NavLink to="/">Startskärm</NavLink>
+        <NavLink to="/groups">Grupper</NavLink>
+        <NavLink to="/members">Medlemmar</NavLink>
+        <NavLink to="/tickets">Tickets</NavLink>
+      </ul>
       <ul className="navbar-end">
         {Object.keys(user).length > 0 ? (
           <NavbarEndLoggedIn />

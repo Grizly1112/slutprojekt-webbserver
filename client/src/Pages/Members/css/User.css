@@ -78,19 +78,18 @@
     border-radius: 50%;
     z-index: 0;
 }
-.userContainer .userProfileHeader .userProfileHeaderContainer .banner .urserInformation .profile-pic .onlinestatus {
+
+
+.userContainer .userProfileHeader .userProfileHeaderContainer .banner .urserInformation .profile-pic .liveIcon {
     position: absolute;
-    width: 20px;
-    height: 20px;
+	width: 18px;
+	height: 18px;
+    background-color: gray;
     border-radius: 50%;
-    border: 4px solid var(--bg-d);
-    right: 1.3rem;
-    bottom: -.3rem;
+    right: .5rem;
+    bottom: .5rem;
 }
 
-.online {
-    background:linear-gradient(to left, #5cb85c,#63cb63);
-}
 
 .userContainer .userProfileHeader .userProfileHeaderContainer .banner .userDetailsContainer {
     width: 100%;
@@ -111,6 +110,7 @@
     display: flex;
     align-items: center;
     gap: .5rem;
+    width: fit-content;
 }
 
 .staffBadge {
@@ -265,4 +265,129 @@
     text-decoration: underline;
 }
 
-/* Edit userModal */
+/* Edit usermodal */
+.editUserModal {
+	all: initial;
+	width: 50rem;
+	height: 35rem;
+	left: calc(100% - 85rem);
+	top: 25%;
+	position: fixed;
+	z-index: 9 !important;
+	background-color: var(--bg-d-accent);
+	border-radius: 4px;
+	padding: 1rem;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	overflow: hidden;
+    box-shadow: var(--box-shadow1-l);
+	animation: dropdown 0.3s ease-in-out;
+	color: var(--text-color);
+}
+
+
+
+.editUserModal .edituserModal-header {
+	display: inline-flex;
+	width: 100%;
+	justify-content: center;
+	align-items: center;
+	padding: 1rem;
+	position: relative;
+}
+
+
+.userEditUserDetails {
+    width: 100%;
+    height: 90%;
+    display: flex;
+    flex-direction: column;
+}
+.userEditUserDetails .editpdp {
+    width: 30%;
+    height: 40%;
+    margin-top: .5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.buttons {
+    display: inline-flex;
+    gap: .5rem;
+}
+
+.buttons input[type="file"] {
+    display: none;
+}
+
+.buttons button {
+    background-color: var(--bg-m);
+    padding: 0.4em 0.5rem;
+    text-shadow: none;
+    color: #ffffff;
+    outline: none;
+    border: none;
+    border-radius: 8px;
+    font-size: .85rem;
+    cursor: pointer;
+    box-shadow: var(--box-shadow1-l);
+}
+
+.editProfilePicture {
+    background-color: var(--bg-m);
+    padding: 0.4em 0.5rem;
+    text-shadow: none;
+    color: #ffffff;
+    outline: none;
+    border: none;
+    border-radius: 8px;
+    font-size: .85rem;
+    cursor: pointer;
+    box-shadow: var(--box-shadow1-l); 
+}
+
+
+.buttons button:disabled {
+    cursor:not-allowed;
+    filter: blur(.75px);
+
+}
+
+
+.editUserModal img {
+    width: 60%;
+    aspect-ratio: 1/1;
+    border-radius: 50%;
+}
+
+
+.editUserModal hr {
+	width: 100%;
+	margin-bottom: 1rem;
+    opacity: .1 !important;
+}
+
+.modal .modal-close {
+	position: absolute;
+	top: 1rem;
+	z-index: 99999;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	position: absolute;
+	right: 1.5rem;
+	box-shadow: 0px 1px 2px var(--boxshadow1-l);
+	font-size: 2rem;
+	cursor: pointer;
+}
+
+.modal .modal-close h6 {
+	font-size: 0.875rem;
+}
+.modal .modal-close:hover {
+	filter: brightness(1.2);
+}

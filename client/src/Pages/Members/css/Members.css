@@ -27,7 +27,7 @@
 	flex-direction: row;
 	align-items: center;
 	justify-content: space-between;
-    box-shadow: var(--box-shadow1-l);
+	box-shadow: var(--box-shadow1-l);
 	border-bottom: 1px solid var(--border-color);
 	color: var(--text-color);
 	z-index: 99;

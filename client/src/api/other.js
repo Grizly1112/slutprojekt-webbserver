@@ -13,3 +13,4 @@ export const GetWeatherData = async () => {
 export const UpdateVisitingCount = async (uniqueUserVisiting) => await axiosInstance.post('/updatevisitorcount', {uniqueUserVisiting: uniqueUserVisiting})
 
 export const GetVisitingCount = async () => await axiosInstance.get('/getVisitingCount')
+

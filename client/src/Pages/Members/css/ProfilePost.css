@@ -1,60 +1,122 @@
+/** @format */
+
 .ProfilePost {
-    height: 30rem;
-    width: calc(60vw - 2rem);
-    padding: 1rem;
-    border-radius: 8px;
-    background-color: var(--bg-d);
-    margin-top: 1rem;
+	height: auto;
+	margin-bottom: 1rem;
+	width: calc(60vw - 2rem);
+	padding: 1rem;
+	border-radius: 8px;
+	background-color: var(--bg-d);
+	margin-top: 1rem;
 }
 
+.ProfilePost .profilePostImagePreviews {
+	height: 7rem;
+	border-radius: 8px;
+    border: 1px solid var(--border-color);
+    box-shadow: var(--box-shadow1-l);
+
+	display: flex;
+	align-items: center;
+	padding: .5rem 1rem;
+}
+
+.ProfilePost .profilePostImagePreviews .image {
+	position: relative;
+	height: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+.ProfilePost .profilePostImagePreviews .image svg {
+	position: absolute;
+	right: -1rem;
+	top: .4rem;
+	background-color: var(--red-1);
+	color: #fff;
+	padding: .3rem;
+	border-radius: 8px;
+	cursor: pointer;
+	transition: .4s ease-in-out;
+}
+.ProfilePost .profilePostImagePreviews .image svg:hover {
+	filter: brightness(1.2);
+}
+
+
+.ProfilePost .profilePostImagePreviews .image img {
+	height: 80%;
+	border-radius: 4px;
+}
+
+
 .ProfilePost form {
-    width: 100%;
-    height: 5rem;
-    display: flex;
-    gap: 1rem;
-    align-items: center;
-    justify-content: center;
+	width: 100%;
+	height: 5rem;
+	display: flex;
+	gap: 1rem;
+	align-items: center;
+	justify-content: center;
 }
 
 .ProfilePost form input[type="text"] {
-    width: 100%;
+	background-color: var(--bg-d-l);
+    background-color: transparent;
     border: none;
     outline: none;
-    border-radius: 8px;
-    padding: .75rem;
-    height: calc(3.4rem - 1.5rem);
-    font-size: 1rem;
-    background-color: var(--bg-d);
+    border: 1px solid var(--border-color);
     color: var(--text-color);
+    border-radius: 8px;
+    width: 90%;
+    padding: 1rem 0.5rem;
+    resize: none;
+    vertical-align: center;
+    transition: all 0.3s ease-in-out;
+    box-shadow: var(--box-shadow1-l);
+}
+
+.ProfilePost form input[type="text"]:focus {
+	border-color: var(--bg-m);
 }
 
 .ProfilePost form button[type="submit"] {
-    background-color: var(--bg-m);
-    padding: .75rem;
-    display: flex;
-    gap: .5rem;
-    height: calc(4.65rem - 1.5rem);
-    align-items: center;
-    color: var(--text-color);
-    border: none;
-    outline: none;
-    border-radius: 8px;
-    cursor: pointer;
+	padding: 0.9rem 1rem;
+	display: flex;
+	gap: 0.5rem;
+	border-radius: 8px;
+	background-color: transparent;
+	font-weight: bolder;
+	border: 1px solid var(--bg-m);
+	outline: none;
+	cursor: pointer;
+	color: var(--text-color);
+	transition: 0.45s ease-in-out;
+	box-shadow: var(--box-shadow1-l);
 }
+
+.ProfilePost form button[type="submit"]:hover {
+	background-color: var(--bg-m);
+	color: #fff;
+}
+
+
 .ProfilePost form .tooltip {
-    width: 3.5rem;
-    height: 100%;
+	width: 3.5rem;
+	height: 100%;
 }
 
 .ProfilePost form img {
-    margin-top: .5rem;
-    width: 3.5rem;
-    aspect-ratio: 1/1;
-    border-radius: 50%;
-    cursor: pointer;
+	margin-top: 0.5rem;
+	height: 50px;
+	box-shadow: var(--box-shadow1-l);
+	border: 1px solid var(--border-color);
+	aspect-ratio: 1/1;
+	border-radius: 50%;
+	cursor: pointer;
 }
 
+
 .ProfilePost hr {
-    background-color: var(--text-c);
-    opacity: 0.1 !important;
+	background-color: var(--text-c);
+	opacity: 0.1 !important;
 }

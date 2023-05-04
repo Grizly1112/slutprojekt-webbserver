@@ -12,6 +12,7 @@ import {Loader} from '../../../components/assets/Loader';
 import { io } from 'socket.io-client';
 import { userContext } from '../../../context/UserContext';
 import Modal from '../../../components/assets/Modal';
+import Tooltip from '../../../components/assets/Tooltip';
 
 export default function User() {
     const [params, setparams] = useState(useParams());
@@ -24,9 +25,6 @@ export default function User() {
     const [isLoading, setIsLoading] = useState(true);
     const [postImage, setPostImage] = useState({base64: ""})
 
-    const [userProfileHasChanged, setUserProfileHasChanged] = useState(false);
-    const [userProfileEditPfp, setuUerProfileEditPfp] = useState(false);
-    
     document.title = `Mag Media | ${user.username}`
         const contextValue = useContext(userContext);
 
@@ -100,9 +98,8 @@ export default function User() {
 
     const hanldeFileUpload = async (e) => {
         const file = e.target.files[0];
-        const base64 = await convertToBase64(file);
+        const base64 = await Utils.ConvertToBase64(file);
         setPostImage({...postImage, base64: base64})
-        console.log(postImage)
     }
 
     const NoUserFound = () => {
@@ -117,245 +114,181 @@ export default function User() {
     
     const NavbarModalitem = (props) => {
         return(
-        <div className='navbarModal-item' onClick={() => props.func ? props.func(): null}>
-            <i className="navbarModal-item-icon-left">{props.iconleft}</i>
-            <h4 className='navbarModal-label'>{props.label}</h4>
-            <i className="navbarModal-item-icon-right">{props.iconRight}</i>
-        </div>
+            <div className='navbarModal-item' onClick={() => props.func ? props.func(): null}>
+                <i className="navbarModal-item-icon-left">{props.iconleft}</i>
+                <h4 className='navbarModal-label'>{props.label}</h4>
+                <i className="navbarModal-item-icon-right">{props.iconRight}</i>
+          </div>
         )
     }
 
     const UserProfile = () => {
         const UserAbout = () => {
-            return(<div>Om mig
-                
-            </div>)
+            return(<div>Om mig</div>)
         }
 
         const UserFriends = () => {
             return(<div>Vänlista</div>)
         }
 
-        return (
-					<>
-						<div className={"userProfile"}>
-							<div className='userProfileHeader'>
-								<div className='userProfileHeaderContainer'>
-									<div className='banner'>
-										<div className='urserInformation'>
-											<div class='profile-pic'>
-												<img
-													src={
-														(user.pfp &&
-															"data:image/png;base64," + user.pfp.data) ||
-														defaultAvatar
-													}
-												/>
-                                                <div className={
-                                                  user.userOnline ?  "onlinestatus online":
-                                                  "onlinestatus offline"
-                                                }>
-                                                </div>
-											</div>
-
-											<div className='userDetailsContainer'>
-												<div className='username'>
-													<h2>{user.username}</h2>
-													{user.staff && (
-														<div className='staffBadge'>Moderator</div>
-													)}
-												</div>
-												<div className='userDetails'>
-                                                     {/* <div className='userDetails-box'>
-														<h5>Status</h5>
-														<h4>
-                                                            {user.userOnline ? `Online`: "Offline"}
-                                                        </h4>
-													</div> */}
-                                                    <div className='userDetails-box'>
-														<h5>Vänner</h5>
-														<h4>
-                                                           2
-                                                        </h4>
-													</div>
-                                                    
-													<div className='userDetails-box'>
-														<h5>Gick med</h5>
-														<h4>
-                                                            {Utils.FormatTimeDate(user.dateJoined)}
-                                                        </h4>
-													</div>
-                                                    <div className='userDetails-box'>
-														<h5>Från</h5>
-                                                        <h4>
-														    {user.country} - {user.region}
-                                                        </h4>
-													</div>
-                                                   
-												</div>
-											</div>
-										</div>
-
-										<div className='handleUserButtonsContianer'>
-											{ownerWhoVisit ? (
-												<div className='buttonEditUserProfile'>
-													<Modal
-														btnLabel={
-															" Redigera profil"
-														}>
-														<div className='editUserModal'>
-                                                        mag
-                                                            
-                                                        </div>
-													</Modal>
-												</div>
-											) : (
-												<div className='buttonEditUserProfile report'>
-													<FaExclamationTriangle />
-												</div>
-											)}
-										</div>
-									</div>
-								</div>
-								<ul>
-									<NavLink
-										className={"navbarModalNavLink"}
-										to={`/members/user/${user.username}`}
-										end>
-										<NavbarModalitem
-											iconleft={<FaMailBulk />}
-											label={"Profil inlägg"}
-											iconRight={null}
-										/>
-									</NavLink>
-									<NavLink
-										className={"navbarModalNavLink"}
-										to={`/members/user/${user.username}/friends`}>
-										<NavbarModalitem
-											iconleft={<FaUserFriends />}
-											label={"Vänner"}
-											iconRight={null}
-										/>
-									</NavLink>
-									<NavLink
-										className={"navbarModalNavLink"}
-										to={`/members/user/${user.username}/about`}>
-										<NavbarModalitem
-											iconleft={<FaInfoCircle />}
-											label={`Om ${user.username}`}
-											iconRight={null}
-										/>
-									</NavLink>
-								</ul>
-							</div>
-						</div>
-						<div className='userContent'>
-							<Outlet user={user} />
-						</div>
-					</>
-				);
-    }
-    {/* <div className='userProfile-header'>
-        <div className='userProfile-pfp-div'>
-            <div class="profile-pic">
-            {
-                user.pfp ? 
-                <img src={userProfileHasChanged ? postImage.base64 : user.pfp.img || "#"} id="output" width="200" />
-                :
-                <img src={userProfileEditPfp ? postImage.base64 : defaultAvatar}></img>
-            }
-            </div>
-            
-        </div>
-        <div className="userProfile-header-information">
-            <div className='userProfile-username-div'>
-                <h2 className='userProfle-username'>
-                    {user.username}
-                </h2>
-                <div>
-                    <Tooltip label="Lägg till vän">  
-                        <button className='userHandling-button'>
-                            <FaUserPlus />
-                        </button>
-                    </Tooltip>
-                </div>
-            </div>
-            <div className="userDetails">
-                <h4>{Utils.FormatUserAge(user.dateOfBirth)} år gammal <FaCircle className='circle' /> {user.country} - {user.region}</h4>
-                <h4><p>Gick med:</p>{Utils.FormatTimeDate(user.dateJoined)}</h4>
-                <h4><p>Senast online:</p> 5 minuter sedan</h4>
-            </div>
-        </div>
-    </div>
-    <div className="viewMore">
-   {
-        ownerWhoVisit ? 
-        <>
-        <form onSubmit={handleSubmit}>
-            {
-                userProfileEditPfp ? 
+        return(
                 <>
-                <label className='editProfilePicture savepfpEdits'>
-                  <FaEdit /> Spara profilbild
-                 <input type="submit" value="spara" />
-                </label>
-                <label className='editProfilePicture deleteEdits' onClick={() => {setUserProfileHasChanged(false); setuUerProfileEditPfp(false)}}>
-                  <FaEdit /> Avbryt
-                </label>
-                </>
-                :
-            <label className='editProfilePicture'>
-                    <FaEdit /> Ändra profilbild
-                    <input type="file" name="base64" id="file-upload" accept='.jpeg, .png, .jpg' 
-                     onChange={async(e) => { await hanldeFileUpload(e);  setUserProfileHasChanged(true);setuUerProfileEditPfp(true) }}
-                     />
-            </label>
-       
-                    }
-        </form>
-        </>
-        : null
-    } 
-       <div className='select'>
-            <ul>
-                <li className={activeTab === "about" ? "select-active " : null} id='about' onClick={(e) => {
-                    setActiveTab(e.target.id)
-                }}>Om {user.username} </li>
-                
-                <li className={activeTab === "friends" ? "select-active " : null} id='friends' onClick={(e) => {
-                        setActiveTab(e.target.id)
-                }}>Vänner (59) </li>
-                 
-            </ul>
-            <hr />
-       </div>
-       
-    </div> */}
+                <div className={"userProfile"}>
+                    <div className='userProfileHeader'>
+                        <div className='userProfileHeaderContainer'>
+                            <div className='banner'>
+                                <div className='urserInformation'>
+                                    <div class='profile-pic'>
+                                        <img
+                                            src={
+                                                (user.pfp &&
+                                                    "data:image/png;base64," + user.pfp.data) ||
+                                                defaultAvatar
+                                            }
+                                        />
+                                        <div 
+                                            className={
+                                                user.userOnline
+                                                    ? "onlinestatus online"
+                                                    : "onlinestatus"
+                                            }>
+                                        </div>
+                                    </div>
+
+                                    <div className='userDetailsContainer'>
+                                        <div className='username'>
+                                            <h2>{user.username}</h2>
+                                            {user.staff && (
+                                                <div className='staffBadge'>Moderator</div>
+                                            )}
+                                        </div>
+                                        <div className='userDetails'>
+                                            <div className='userDetails-box'>
+                                                <h5>Vänner</h5>
+                                                <h4>2</h4>
+                                            </div>
+
+                                            <div className='userDetails-box'>
+                                                <h5>Gick med</h5>
+                                                <h4>{Utils.FormatTimeDate(user.dateJoined)}</h4>
+                                            </div>
+                                            <div className='userDetails-box'>
+                                                <h5>Från</h5>
+                                                <h4>
+                                                    {user.country} - {user.region}
+                                                </h4>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div className='handleUserButtonsContianer'>
+                                    {ownerWhoVisit ? (
+                                        <div className='buttonEditUserProfile'>
+                                            <Modal
+                                                openState={true}
+                                                modalClass='editUserModal'
+                                                btnLabel={" Redigera profil"}
+                                                buttonClose={true}
+                                            >
+                                                <div className='editUserModal'>
+                                                    <div className='edituserModal-header'>
+                                                        <h2>Ändra profil</h2>
+                                                    </div>
+                                                    <hr />
+                                                    <div className='userEditUserDetails'>
+                                                        <div className='editpdp'>
+                                                            <img
+                                                                src={
+                                                                    (user.pfp &&
+                                                                        "data:image/png;base64," +
+                                                                            user.pfp.data) ||
+                                                                    defaultAvatar
+                                                                }
+                                                                alt=''
+                                                            />
+                                                            <div className='buttons'>
+                                                                <label className='editProfilePicture'>
+                                                                    Ändra profilbild
+                                                                    <input
+                                                                        type='file'
+                                                                        name='base64'
+                                                                        id='file-upload'
+                                                                        accept='.jpeg, .png, .jpg'
+                                                                        onChange={async (e) => {
+                                                                            await hanldeFileUpload(e);
+                                                                            setUserProfileHasChanged(true);
+                                                                            setuUerProfileEditPfp(true);
+                                                                        }}
+                                                                    />
+                                                                </label>
+                                                                <button disabled={true}>Spara</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <hr />
+                                                    <div className='buttons'>
+                                                        <button>Avbryt</button>
+                                                        <button disabled={true}>Spara profil</button>
+                                                    </div>
+                                                </div>
+                                            </Modal>
+                                        </div>
+                                    ) : (
+                                        <div className='buttonEditUserProfile report'>
+                                            <FaExclamationTriangle />
+                                        </div>
+                                    )}
+                                </div>
+                            </div>
+                        </div>
+                        <ul>
+                            <NavLink
+                                className={"navbarModalNavLink"}
+                                to={`/members/user/${user.username}`}
+                                end>
+                                <NavbarModalitem
+                                    iconleft={<FaMailBulk />}
+                                    label={"Profil inlägg"}
+                                    iconRight={null}
+                                />
+                            </NavLink>
+                            <NavLink
+                                className={"navbarModalNavLink"}
+                                to={`/members/user/${user.username}/friends`}>
+                                <NavbarModalitem
+                                    iconleft={<FaUserFriends />}
+                                    label={"Vänner"}
+                                    iconRight={null}
+                                />
+                            </NavLink>
+                            <NavLink
+                                className={"navbarModalNavLink"}
+                                to={`/members/user/${user.username}/about`}>
+                                <NavbarModalitem
+                                    iconleft={<FaInfoCircle />}
+                                    label={`Om ${user.username}`}
+                                    iconRight={null}
+                                />
+                            </NavLink>
+                        </ul>
+                    </div>
+                </div>
+                <div className='userContent'>
+                    <Outlet user={user} />
+                </div>
+            </>
+        );
+    }
 
   return (
-    <>
     <div className='userContainer'>
       {
         noUserFound ? <NoUserFound /> : (isLoading ? <Loader />: <UserProfile />)
       }
       {
-        serverError ? <ServerError /> : null
+        serverError && <ServerError />
       }
     </div>
-   
-    </>
   );
-}
-
-const convertToBase64 = (file) => {
-    return new Promise((resolve, reject) => {
-        const fileReader = new FileReader();
-        fileReader.readAsDataURL(file);
-        fileReader.onload = () => {
-            resolve(fileReader.result)
-        };
-        fileReader.onerror = (error) => {
-            reject(error)
-        }
-    })
 }

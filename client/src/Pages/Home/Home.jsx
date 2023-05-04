@@ -12,6 +12,8 @@ import Modal from '../../components/assets/Modal'
 import Clock from './Clock'
 import Utils from '../../assets/functiions/Utils'
 import { GetVisitingCount, GetWeatherData } from '../../api/other'
+import ShareModal from '../../components/ShareModal'
+import LiveIcon from '../../components/assets/LiveIcon'
 export default function Home() {
   document.title ="Mag Forum | Startskärm"
 
@@ -58,7 +60,7 @@ export default function Home() {
         <div className='header'>
           {icon}
           <h4>{title}</h4>
-          {live && <div className='circle' />}
+          {live && <LiveIcon live={true} width={12} height={12}/>}
         </div>
         <hr />
         <div className='Widget-body'>{children}</div>
@@ -70,18 +72,18 @@ export default function Home() {
     // Function to update onlineUserCount;
     // Note: by using memo the component only rerender when onlineUsers Update => better performance
     const userOfEachCategory = useMemo(() => {
-      // Note: reduce allows us to calculate both the users and guests values in a single loop by accumulating them in a single object
-      return onlineUsers.reduce((count, userOnline) => {
-        if (userOnline.userId === "") {
-          count.guests++;
-        } else if (userOnline.userId.startsWith("guest-")) {
-          count.guests++;
+      let users = 0;
+      let guests = 0;
+    
+      onlineUsers.forEach((userOnline) => {
+        if (userOnline.userId === "" || userOnline.userId.startsWith("guest-")) {
+          guests++;
         } else {
-          count.users++;
+          users++;
         }
-        return count;
-      }, { users: 0, guests: 0 });
-      
+      });
+    
+      return { users, guests };
     }, [onlineUsers]);
   
     return (
@@ -126,42 +128,25 @@ export default function Home() {
 
 
   useEffect(() => {
-    // cancellation token to prevent memory leaks and unwanted side effects 
-    // & also prevent from unnecessarily update state
-    let isCancelled = false;
 
     // Fetch weatherData
     const fetchWeatherData = async () => {
-      if(!isCancelled) {
         const res = await GetWeatherData();
         setForecast(res);
-      }
     };
     
     // Fech VisitorCount 
     const fetchVisitorCount = async () => {
-      if(!isCancelled) {
         const res = await GetVisitingCount();
         setStatistics(res.data);
-      }
     };
     
     // Call both functions
     fetchWeatherData();
     fetchVisitorCount();
-
-
-    /* This is a cleanup function that is returned from the `useEffect`*/
-    return() => {
-      isCancelled = true;
-    }
-
   }, []);
 
-  const linkRef = useRef(null);
-  if (linkRef.current) {
-    navigator.clipboard.writeText(linkRef.current.innerText);
-  }
+ 
   // Matching weatherApiIcons with out icon package
   // note: not all weather conditions habe their unique icon, not enought free icons
   const weatherIconsMap = {
@@ -187,26 +172,23 @@ export default function Home() {
   
   // Define the header of the clock widget 
   const TimeAndWeatherHeader = () => {
-    // return false if weather api response is not defined
-    if (!forecast) return null;
+    if (!forecast) return
+  
+    const { name, weather, wind, main } = forecast;
+  
+    const temperatureCelsius = Utils.ConvertKelvinToCelsius(main.temp);
+    const weatherIcon = weatherIconsMap[weather[0].icon];
+  
     return (
       <div className="forecast">
-        {forecast.name}
-        <Tooltip label={<p><FaWind /> {forecast.wind.speed} m/s </p>}>
-          {/* Children => header title */}
-          {weatherIconsMap[forecast.weather[0].icon]}
-          {Utils.ConvertKelvinToCelsius(forecast.main.temp)}°C
+        {name}
+        <Tooltip label={<p><FaWind /> {wind.speed} m/s </p>}>
+          {weatherIcon}
+          {temperatureCelsius}°C
         </Tooltip>
       </div>
     );
   };
-
-  function copyToClipboard() {
-    if (linkRef.current) {
-      navigator.clipboard.writeText(linkRef.current.innerText);
-      alert("Url Koperad")
-    }
-  }
 
   const statusMsgArray = [
     {
@@ -235,27 +217,6 @@ export default function Home() {
   
   const NewsPreview =  (props) => {
     return(
-      // <div className="news-preview">
-      //   <div className="creator">
-      //     <img src={props.creator.pfp} alt="pfp" />
-      //     <h5>{props.creator.username}</h5>
-      //   </div>
-      //   <div className='news-content'>
-      //     <div className="news-content-text">
-      //       <h4 className="news-content-title">{props.title}</h4>
-      //       <h5 className="news-content-tetx">{props.text}</h5>
-      //     </div>
-      //     <div className="news-preview-statistic">
-      //       <FaRegFlag />
-      //       <FaShareAlt />
-      //       {/* <FaThumbsUp /> */}
-      //       {
-      //         props.img && 
-      //         <FaImage />
-      //       }
-      //     </div>
-      //   </div>
-      // </div>
       <div className="news-preivew">
         
         <div className="news-preview-container">
@@ -289,7 +250,6 @@ export default function Home() {
               </h5>
             </div>
         </div>
-
       </div>
     )
   }
@@ -303,18 +263,14 @@ export default function Home() {
         <div className="welcome-container">
           <img className='welcome-img' src={logo} />
           <div className='welcome-text-container'>
-              {contextValue.user ? 
-               <h3>
-                Välkommen åter 
-                <p>
-                  {contextValue.user.username}
-                </p>
-              </h3>
-              :
-              <h2>
-                 Välkommen till Mag Media
-              </h2>
-              }
+          {contextValue.user ? (
+            <h3>
+              Välkommen åter
+              <p>{contextValue.user.username}</p>
+            </h3>
+          ) : (
+            <h2>Välkommen till Mag Media</h2>
+          )}
           </div>
           <hr />
           <div className="updates">
@@ -337,37 +293,7 @@ export default function Home() {
           <div className='button'>
             <NavLink to={!contextValue.user ? "/register" : "/members</div>"}>{!contextValue.user ? "Skapa Konto" : <> <FaComments />Börja Chatta</>}</NavLink>
             <Modal modalClass="shareMagForum" activeClass="shareBtnActive" btnClass="welcome-share-button" buttonClose={true} btnLabel={<><FaShareAlt /> Dela Mag Media</>}>
-              <div className='shareMagForum'>
-                <div className="share-header">
-                  <h2>Dela - Mag Media</h2>
-                </div>
-                  <hr />
-                  {/* ändra alla länkar.com till URL */}
-                  <div className='social-media-share'>
-
-                  {/* https://stackoverflow.com/questions/6208363/sharing-a-url-with-a-query-string-on-twitter */}
-                  <Tooltip label={"Dela på Facebook"}>
-                  <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fmagmedia.se" target="_blank" rel="noopener">
-                      <img class="YOUR_FB_CSS_STYLING_CLASS" src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Facebook_Logo_%282019%29.png/1024px-Facebook_Logo_%282019%29.png" width="34px" height="34px" alt="Share on Facebook" />
-                  </a>
-                  </Tooltip>
-                  <Tooltip label={"Dela på Twitter"}>
-                  <a href="http://www.twitter.com/share?url=http://www.google.com/" target="_blank" rel="noopener">
-                    <img class="YOUR_FB_CSS_STYLING_CLASS" src="https://png.pngtree.com/png-vector/20221018/ourmid/pngtree-twitter-social-media-round-icon-png-image_6315985.png" width="34px" height="34px" alt="Share on Facebook" />
-                  </a>
-                  </Tooltip>
-                  <Tooltip label={"Dela på Reddit"}>
-                    <a href='http://www.reddit.com/submit?url=https://stackoverflow.com/questions/24823114/post-to-reddit-via-url&title=Post%20to%20Reddit%20via%20URL'>
-                      <img class="YOUR_FB_CSS_STYLING_CLASS" src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/07/Reddit_icon.svg/800px-Reddit_icon.svg.png" width="34px" height="34px" alt="Share on Facebook" />
-                    </a>
-                  </Tooltip>
-                  </div>
-
-                  <div className="url">
-                    <div className="link"  ref={linkRef}>{window.location.href}</div>
-                    <button onClick={(copyToClipboard)}>kopiera</button>
-                </div>
-              </div>
+              <ShareModal title={"Dela Mag Media"} />
             </Modal>
           </div>
         </div>
@@ -376,15 +302,14 @@ export default function Home() {
       {/* Homepage widgets */}
       <div className='right'>
         <OnlineUserWidget />
-        
-        {forecast && (
+        {forecast && 
           <SideWidget
-            icon={<FaGlobeEurope />}
-            title={<TimeAndWeatherHeader />}
-            live={false}>
+          icon={<FaGlobeEurope />}
+          title={<TimeAndWeatherHeader />}
+          live={false}>
             <Clock />
           </SideWidget>
-        )}
+        }
         
         <SideWidget icon={<FaChartBar />} title='Statistik'>
           {statistics && (

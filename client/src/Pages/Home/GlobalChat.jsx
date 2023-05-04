@@ -6,6 +6,7 @@ import Utils from '../../assets/functiions/Utils';
 import DefaultPFp from '../../assets/avatarDefault.png'
 import { Link } from 'react-router-dom';
 import { Loader } from '../../components/assets/Loader';
+import './css/Home.css'
 
 export default function GlobalChat(props) {
   const [messagetext, setMessageText] = useState("");
@@ -195,6 +196,9 @@ export default function GlobalChat(props) {
               placeholder={Object.keys(contextValue.user).length > 0 ? "Skriv i Global Chatt": "Du måste logga in för att skriva"}
               onKeyPress={handleKeyPress}
             />
+            {/* <svg width={12} height={12}> */}
+            {/* <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.2"><path d="M12 3.53088v3c0 1-1 2-2 2H4M7 11.53088l-3-3 3-3"></path></g> */}
+            {/* </svg> */}
     
             <button onClick={() => upFile.click()}>
               <input type="file" name="" id="upFile" accept='.jpeg, .png, .jpg' onChange={async(e) => { await hanldeFileUpload(e); }} />
