@@ -29,9 +29,40 @@
 }
 
 .home .left {
-	/* background-color: red; */
 	flex: 1 1 25%;
+	margin-top: 4rem;
 	height: 100%;
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	gap: 1rem;
+	align-items: flex-start;
+}
+.home .left .sideWidget {
+	margin-left: 0;
+	margin-left: 1.4rem;
+}
+
+.home .left .sideWidget .spotify-api-content{
+	width: 100%;
+	margin-top: .5rem;
+}
+.home .left .sideWidget .spotify-api-content p {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: .5rem;
+}
+.home .left .sideWidget .spotify-api-content p a, 
+	.home .left .sideWidget .spotify-api-content p h5 {
+	color: var(--bg-m);
+}
+.home .left .sideWidget .spotify-api-content p a:hover{
+	text-decoration: underline;
+}
+
+.home .left .sideWidget iframe {
+	border-radius: 12px;
 }
 
 .home .center {
@@ -502,6 +533,7 @@
 .welcome-container {
 	height: fit-content;
 	max-width: calc(100% - 2rem);
+	width: 100%;
 	border-radius: 8px;
 	background-color: var(--bg-d);
 	box-shadow: var(--box-shadow1-l);
@@ -513,13 +545,12 @@
 	align-items: center;
 	gap: 1.5rem;
 }
-
 .welcome-container .welcome-img {
-	width: 50%;
+	width: 90%;
 	/* background-color: var(--bg-d-accent); */
 	border-radius: 8px;
-	padding: 1rem;
 	box-shadow: var(--boxshadow-l);
+	border: 1px solid var(--border-color);
 }
 
 .welcome-container .welcome-text-container {

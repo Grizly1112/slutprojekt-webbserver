@@ -235,7 +235,7 @@ function Navbar() {
       </NavLink>
       <ul className="navbar-links">
         <NavLink to="/">Startskärm</NavLink>
-        <NavLink to="/groups">Grupper</NavLink>
+        <NavLink to="/forum">Forum</NavLink>
         <NavLink to="/members">Medlemmar</NavLink>
         <NavLink to="/tickets">Tickets</NavLink>
       </ul>

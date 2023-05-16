@@ -28,6 +28,7 @@ io.on("connection", (socket) => {
     if (!activeUsers.some((user) => user.userId === userId)) {
   
       activeUsers.push({ userId: userId, pfp: pfp , socketId: socket.id });
+      // activeUsers.push({ userId: userId, pfp: pfp , socketId: socket.id, online: onlineStatus });
       console.log("New user connected,")
   
       // send all active users
@@ -37,6 +38,16 @@ io.on("connection", (socket) => {
     // // necessary to fix if already logeed in, and have multiple browser tbas open
     io.emit("get-users", activeUsers);
   })
+
+  // socket.on('switch-online-status', (onlineStatus) => {
+  //   if(!onlineStatus) {
+  //     const index = activeUsers.findIndex(user => user.userId === userId);
+
+  //     if (index !== -1) {
+  //       activeUsers[index].online = onlineStatus;
+  //     }
+  //   }
+  // })
 
   socket.on('send-notification', ({ text, to, href}) => {
     // Return object of user

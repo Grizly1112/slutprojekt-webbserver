@@ -1,0 +1,147 @@
+.forum {
+    width: 980px;
+    margin-left: calc(50% - 480px);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: calc(var(--nav-size) + 4rem);
+}
+
+.create-post-container {
+    width: calc(100% - 2rem);
+    background-color: var(--bg-d-l);
+    height: 45px;
+    background-color: var(--bg-d);
+    box-shadow: var(--box-shadow1-l);
+    border: 1px solid var(--border-color);
+    padding: 1rem;
+    border-radius: 8px;
+
+    display: flex;
+    gap: 1rem;
+}
+
+.create-post-container img {
+    height: 100%;
+    aspect-ratio: 1/1;
+    border-radius: 50%;
+}
+.create-post-container div {
+    width: calc(100% - 1rem); 
+}
+.create-post-container .input {
+    width: 100%;
+    height: 100%;
+    display: flex;
+}
+
+.create-post-container .input .fakeInput{
+    width: 100%;
+    height: 100%;
+    border-radius: 16px;
+    background-color: var(--bg-d-accent);
+    box-shadow: var(--box-shadow1-l);
+    border: 1px solid var(--border-color);
+    padding: 0 .5rem;
+    font-size: 1rem;
+    cursor: pointer;
+    display: flex;
+    justify-content: flex-start;
+    color: var(--text-color);
+}
+
+.create-post-container input:hover {
+    filter: brightness(1.05);
+}
+
+.createPostModal label {
+    width:100%;
+    font-size: 1rem;
+    margin-top: 1rem;
+    margin-bottom: .5rem;
+}
+
+.createPostModal {
+    all: initial;
+	width: 45rem !important;
+	height: 30rem;
+	left: calc(50% - 22.5rem);
+	top: 10rem;
+	position: fixed;
+	z-index: 9 !important;
+	background-color: var(--bg-d-accent);
+	border-radius: 4px;
+	padding: 1rem;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	overflow: hidden;
+	box-shadow: rgba(0, 0, 0, 0.2) 0px 20px 30px;
+	animation: dropdown 0.3s ease-in-out;
+	color: var(--text-color);
+}
+
+.createPostModal .createPostModalTitle {
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    padding: 1rem;
+}
+.createPostModal hr {
+    width: 100%;
+    opacity: .1;
+}
+
+.createPostModal textarea {
+    margin-bottom: 1rem;
+    height: 10rem !important;
+    resize: none;
+    width: calc(100% - .5rem) !important;
+    transition: .6s ease-in-out;
+}
+
+.createPostModal textarea:focus{
+    border: 1px solid var(--bg-m);
+    outline: none;
+}
+
+.createPostModal .inputPost {
+    width: calc(100% - .5rem);
+    height: 2rem;
+    border-radius: 8px;
+    background-color: var(--bg-d-l);
+    box-shadow: var(--box-shadow1-l);
+    border: 1px solid var(--border-color);
+    padding: 0 .5rem;
+    font-size: 1rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    color: var(--text-color);
+}
+
+/* Move to seperate file */
+.modal .modal-close {
+	position: absolute;
+	top: 1rem;
+	z-index: 99999;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	position: absolute;
+	right: 1.5rem;
+	box-shadow: 0px 1px 2px var(--box-shadow1-l);
+	font-size: 2rem;
+	cursor: pointer;
+    width: fit-content;
+}
+
+.modal .modal-close h6 {
+	font-size: 0.875rem;
+}
+
+.modal .modal-close:hover {
+	filter: brightness(1.2);
+}

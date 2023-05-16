@@ -42,8 +42,6 @@ export const register = async (req, res) => {
         user.country = regionNamesInSwedish.of(userIp.data.country_code);
         user.region = userIp.data.region.split(" ")[0];
 
-        console.log(user)
-
         let userData = await UserModel.create({username: user.username, password: hashedPassword, email: user.email, dateOfBirth: user.birthday,  ip: user.ip, country: user.country, region: user.region})
         userData.id = userData._id;
 

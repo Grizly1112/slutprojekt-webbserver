@@ -1,13 +1,13 @@
 import React, { useContext, useEffect, useMemo, useRef, useState } from 'react'
-import { FaArrowCircleRight, FaChartBar, FaChevronCircleRight, FaChevronRight, FaCloud, FaCloudMoon, FaCloudRain, FaCloudShowersHeavy, FaCloudSun, FaCommentAlt, FaComments, FaCompass, FaExpandAlt, FaExpandArrowsAlt, FaEye, FaGlobeEurope, FaImage, FaInfoCircle, FaMapMarkedAlt, FaMinusCircle, FaMoon, FaRegFlag, FaRegNewspaper, FaRegWindowClose, FaRegWindowMinimize, FaSearch, FaShare, FaShareAlt, FaShareAltSquare, FaSnowflake, FaSun, FaTemperatureHigh, FaThumbsUp, FaThumbtack, FaUsers, FaWind } from 'react-icons/fa'
+import { FaChartBar, FaCloud, FaCloudMoon, FaCloudRain, FaCloudShowersHeavy, FaCloudSun, FaComments, FaEye, FaGlobeEurope, FaMoon, FaMusic, FaSearch, FaShareAlt, FaSnowflake, FaSun, FaThumbsUp, FaThumbtack, FaUserAlt, FaUserAstronaut, FaUsers, FaWind } from 'react-icons/fa'
 import { NavLink } from 'react-router-dom'
 import './css/Home.css'
 import userDefault from '../../assets/avatarDefault.png'
 import Tooltip from '../../components/assets/Tooltip'
 import { io } from "socket.io-client";
 import { userContext } from '../../context/UserContext'
-import GlobalChat from './GlobalChat'
-import logo from '../../assets/logo.png'
+import logo from '../../assets/logo2.png'
+import Muscilogo from '../../assets/music.png'
 import Modal from '../../components/assets/Modal'
 import Clock from './Clock'
 import Utils from '../../assets/functiions/Utils'
@@ -15,7 +15,7 @@ import { GetVisitingCount, GetWeatherData } from '../../api/other'
 import ShareModal from '../../components/ShareModal'
 import LiveIcon from '../../components/assets/LiveIcon'
 export default function Home() {
-  document.title ="Mag Forum | Startskärm"
+  document.title ="Mag Music Forum | Startskärm"
 
   const [onlineUsers, setonlineUsers] = useState([]);
 
@@ -256,86 +256,165 @@ export default function Home() {
   }
 
   return (
-    <div className={`home`}>
-      <div className='left'></div>
-      <div className='center'>
-        {/* <GlobalChat user={contextValue.user} /> */}
-        
-        <div className="welcome-container">
-          <img className='welcome-img' src={logo} />
-          <div className='welcome-text-container'>
-          {contextValue.user ? (
-            <h3>
-              Välkommen åter
-              <p>{contextValue.user.username}</p>
-            </h3>
-          ) : (
-            <h2>Välkommen till Mag Media</h2>
-          )}
-          </div>
-          <hr />
-          <div className="updates">
-            <div className="update-title">
-              <h5>Senaste Nyheterna:</h5>
-              <NavLink to="/" className={"showAllUpdates"}><h5>Visa alla</h5></NavLink>
+		<div className={`home`}>
+			<div className='left'>
+				<SideWidget icon={<FaMusic />} title='Pop musik - Artister'>
+					<div className='spotify-api-content'>
+						<p>
+							<h5>Populärt just nu:</h5>
+							<NavLink>
+								<h5>Visa alla</h5>
+							</NavLink>
+						</p>
+						<iframe
+							src='https://open.spotify.com/embed/artist/1Xyo4u8uXC1ZmMpatF05PJ?utm_source=generator&theme=0'
+							width='100%'
+							height='152'
+							frameBorder='0'
+							allowfullscreen=''
+							allow='autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture'
+							loading='lazy'></iframe>
+						<iframe
+							src='https://open.spotify.com/embed/artist/3TVXtAsR1Inumwj472S9r4?utm_source=generator'
+							width='100%'
+							height='152'
+							frameBorder='0'
+							allowfullscreen=''
+							allow='autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture'
+							loading='lazy'></iframe>
+					</div>
+				</SideWidget>
+
+				<SideWidget icon={<FaMusic />} title='Pop musik - Album'>
+            <div className='spotify-api-content'>
+              <p>
+                <h5>Populärt just nu:</h5>
+                <NavLink>
+                  <h5>Visa alla</h5>
+                </NavLink>
+              </p>
+              <iframe
+                src='https://open.spotify.com/embed/album/6d1vGZsr6Uy3h9IigBpPAf?utm_source=generator&theme=0'
+                width='100%'
+                height='152'
+                frameBorder='0'
+                allowfullscreen=''
+                allow='autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture'
+                loading='lazy'></iframe>
+              <iframe
+                src='https://open.spotify.com/embed/album/7EpUpNUkkEGnaCvkcn1j4H?utm_source=generator'
+                width='100%'
+                height='152'
+                frameBorder='0'
+                allowfullscreen=''
+                allow='autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture'
+                loading='lazy'></iframe>
             </div>
-            <div className="news-list">
-              {/* {
+				</SideWidget>
+			</div>
+			<div className='center'>
+				{/* <GlobalChat user={contextValue.user} /> */}
+
+				<div className='welcome-container'>
+					<img className='welcome-img' src={Muscilogo} />
+					<div className='welcome-text-container'>
+						{contextValue.user ? (
+							<h3>
+								Välkommen åter
+								<p>{contextValue.user.username}</p>
+							</h3>
+						) : (
+							<h2>Välkommen till Mag Music</h2>
+						)}
+					</div>
+					<hr />
+					<div className='updates'>
+						<div className='update-title'>
+							<h5>Mag Music Forum (Pop Musik)</h5>
+							<NavLink to='/' className={"showAllUpdates"}>
+								<h5>Läs mer</h5>
+							</NavLink>
+						</div>
+						<div className='news-list'>
+            Popmusik är en genre som har fängslat publik över hela världen med sina medryckande melodier, livliga rytmer och lättillgängliga texter. Den uppstod under mitten av 1900-talet och har sedan dess blivit en dominerande kraft inom musikvärlden. Popmusik kännetecknas ofta av sina smittande refränger och dansanta beats, vilket gör den till en perfekt kompanjon på vilken hemsida som helst. Oavsett om du vill lyfta stämningen, sprida glädje eller bara njuta av en lättlyssnad melodi, kommer popmusiken alltid att vara där för att förgylla din dag.
+
+
+
+
+
+							{/* {
                 statusMsgArray.map(newsMsg => {
                   return(
                     <NewsPreview title={newsMsg.title} text={newsMsg.text} creator={newsMsg.creator} img={!!newsMsg.img} />
                     )
                   })
               } */}
-            </div>
+						</div>
+					</div>
+					<hr />
+					<div className='button'>
+						<NavLink to={"/forum"}>
+              <FaComments />
+              Forum
+						</NavLink>
+            <NavLink to="/members">
+              <FaUserAstronaut />
+              Medlemmar
+            </NavLink>
+						<Modal
+							modalClass='shareMagForum'
+							activeClass='shareBtnActive'
+							btnClass='welcome-share-button'
+							buttonClose={true}
+							btnLabel={
+								<>
+									<FaShareAlt /> Dela Mag Music
+								</>
+							}>
+							<ShareModal title={"Dela Mag Media"} />
+						</Modal>
+					</div>
+				</div>
+			</div>
 
-          </div>
-          <hr/>
-          <div className='button'>
-            <NavLink to={!contextValue.user ? "/register" : "/members</div>"}>{!contextValue.user ? "Skapa Konto" : <> <FaComments />Börja Chatta</>}</NavLink>
-            <Modal modalClass="shareMagForum" activeClass="shareBtnActive" btnClass="welcome-share-button" buttonClose={true} btnLabel={<><FaShareAlt /> Dela Mag Media</>}>
-              <ShareModal title={"Dela Mag Media"} />
-            </Modal>
-          </div>
-        </div>
-      </div>
+			{/* Homepage widgets */}
+			<div className='right'>
+				<OnlineUserWidget />
+				{forecast && (
+					<SideWidget
+						icon={<FaGlobeEurope />}
+						title={<TimeAndWeatherHeader />}
+						live={false}>
+						<Clock />
+					</SideWidget>
+				)}
 
-      {/* Homepage widgets */}
-      <div className='right'>
-        <OnlineUserWidget />
-        {forecast && 
-          <SideWidget
-          icon={<FaGlobeEurope />}
-          title={<TimeAndWeatherHeader />}
-          live={false}>
-            <Clock />
-          </SideWidget>
-        }
-        
-        <SideWidget icon={<FaChartBar />} title='Statistik'>
-          {statistics && (
-            <div className='statistic-contianer'>
-              <div className='statistic-box'>
-                <h5 className='title'>Medlemmar</h5>
-                <h4>{statistics.userCount}</h4>
-              </div>
-              <div className='statistic-box'>
-                <h5 className='title'>Senaste medlemmen</h5>
-                <NavLink className="newest-user" to={`members/user/${statistics.newestUser}`}>
-                <h4>{statistics.newestUser}</h4>
-                </NavLink>
-              </div>
-              <div className='statistic-box'>
-                <h5 className='title'>Återkommande besök</h5>
-                <h4>{statistics.visitors.countRecurent}</h4>
-              </div>
-              <div className='statistic-box'>
-                <h5 className='title'>Unika besök</h5>
-                <h4>{statistics.visitors.countUnique}</h4>
-              </div>
-            </div>
-          )}
-        </SideWidget>
-      </div>
-    </div>
+				<SideWidget icon={<FaChartBar />} title='Statistik'>
+					{statistics && (
+						<div className='statistic-contianer'>
+							<div className='statistic-box'>
+								<h5 className='title'>Medlemmar</h5>
+								<h4>{statistics.userCount}</h4>
+							</div>
+							<div className='statistic-box'>
+								<h5 className='title'>Senaste medlemmen</h5>
+								<NavLink
+									className='newest-user'
+									to={`members/user/${statistics.newestUser}`}>
+									<h4>{statistics.newestUser}</h4>
+								</NavLink>
+							</div>
+							<div className='statistic-box'>
+								<h5 className='title'>Återkommande besök</h5>
+								<h4>{statistics.visitors.countRecurent}</h4>
+							</div>
+							<div className='statistic-box'>
+								<h5 className='title'>Unika besök</h5>
+								<h4>{statistics.visitors.countUnique}</h4>
+							</div>
+						</div>
+					)}
+				</SideWidget>
+			</div>
+		</div>
 	);};

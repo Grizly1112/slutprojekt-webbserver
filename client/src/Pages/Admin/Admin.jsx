@@ -123,5 +123,3 @@ export default function Admin() {
     </div>
   )
 }
-
-// <h2>Text: {section.text}</h2>
