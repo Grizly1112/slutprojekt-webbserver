@@ -43,11 +43,12 @@
     background-color: var(--bg-d-accent);
     box-shadow: var(--box-shadow1-l);
     border: 1px solid var(--border-color);
-    padding: 0 .5rem;
+    padding: 0 1rem;
     font-size: 1rem;
     cursor: pointer;
     display: flex;
     justify-content: flex-start;
+    align-items: center;
     color: var(--text-color);
 }
 
@@ -60,18 +61,21 @@
     font-size: 1rem;
     margin-top: 1rem;
     margin-bottom: .5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .createPostModal {
     all: initial;
-	width: 45rem !important;
-	height: 30rem;
-	left: calc(50% - 22.5rem);
-	top: 10rem;
+	width: 65rem !important;
+	height: 40rem;
+	left: calc(50% - 35rem);
+	top: 7.5rem;
 	position: fixed;
 	z-index: 9 !important;
-	background-color: var(--bg-d-accent);
-	border-radius: 4px;
+	background-color: var(--bg-d);
+	border-radius: 8px;
 	padding: 1rem;
 	display: flex;
 	flex-direction: column;
@@ -107,7 +111,7 @@
 }
 
 .createPostModal .inputPost {
-    width: calc(100% - .5rem);
+    width: calc(50% - .5rem);
     height: 2rem;
     border-radius: 8px;
     background-color: var(--bg-d-l);
@@ -144,4 +148,28 @@
 
 .modal .modal-close:hover {
 	filter: brightness(1.2);
+}
+
+.forumPostPrieviewContainer {
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+    width: 100%;
+    margin-top: 1rem;
+
+}
+.forumPostPrieviewContainer .postPreview {
+    width: calc(100% - 2rem);
+    padding: 1rem;
+    box-shadow: var(--box-shadow1-l);
+    border: 1px solid var(--border-color);
+    height: 45px;
+    background-color: var(--bg-d);
+    border-radius: 8px;
+}
+
+.forumPostPrieviewContainer .postPreview img {
+    height: 100%;
+    aspect-ratio: 1/1;
+    border-radius: 50%;
 }

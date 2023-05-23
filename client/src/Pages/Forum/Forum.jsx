@@ -23,7 +23,7 @@ export default function Forum() {
                         <h2>Skapa ett inlägg</h2>
                     </div>
                     <hr/>
-
+                    .
                     <label htmlFor="title">Inlägg rubrik</label>
                     <input type="text" name='title' className='inputPost' placeholder='Rubrik'/>
                     <label htmlFor="title">Inlägg rubrik</label>
@@ -66,10 +66,26 @@ export default function Forum() {
         )
     }
 
+    const PostPreview = (props) => {
+        return(
+            <div className='postPreview'>
+                <img src={
+                            user.pfp && ('data:image/png;base64,' + user.pfp.data) || UserPfpTest
+                } alt="" />
+                <h2>{user.username}</h2>
+            </div>
+        )
+    }
+
 
     return (
     <div className='forum'>
         <CreatePost />
+        <div className="forumPostPrieviewContainer">
+        {
+         <PostPreview creator={user}title="Min recension av det nya albumet" text="text baba bab ajksf klasfklsaf klsajfkjlfslkfas lksaijdajklresjknwokdkjsz dnasfkjlsajfeopiwrnj xzjkeasjfsdjfklasf bejks,z.jd nfbjksvdzslj fensndlkfeiossds ferasf asr sfwr fs" />
+        } 
+        </div>
     </div>
   )
 }

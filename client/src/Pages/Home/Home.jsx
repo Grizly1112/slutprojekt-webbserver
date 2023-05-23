@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useMemo, useRef, useState } from 'react'
-import { FaChartBar, FaCloud, FaCloudMoon, FaCloudRain, FaCloudShowersHeavy, FaCloudSun, FaComments, FaEye, FaGlobeEurope, FaMoon, FaMusic, FaSearch, FaShareAlt, FaSnowflake, FaSun, FaThumbsUp, FaThumbtack, FaUserAlt, FaUserAstronaut, FaUsers, FaWind } from 'react-icons/fa'
+import { FaChartBar, FaCloud, FaCloudMoon, FaCloudRain, FaCloudShowersHeavy, FaCloudSun, FaComments, FaEye, FaFileAudio, FaGlobeEurope, FaMoon, FaMusic, FaSearch, FaShareAlt, FaSnowflake, FaSun, FaThumbsUp, FaThumbtack, FaUserAlt, FaUserAstronaut, FaUsers, FaWind } from 'react-icons/fa'
 import { NavLink } from 'react-router-dom'
 import './css/Home.css'
 import userDefault from '../../assets/avatarDefault.png'
@@ -285,7 +285,7 @@ export default function Home() {
 					</div>
 				</SideWidget>
 
-				<SideWidget icon={<FaMusic />} title='Pop musik - Album'>
+				<SideWidget icon={<FaFileAudio />} title='Pop musik - Album'>
             <div className='spotify-api-content'>
               <p>
                 <h5>Populärt just nu:</h5>
@@ -360,6 +360,10 @@ export default function Home() {
             <NavLink to="/members">
               <FaUserAstronaut />
               Medlemmar
+            </NavLink>
+            <NavLink to="/members">
+              <FaUserAlt />
+              Din profil
             </NavLink>
 						<Modal
 							modalClass='shareMagForum'

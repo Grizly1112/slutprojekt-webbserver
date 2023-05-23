@@ -2,13 +2,13 @@
 
 .home {
 	margin-top: 1.5rem;
-	height: 100vh;
+	min-height:100vh ;
+	margin-bottom: calc(var(--nav-size));
 	width: 100vw;
 	background-repeat: no-repeat;
 	display: flex;
 	flex-wrap: wrap;
-	align-items: center;
-	justify-content: center;
+	align-items: flex-start;
 }
 
 /* Srcrolbar Styleing */

@@ -181,6 +181,7 @@ export default function ProfilePost(props) {
 							sameUser = false;
 						} 
 					}
+					sameUser=false
 				} 
 				
 				
