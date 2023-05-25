@@ -13,6 +13,7 @@ const AboutUser = lazy(() => import('./Pages/Members/components/AboutUser'));
 import Footer from './components/Footer';
 import { Loader } from './components/assets/Loader';
 import Forum from './Pages/Forum/Forum';
+import Post from './Pages/Forum/Post';
 
 // Lazy-loaded components / pages
 const Login = lazy(() => import('./components/Login'));
@@ -43,6 +44,7 @@ const App = () => {
                 </Route>
               </Route>
               <Route path="/forum" element={<Forum />} />
+              <Route path="/forum/:id" element={<Post />} />
               <Route path="/terms" element={<TermsService />} />
               <Route path="/chat" element={<GlobalChat />} />
               <Route path="/admin" element={<Admin />} />

@@ -839,7 +839,6 @@
 }
 
 .shareMagForum .url {
-	width: 50%;
 	background-color: var(--bg-d);
 	padding: 1rem 1.5rem;
 	color: var(--text-color);

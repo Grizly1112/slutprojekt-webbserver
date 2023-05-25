@@ -81,7 +81,7 @@ Utils.ConvertToBase64 = function(file) {
 
         if (fileSize > maxSize) {
             reject(new Error("File is too large"));
-            alert("File too large");
+            alert("Filen är för stor");
             return;
         }
 

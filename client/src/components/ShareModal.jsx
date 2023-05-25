@@ -63,24 +63,6 @@ const ShareModal = ({ title }) => {
             />
           </a>
         </Tooltip>
-        <Tooltip label={"Dela på Reddit"}>
-          <a
-            href={`http://www.reddit.com/submit?url=${encodeURIComponent(
-              window.location.href
-            )}&title=${encodeURIComponent(title)}`}
-            target="_blank"
-            rel="noopener"
-            onClick={handleLinkClick}
-          >
-            <img
-              className="YOUR_FB_CSS_STYLING_CLASS"
-              src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/07/Reddit_icon.svg/800px-Reddit_icon.svg.png"
-              width="34px"
-              height="34px"
-              alt="Share on Reddit"
-            />
-          </a>
-        </Tooltip>
       </div>
 
       <div className="url">

@@ -46,15 +46,7 @@ function Navbar() {
   const socket = useRef(null);
 
   
-  useEffect(() => {
-  //   socket.current = io("ws://localhost:3001");
-  //  socket.current.on('recive-notifaction', (message) => {
-  //       if(message.to === user.username) 
-  //       {
-  //        console.log(message)
-  //       }
-  //     })
-    
+  useEffect(() => {    
     setContextLoaded(true);
   
     const themeFromLocalStorage = JSON.parse(localStorage.getItem('theme'));

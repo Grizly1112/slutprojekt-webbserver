@@ -9,6 +9,7 @@ import Image from "../Models/image.js"
 import VisitorModel from "../Models/countVisitors.js"
 import mongoose from "mongoose"
 import ProfilePostMessageModel from "../Models/ProfilePostMessage.js"
+import PostModel from "../Models/post.js"
 // import { mongoose } from "../index.js"
 
 
@@ -268,4 +269,32 @@ export const getProfilePostMessage = async(req, res) => {
     console.log(err);
     res.status(500).send('Server error');
   }
+}
+
+
+// Forum psot
+export const newForumPost = async(req, res) => {
+  const {postData} = req.body;
+
+  // bilder +++
+  try {
+    PostModel.create({
+      title: postData.title,
+      text: postData.text,
+      tags: postData.tags,
+      creator: postData.creator
+    })
+  } catch(err) {
+    console.log(err);
+    res.status(500).send('Server error');
+  } 
+}
+
+export const getForumPosts = async(req, res) => {
+  const posts = await PostModel.find().populate({
+    path: 'creator',
+    populate: { path: 'pfp' },
+  }).populate('img');
+
+  return res.status(200).send({posts: posts})
 }
