@@ -1,4 +1,4 @@
-import { getForumPosts, getProfilePostMessage, getVisitingCount, getuser, login, newForumPost, register, updateVisitorCount, uploadProfilePicture, uploadProfilePostMessage } from './function/user.js';
+import { getForumPosts, getProfilePostMessage, getSinglePost, getVisitingCount, getuser, incrementPostVisitingCount, likePost, login, newForumPost, register, updateVisitorCount, uploadProfilePicture, uploadProfilePostMessage } from './function/user.js';
 import express from 'express'
 import mongoose from 'mongoose'
 import cors from 'cors'
@@ -55,6 +55,9 @@ app.get('/messagepost/:id', getProfilePostMessage)
 //ForumPost
 app.post('/forum/newpost', newForumPost)
 app.get('/forum/getposts', getForumPosts)
+app.get("/forum/singlepost/:id", getSinglePost)
+app.post("/post/incrementpostcount/:id", incrementPostVisitingCount);
+app.post("/post/like/:id", likePost);
 
 /* Listening to the port 8000. */
 app.listen(8000, () => console.log("Servern lystnar på porten", (process.env.PORT || 8000)))

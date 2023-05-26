@@ -276,13 +276,26 @@ export const getProfilePostMessage = async(req, res) => {
 export const newForumPost = async(req, res) => {
   const {postData} = req.body;
 
-  // bilder +++
+  // Taggar +++
   try {
+    let imgIdArray = [];
+    var imgOfMessage;
+    if (postData.images.length > 0) {
+      for(let i=0; i < postData.images.length; i++) {
+        const buffer = Buffer.from(postData.images[i].split(',')[1], 'base64');
+        imgOfMessage = await Image.create({ data: buffer}); // Create new Image document with binary data
+        imgIdArray.push(imgOfMessage._id);
+      }
+    }
+    
+    const onlyTagLabelArray = postData.tags.map(item => item.label);
+
     PostModel.create({
       title: postData.title,
       text: postData.text,
-      tags: postData.tags,
-      creator: postData.creator
+      tags: onlyTagLabelArray,
+      creator: postData.creator,
+      img: imgIdArray,
     })
   } catch(err) {
     console.log(err);
@@ -294,7 +307,74 @@ export const getForumPosts = async(req, res) => {
   const posts = await PostModel.find().populate({
     path: 'creator',
     populate: { path: 'pfp' },
-  }).populate('img');
+  }).populate('img').lean();
 
   return res.status(200).send({posts: posts})
+}
+
+export async function getSinglePost(req, res) {
+  const postId = req.params.id
+
+  try {
+    const postData = await PostModel.findById(postId).populate({
+      path: 'creator',
+      populate: { path: 'pfp' },
+    }).populate('img').lean()
+
+    if (!postData) {
+      return res.status(404).send({ message: "Inlägget finns inte" })
+    }
+
+    return res.status(200).send({ posts: postData })
+  } catch (err) {
+    console.log(err)
+    res.status(500).send('Hitta inte inlägget')
+  }
+}
+
+
+export const incrementPostVisitingCount = async (req, res) => {
+  const postId = req.params.id;
+  try {
+    const updatedPost = await PostModel.findOneAndUpdate(
+      { _id: postId },
+      { $inc: { visitors: 1 } },
+      { new: true }
+    );
+
+    res.status(200).send({})
+  } catch (error) {
+    console.log('Error updating post:', error);
+  }
+};
+
+
+export const likePost = async(req, res) => {
+  const {user} = req.body;
+  const id = req.params.id
+
+  try{
+    const post = await PostModel.findById(id);
+
+    //add like
+    if(post.likes.indexOf(user) === -1) {
+      const updatedPost = await PostModel.findOneAndUpdate(
+        { _id: id },
+        { $push: { likes: user } },
+        { new: true }
+      );
+      console.log(updatedPost)
+    } else {
+      //remove like
+      const updatedPost = await PostModel.findOneAndUpdate(
+        { _id: id },
+        { $pull: { likes: user } },
+        { new: true }
+      );
+      console.log(updatedPost)
+    }
+    res.status(200).send({})
+  } catch (error) {
+    console.log('Error updating post:', error);
+  }
 }

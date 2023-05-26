@@ -1,11 +1,14 @@
 import React, { useRef, useCallback } from "react";
 import Tooltip from "./assets/Tooltip";
 
-const ShareModal = ({ title }) => {
+const ShareModal = ({ title, link }) => {
   const linkRef = useRef(null);
 
   const copyToClipboard = useCallback(() => {
-    if (linkRef.current) {
+    if(link) {
+      navigator.clipboard.writeText(link);
+      alert("Url Koperad");
+    } else if (linkRef.current) {
       navigator.clipboard.writeText(linkRef.current.innerText);
       alert("Url Koperad");
     }
@@ -67,7 +70,7 @@ const ShareModal = ({ title }) => {
 
       <div className="url">
         <div className="link" ref={linkRef}>
-          {window.location.href}
+          {link? link: window.location.href}
         </div>
         <button onClick={copyToClipboard}>kopiera</button>
       </div>

@@ -6,7 +6,7 @@ import UserPfpTest from '../../assets/avatarDefault.png'
 import { Link, NavLink } from 'react-router-dom'
 import Modal from '../../components/assets/Modal'
 import ShareModal from '../../components/ShareModal'
-import { FaAngleDoubleDown, FaExclamationCircle, FaFireAlt, FaImage, FaSearch, FaShareAlt, FaTags, FaThumbsUp, FaTimesCircle, FaTrash } from 'react-icons/fa'
+import { FaAngleDoubleDown, FaExclamationCircle, FaEye, FaFireAlt, FaImage, FaSearch, FaShareAlt, FaTags, FaThumbsUp, FaTimesCircle, FaTrash } from 'react-icons/fa'
 import { MultiSelect } from "react-multi-select-component";
 import Utils from '../../assets/functiions/Utils'
 import { CreateForumPost, GetForumPosts } from '../../api/forum'
@@ -21,19 +21,18 @@ export default function Forum() {
             setUser(contextValue.user)
             GetForumPosts().then((res) => {
                 setForumPosts(res.data.posts);
+                console.log(res.data.posts)
                 setPostLoading(false);
             })
             
 
         }
     }, [contextValue])
-    
-
-    
 
     const CreatePost = () => {
         const options = [
           { label: "Album", value: "album" },
+          { label: "Låt", value: "song" },
           { label: "Nyhet", value: "nyheter" },
           { label: "Artist", value: "artister" },
         ];
@@ -52,7 +51,7 @@ export default function Forum() {
                     title: postTitle,
                     text: postText,
                     tags: selected,
-                    images: postImage || null,
+                    images: postImage,
                     creator: user._id,
                 }
 
@@ -178,16 +177,16 @@ export default function Forum() {
 
     const PostPreview = (props) => {
         return(
-            <Link to={`/forum/${props._id}`} className='postPreview'>
+            <div className='postPreview'>
                 <img src={
                     props.creator.pfp ?('data:image/png;base64,' + props.creator.pfp.data) : userDefault} alt="" />
                 <h3>{props.creator.username}</h3>
-                <div className="text">
+                <Link to={`/forum/${props.id}`} className="text">
                     <h3>{props.title}</h3>
                     <p>{props.text}</p>
-                </div>
+                </Link>
                     {
-                        props.tags ? 
+                        props.tags &&
                         <>
                         {
                             <div className="tags">
@@ -195,20 +194,25 @@ export default function Forum() {
 
                                 props.tags.map(tag => {
                                     return(
-                                        <div className="tag">{tag.label}</div>
+                                        <div className="tag">{tag}</div>
                                         )
                                     })
                                 }
                             </div>
                         }
                         </>
-                        :
-                        null
                     }
                 <div className="stats">
+                  <h5 className='timestamp'>{Utils.FomratMessageTimeDate(props.timestamp)}</h5>
+                  {
+                    props.images.length > 0 && 
+                    <div className="stats-btn">
+                      <FaEye /> {props.visitors}
+                    </div>
+                  }
                 <div className="stats-btn">
                     <FaThumbsUp />   
-                    10 
+                    {props.likes.length} 
                 </div>
                 <div className="stats-btn">
                     <Modal
@@ -217,14 +221,14 @@ export default function Forum() {
                                 buttonClose={true}
                                 btnLabel={
                                     <>
-                                        <FaShareAlt /> Dela
+                                        <FaShareAlt className='shareicon'/>
                                     </>
                                 }>
-                                <ShareModal title={"Dela Inlägg"} />
+                                <ShareModal link={`/forum/${props.id}`} title={"Dela Inlägg"} />
                     </Modal>
                     </div>
                 </div>
-            </Link>
+            </div>
         )
     }
 
@@ -273,9 +277,14 @@ export default function Forum() {
                 <PostPreview
                     key={i}
                     id={post._id}
-                    creator={user}
+                    creator={post.creator}
                     title={post.title}
+                    tags={post.tags}
                     text={post.text}
+                    images={post.img}
+                    timestamp={post.timestamp}
+                    likes={post.likes}
+                    visitors={post.visitors || 0}
                 />
                 ))}
                 {forumPosts.length === 0 && <p>Inga inlägg..</p>}

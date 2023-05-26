@@ -10,8 +10,8 @@
 
 .create-post-container {
     width: calc(100% - 2rem);
-    background-color: var(--bg-d-l);
     height: 45px;
+    background-color: var(--bg-d-l);
     background-color: var(--bg-d);
     box-shadow: var(--box-shadow1-l);
     border: 1px solid var(--border-color);
@@ -298,10 +298,17 @@ input:hover {
     gap: .5rem;
 }
 
+.liked {
+    color: var(--bg-m) !important;
+}
+
 .forumPostPrieviewContainer .postPreview img {
     height: 100%;
     aspect-ratio: 1/1;
     border-radius: 50%;
+}
+.shareicon {
+    margin-top: .4rem;
 }
 
 .forumPostPrieviewContainer .postPreview .text {
@@ -309,8 +316,8 @@ input:hover {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    min-width: 54.9%;
-    max-width: 55%;
+    min-width: 35.9%;
+    max-width: 36%;
     overflow: hidden;
 }
 
@@ -333,8 +340,10 @@ input:hover {
     gap: .6rem;
     align-items: center;
     justify-content: flex-end;
-    width: 50%;
     height: 100%;
+}
+.timestamp {
+    white-space: nowrap;
 }
 
 
@@ -353,7 +362,12 @@ input:hover {
     border: none;
     outline: none;
     color: var(--text-color);}
-
+.shareBtnActive {
+    background-color: var(--bg-d-accent) !important;
+}
+.shareBtnActive svg {
+    background-color: var(--bg-d-accent) !important;
+}
 .forumPostPrieviewContainer .postPreview .tags .tag {
     padding: .2rem .5rem;
     border-radius: 12px;

@@ -1,0 +1,144 @@
+.postContainer {
+    min-height: 80vh;
+    margin-top: calc(var(--nav-size) + 4rem);
+}
+.post {
+    position: relative;
+    width: 980px;
+    margin-left: calc(50% - 490px);
+    height: auto;
+    height: auto;
+    background-color: var(--bg-d-l);
+    background-color: var(--bg-d);
+    box-shadow: var(--box-shadow1-l);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 2rem;
+    padding-bottom: 4rem;
+}
+
+.post .header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.post .header .creator {
+    display: inline-flex;
+    width: 100%;
+    align-items: center;
+    gap: 1rem;
+}
+.post .header .creator img {
+    width: 45px;
+    aspect-ratio: 1/1;
+    border-radius: 50%;
+}
+
+.staffBadge {
+    height: fit-content;
+    background-color: var(--bg-m);
+    padding: 0em 0.3rem;
+    text-shadow: none;
+    color: #ffffff;
+    border-radius: 8px;
+    font-size: .75rem;
+}
+
+.post .header h3 {
+    white-space: nowrap;
+}
+.post hr {
+    margin-bottom: 1rem;
+    opacity: .1;
+    margin-top: 1rem;
+}
+.post .postheader-hr-last {
+    margin-top: 1rem;
+}
+
+.post .postcontent {
+    margin-bottom: 6rem;
+}
+
+.post .postcontent h1 {
+    text-transform: capitalize;
+}
+
+.postImages .postImages {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.post .postcontent .postImages .postImage {
+    max-width: 300px;
+    max-height: 500px;
+    border-radius: 8px;
+    box-shadow: var(--box-shadow1-l);
+    border: 1px solid var(--border-color);
+}
+
+.post .postStats {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: flex-start;
+    bottom: 1.5rem;
+    height: 8rem;
+
+    width: calc(100% - 4rem);
+}
+
+.post .postStats hr {
+    width: 100%;
+    margin-top: 1rem;
+}
+
+.post .postStats .postStatsContent {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.post .postStats .postStatsContent .statsBtn {
+    background-color: var(--bg-d-accent);
+    width: fit-content;
+    padding: 1rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: .5rem;
+    height: 10px;
+    border-radius: 8px;
+    box-shadow: var(--box-shadow1-l);
+    border: 1px solid var(--border-color);
+    cursor: pointer;
+}
+
+.post .sharepostmodal{
+    display: flex !important;
+    align-items: center;
+    gap: .5rem;
+}
+.post .sharepostmodal svg {
+    margin-top: -.05rem;
+}
+
+.tags {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    width: 100%;
+}
+
+.tag {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: .5rem;
+    padding: .2rem .5rem;
+    border-radius: 12px;
+    font-size: small;
+    border: 1px solid var(--border-color);
+}
