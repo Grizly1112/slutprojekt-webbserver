@@ -38,5 +38,5 @@ export const DebouncedIncrementPostVisitingCount = async (postId) => {
   // Create a new debounce timer
   debounceTimer = setTimeout(() => {
     isRequestPending = false; // Reset the request status
-  }, 3000);
+  }, 1500);
 };

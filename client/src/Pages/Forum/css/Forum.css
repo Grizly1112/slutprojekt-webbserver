@@ -277,7 +277,7 @@ input:hover {
 
 .forumPostPrieviewContainer {
     display: flex;
-    flex-direction: column;
+    flex-direction: column-reverse;
     gap: .5rem;
     width: 100%;
     margin-top: 1rem;
@@ -316,8 +316,8 @@ input:hover {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    min-width: 35.9%;
-    max-width: 36%;
+    min-width: 40.9%;
+    max-width: 41%;
     overflow: hidden;
 }
 
@@ -376,7 +376,8 @@ input:hover {
 }
 
 .forumPostController {
-    width: calc(100% -2rem);
+    width: calc(980px - 2rem);
+    margin-top: 1rem;
     padding: 1rem;
     /* padding-bottom: 2rem; */
     background-color: var(--bg-d);

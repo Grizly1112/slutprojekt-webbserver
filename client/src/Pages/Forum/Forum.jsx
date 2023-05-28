@@ -203,17 +203,17 @@ export default function Forum() {
                         </>
                     }
                 <div className="stats">
-                  <h5 className='timestamp'>{Utils.FomratMessageTimeDate(props.timestamp)}</h5>
+                  <h5 className='timestamp'>{Utils.FomratMessageTimeDateWithYear(props.timestamp)}</h5>
                   {
                     props.images.length > 0 && 
                     <div className="stats-btn">
                       <FaEye /> {props.visitors}
                     </div>
                   }
-                <div className="stats-btn">
+                {/* <div className="stats-btn">
                     <FaThumbsUp />   
                     {props.likes.length} 
-                </div>
+                </div> */}
                 <div className="stats-btn">
                     <Modal
                                 modalClass='shareMagForum'
@@ -265,8 +265,8 @@ export default function Forum() {
         
             <div className='forum'>
             <CreatePost />
-            <div className="forumPostPrieviewContainer">
             <ForumPostController />
+            <div className="forumPostPrieviewContainer">
             {/* <PostPreview creator={user}title="Min recension av det nya albumet" text="text baba bab ajksf klasfklsaf klsajfkjlfslkfas lksaijdajklresjknwokdkjsz dnasfkjlsajfeopiwrnj xzjkeasjfsdjfklasf bejks,z.jd nfbjksvdzslj fensndlkfeiossds ferasf asr sfwr fs" /> */}
             
             {postloading ? (

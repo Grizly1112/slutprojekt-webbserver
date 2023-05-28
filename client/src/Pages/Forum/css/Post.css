@@ -1,5 +1,6 @@
 .postContainer {
     min-height: 80vh;
+    margin-bottom: 3rem;
     margin-top: calc(var(--nav-size) + 4rem);
 }
 .post {
@@ -67,7 +68,7 @@
 
 .postImages .postImages {
     display: flex;
-    flex-wrap: wrap;
+    flex-direction: column;
 }
 
 .post .postcontent .postImages .postImage {
@@ -141,4 +142,51 @@
     border-radius: 12px;
     font-size: small;
     border: 1px solid var(--border-color);
+}
+
+.commentInput {
+    width: calc(980px);
+    margin-left: calc(50% - 490px);
+    padding: 1rem 2rem;
+    height: 40px;
+    border-radius: 8px;
+    margin-top: 1rem;
+    background-color: var(--bg-d);
+    box-shadow: var(--box-shadow1-l);
+    border: 1px solid var(--border-color);
+
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+.commentInput img {
+    width: 40px;
+    aspect-ratio: 1/1;
+    border-radius: 50%;
+}
+
+.commentInput input[type="text"] {
+    width: 100%;
+    border-radius: 8px;
+    box-shadow: var(--box-shadow1-l);
+    border: 1px solid var(--border-color);
+    background-color: var(--bg-d-accent);
+    height: 100%;
+    padding: 0 .5rem;
+    transition: .6s ease-in-out;
+}
+
+.commentInput input[type="text"]:focus {
+    outline: none;
+    border-color: var(--bg-m);
+}
+
+.commentInput .commentButtonSend {
+    padding: .5rem 1rem;
+    background-color: var(--bg-d-accent);
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+    box-shadow: var(--box-shadow1-l);
+    height: 100%;
+    cursor: pointer;
 }

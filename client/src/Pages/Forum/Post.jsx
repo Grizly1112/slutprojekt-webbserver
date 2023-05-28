@@ -134,6 +134,17 @@ export default function Post() {
           </>
         )}
       </div>
+      <div className="commentInput">
+        {
+          user && (
+            <>
+            <img src={user.pfp ? `data:image/png;base64,${user.pfp.data}` : UserPfpTest} alt="" />
+            <input type="text" placeholder='Dela dina åsikter' />
+            <button className='commentButtonSend'>Kommentera</button>
+            </>
+          )
+        }
+      </div>
     </div>
   );
 };
